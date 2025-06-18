@@ -12,7 +12,7 @@ export default function Navigation() {
           <Link href="/about">เกี่ยวกับเรา</Link>
         </li>
         <li>
-          <Link href="/products">สินค้า</Link>
+          <Link href="/service">สินค้า</Link>
         </li>
         <li>
           <Link href="/contact">ติดต่อเรา</Link>
