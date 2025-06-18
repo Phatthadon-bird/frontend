@@ -1,4 +1,4 @@
-export default function About() {
+export default function Contact() {
   return (
     <div style={{
       display: 'flex',
@@ -8,8 +8,8 @@ export default function About() {
       height: '100vh',
       backgroundColor: '#f4f4f4',
     }}>
-      <h1>เกี่ยวกับฉัน</h1>
-      <p>ยินดีที่ได้รู้จัก! นี่คือหน้าเกี่ยวกับฉัน</p>
+      <h1>ติดต่อ</h1>
+      <p>คุณสามารถติดต่อเราผ่านทางอีเมล: example@example.com</p>
     </div>
   );
 }
