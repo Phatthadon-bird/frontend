@@ -1,4 +1,4 @@
-export default function Services() {
+export default function Service() {
   return (
     <div style={{
       display: 'flex',
