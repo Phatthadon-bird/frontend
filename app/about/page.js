@@ -33,7 +33,7 @@ export default function Home() {
         height: 'calc(100vh - 60px)', // พื้นที่ของเนื้อหาหลักลดลงจากพื้นที่แถบเมนู
         fontSize: '24px',
       }}>
-        <h1>frkgdkg</h1>
+        <h1>Phatthadonkachi</h1>
       </div>
     </div>
   );
