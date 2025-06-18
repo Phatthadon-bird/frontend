@@ -1,4 +1,4 @@
-import Link from 'next/link'; // นำเข้า Link จาก Next.js
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -18,10 +18,7 @@ export default function Home() {
         fontSize: '18px', // ขนาดตัวอักษร
         fontWeight: 'bold', // ทำให้ตัวอักษรหนา
       }}>
-        {/* ลิงก์ไปยังหน้าแรก */}
-        <Link href="/about">
-          <a style={{ cursor: 'pointer' }}>หน้าแรก</a>
-        </Link>
+        <div style={{ cursor: 'pointer' }}>หน้าแรก</div>
         <div style={{ cursor: 'pointer' }}>เกี่ยวกับฉัน</div>
         <div style={{ cursor: 'pointer' }}>ติดต่อ</div>
         <div style={{ cursor: 'pointer' }}>บริการของเรา</div>
@@ -36,7 +33,7 @@ export default function Home() {
         height: 'calc(100vh - 60px)', // พื้นที่ของเนื้อหาหลักลดลงจากพื้นที่แถบเมนู
         fontSize: '24px',
       }}>
-        <h1>Mr.Phatthadon Kachi</h1>
+        <h1>frkgdkg</h1>
       </div>
     </div>
   );
