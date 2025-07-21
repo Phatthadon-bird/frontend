@@ -37,7 +37,7 @@ export default function Navigation() {
           <a className="nav-link" aria-disabled="true" href="/login">เข้าสู่ระบบ</a>
         </li>
          <li className="nav-item">
-          <a className="nav-link" aria-disabled="true" href="/register">ลงทะเบียน</a>
+          <a className="nav-link" aria-disabled="true" href="/register">สมัครสมาชิก</a>
         </li>
       </ul>
       <form className="d-flex" role="search">
