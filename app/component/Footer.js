@@ -6,127 +6,58 @@ export default function Footer() {
           <div className="col-6 col-md-2 mb-3">
             <h5>Section</h5>
             <ul className="nav flex-column">
-       
               <li className="nav-item mb-2">
                 <a href="#" className="nav-link p-0 text-body-secondary">
-                  Home
+                  หน้าแรก
                 </a>
               </li>
               <li className="nav-item mb-2">
                 <a href="#" className="nav-link p-0 text-body-secondary">
-                  Features
+                  เกี่ยวกับเรา
                 </a>
               </li>
               <li className="nav-item mb-2">
                 <a href="#" className="nav-link p-0 text-body-secondary">
-                  Pricing
+                  บริการของเรา
                 </a>
               </li>
               <li className="nav-item mb-2">
                 <a href="#" className="nav-link p-0 text-body-secondary">
-                  FAQs
+                  ติดต่อเรา
                 </a>
               </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  About
-                </a>
-              </li>
+              <li className="nav-item mb-2"></li>
             </ul>
           </div>
-          <div className="col-6 col-md-2 mb-3">
-           
-            <h5>Section</h5>
-            <ul className="nav flex-column">
-             
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  FAQs
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  About
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-6 col-md-2 mb-3">
-           
-            <h5>Section</h5>
-            <ul className="nav flex-column">
-             
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  FAQs
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-body-secondary">
-                  About
-                </a>
-              </li>
-            </ul>
-          </div>
+
           <div className="col-md-5 offset-md-1 mb-3">
-           
-            <form>
-             
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div className="d-flex flex-column flex-sm-row w-100 gap-2">
-               
-                <label htmlFor="newsletter1" className="visually-hidden">
-                  Email address
-                </label>
-                <input
-                  id="newsletter1"
-                  type="email"
-                  className="form-control"
-                  placeholder="Email address"
-                />
-                <button className="btn btn-primary" type="button">
-                  Subscribe
-                </button>
-              </div>
-            </form>
+            <div className="d-flex flex-column align-items-center text-center">
+              <h5>ส่งอีเมลมาหาเรา</h5>
+              <p>หากคุณมีข้อสงสัย</p>
+              <form>
+                <div className="d-flex flex-column flex-sm-row w-100 gap-2 justify-content-center">
+                  <label htmlFor="newsletter1" className="visually-hidden">
+                    Email address
+                  </label>
+                  <input
+                    id="newsletter1"
+                    type="email"
+                    className="form-control"
+                    placeholder="Email address"
+                  />
+                  <button className="btn btn-primary" type="button">
+                    Subscribe
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-         
-          <p>© 2025 Company, Inc. All rights reserved.</p>
-          <ul className="list-unstyled d-flex">
-           
+
+        {/* Footer bottom */}
+        <div className="d-flex flex-column flex-sm-row justify-content-center py-4 my-4 border-top">
+          <p className="text-center">© 2025 Phatthadon Kachi ขอบคุณที่มาเยี่ยมชม.</p>
+          <ul className="list-unstyled d-flex justify-content-center">
             <li className="ms-3">
               <a className="link-body-emphasis" href="#" aria-label="Instagram">
                 <svg className="bi" width={24} height={24}>

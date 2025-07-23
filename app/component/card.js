@@ -1,39 +1,60 @@
 export default function Card() {
-    return (
+  return (
     <div className="container-fluid">
-        <div className="row">
-            <div className="col-md-12 text-center mb-4"></div>
-            <div className="col-md-12 text-center mb-4">
-                <h3>Our Project</h3>
-            </div>
+      {/* Header Section */}
+      <div className="row">
+        <div className="col-md-12 text-center mb-4">
+          <h3 className="text-primary">นักแข่ง</h3>
         </div>
-        <div className="row">
-            <div className="col-md-4 mb-4">
-                <div className="card">
-                <img src="/what the hack/1.jpg" className="card-img-top img-responsive" alt="..." />
-                <div className="card-body">
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                </div>
-                </div>
-            </div>
+      </div>
 
-            <div className="col-md-4 mb-4">
-            <div className="card">
-                <img src="/what the hack/2.jpg" className="card-img-top" alt="..." />
-                <div className="card-body">
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                </div>
-                </div>
+      {/* Card Section */}
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {/* First Card */}
+        <div className="col">
+          <div className="card shadow-sm border-light">
+          <img
+  src="/image/4.jpg"
+  className="card-img-top img-fluid rounded"
+  alt="นักแข่ง 1"
+  style={{ height: '250px', objectFit: 'cover' }}
+/>
+            <div className="card-body text-center">
+              <p className="card-text text-muted">ยังไม่มีข้อมูล</p>
             </div>
-            <div className="col-md-4 mb-4">
-            <div className="card">
-                <img src="/what the hack/3.jpg" className="card-img-top" alt="..." />
-                <div className="card-body">
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                </div>
-                </div>
+          </div>
+        </div>
+
+        {/* Second Card */}
+        <div className="col">
+          <div className="card shadow-sm border-light">
+            <img
+  src="/image/5.jpg"
+  className="card-img-top img-fluid rounded"
+  alt="นักแข่ง 2"
+  style={{ height: '250px', objectFit: 'cover' }}
+/>
+            <div className="card-body text-center">
+              <p className="card-text text-muted">ยังไม่มีข้อมูล</p>
             </div>
+          </div>
+        </div>
+
+        {/* Third Card */}
+        <div className="col">
+          <div className="card shadow-sm border-light">
+           <img
+  src="/image/6.jpg"
+  className="card-img-top img-fluid rounded"
+  alt="นักแข่ง 1"
+  style={{ height: '250px', objectFit: 'cover' }}
+/>
+            <div className="card-body text-center">
+              <p className="card-text text-muted">ยังไม่มีข้อมูล</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    );
-  }
+  );
+}
