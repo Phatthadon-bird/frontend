@@ -1,85 +1,41 @@
-"use client";
+// AboutSnooker.js (React/Next.js ตัวอย่าง)
+import React from "react";
 
-import { FaTableTennis, FaCalendarAlt, FaUsers } from "react-icons/fa";
-import Image from "next/image";
-
-export default function About() {
+export default function AboutSnooker() {
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex justify-center items-center px-4">
-      {/* Background pattern */}
-      <div
-        className="absolute inset-0 bg-[url('/pattern.svg')] bg-repeat opacity-10 pointer-events-none"
-        aria-hidden="true"
-      />
+    <main style={{ maxWidth: 900, margin: "2rem auto", padding: "1rem", fontFamily: "Sarabun, sans-serif", color: "#222" }}>
+      <h1 style={{ textAlign: "center", color: "#0055aa", marginBottom: "1.5rem" }}>
+        เกี่ยวกับเรา - สนุ๊กเกอร์ไทยแลนด์
+      </h1>
 
-      {/* Content container */}
-      <div className="relative max-w-5xl w-full bg-white bg-opacity-95 backdrop-blur-lg rounded-3xl shadow-2xl p-10 sm:p-16 flex flex-col md:flex-row justify-center items-center gap-10">
-        {/* Left: Text */}
-        <div className="flex-1 space-y-10 text-gray-900 text-base sm:text-lg leading-relaxed">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6 text-center md:text-left drop-shadow-lg">
-            เกี่ยวกับเรา
-          </h1>
+      <section style={{ backgroundColor: "#f7f9fc", padding: "1.5rem 2rem", borderRadius: "8px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.6", marginBottom: "1rem" }}>
+          สนุ๊กเกอร์ไทยแลนด์ คือเว็บไซต์ที่สร้างขึ้นมาเพื่อคนรักสนุ๊กเกอร์ทุกคน ไม่ว่าจะเป็นผู้เล่นมือใหม่ หรือผู้ที่ติดตามการแข่งขันระดับโลก
+        </p>
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.6" }}>
+          เรามุ่งมั่นนำเสนอข่าวสาร บทความ เทคนิคการเล่น รวมถึงประวัติและข้อมูลของนักสนุ๊กเกอร์ชื่อดัง เพื่อช่วยให้คุณสนุกและพัฒนาฝีมือในกีฬาสนุ๊กเกอร์ได้อย่างเต็มที่
+        </p>
+      </section>
 
-          {/* Item 1 */}
-          <div className="flex items-start gap-5 animate-fadeInUp">
-            <FaTableTennis className="text-blue-600 w-9 h-9 flex-shrink-0 mt-1" />
-            <p className="font-medium">
-              เราคือผู้ให้บริการสนามสนุ๊กเกอร์คุณภาพสูง เน้นบรรยากาศสบายและบริการมืออาชีพ
-            </p>
-          </div>
+      <section style={{ marginTop: "2rem" }}>
+        <h2 style={{ color: "#0073e6", marginBottom: "1rem" }}>ทีมงานของเรา</h2>
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          <li style={{ marginBottom: "0.8rem" }}>
+            <strong>รอนนี่ โอซุลลิแวน</strong> - นักสนุ๊กเกอร์ระดับตำนานและที่ปรึกษาด้านเทคนิค
+          </li>
+          <li style={{ marginBottom: "0.8rem" }}>
+           
+          </li>
+          <li>
+          
+          </li>
+        </ul>
+      </section>
 
-          {/* Item 2 */}
-          <div className="flex items-start gap-5 animate-fadeInUp delay-150">
-            <FaCalendarAlt className="text-blue-600 w-9 h-9 flex-shrink-0 mt-1" />
-            <p className="font-medium">
-              บริการครบวงจร ตั้งแต่จองโต๊ะ ซ้อมเล่น สอนสนุ๊กเกอร์ และจัดกิจกรรมแข่งขัน
-            </p>
-          </div>
-
-          {/* Item 3 */}
-          <div className="flex items-start gap-5 animate-fadeInUp delay-300">
-            <FaUsers className="text-blue-600 w-9 h-9 flex-shrink-0 mt-1" />
-            <p className="font-medium">
-              ทีมงานมืออาชีพ พร้อมดูแลและพัฒนาสนามของเราอย่างเต็มที่ เพื่อความประทับใจสูงสุด
-            </p>
-          </div>
-        </div>
-
-        {/* Right: Image */}
-        <div className="flex-1 max-w-md sm:max-w-lg lg:max-w-xl">
-          <Image
-            src="/image/7.jpg"
-            alt="สนามสนุ๊กเกอร์"
-            width={600}
-            height={420}
-            className="rounded-3xl shadow-2xl object-cover hover:scale-105 transition-transform duration-500"
-            priority
-          />
-        </div>
-      </div>
-
-      {/* Animation keyframes */}
-      <style jsx>{`
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeInUp {
-          animation: fadeInUp 0.7s ease forwards;
-        }
-        .delay-150 {
-          animation-delay: 0.15s;
-        }
-        .delay-300 {
-          animation-delay: 0.3s;
-        }
-      `}</style>
-    </section>
+      <section style={{ marginTop: "2rem" }}>
+        <h2 style={{ color: "#0073e6", marginBottom: "1rem" }}>ติดต่อเรา</h2>
+        <p>หากมีข้อสงสัยหรืออยากติดต่อทีมงาน สามารถส่งอีเมลมาที่ <a href="mailto:info@snookerthailand.com" style={{ color: "#0055aa" }}>info@snookerthailand.com</a></p>
+      </section>
+    </main>
   );
 }

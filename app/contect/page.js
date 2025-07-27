@@ -1,184 +1,165 @@
 "use client";
 
-export default function Contact() {
+import { useState } from "react";
+
+export default function ContactUs() {
+  const [hover, setHover] = useState(false);
+
   return (
-    <div className="contact-page">
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>ติดต่อเรา</title>
+    <main
+      style={{
+        maxWidth: 600,
+        margin: "3rem auto",
+        padding: "2rem",
+        fontFamily: "'Sarabun', sans-serif",
+        backgroundColor: "#f0f4f8",
+        borderRadius: 16,
+        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        color: "#222",
+      }}
+    >
+      <h1
+        style={{
+          textAlign: "center",
+          color: "#0d47a1",
+          fontWeight: "700",
+          fontSize: "2.5rem",
+          marginBottom: "2rem",
+          textShadow: "1px 1px 2px rgba(13, 71, 161, 0.3)",
+        }}
+      >
+        ติดต่อเรา
+      </h1>
 
-      {/* Navbar */}
-      <nav className="navbar">
-        <a href="/" className="logo">กลับสู่หน้าหลัก</a>
-      </nav>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.5rem",
+        }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          alert("ขอบคุณที่ติดต่อเรานะครับ! เราจะติดต่อกลับเร็วๆ นี้");
+        }}
+      >
+        <label
+          htmlFor="name"
+          style={{ fontWeight: "600", fontSize: "1.1rem", color: "#0d47a1" }}
+        >
+          ชื่อ-นามสกุล
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="กรอกชื่อของคุณ"
+            required
+            style={{
+              marginTop: 6,
+              padding: "0.8rem 1rem",
+              fontSize: "1rem",
+              borderRadius: 12,
+              border: "2px solid #90caf9",
+              outline: "none",
+              transition: "border-color 0.3s",
+            }}
+            onFocus={(e) => (e.target.style.borderColor = "#0d47a1")}
+            onBlur={(e) => (e.target.style.borderColor = "#90caf9")}
+          />
+        </label>
 
-      {/* Contact Form */}
-      <div className="contact-container">
-        <h2>ติดต่อเรา</h2>
-        <p className="description">
-          หากคุณมีคำถามหรือต้องการติดต่อสอบถามเพิ่มเติม โปรดกรอกแบบฟอร์มด้านล่าง หรือใช้ข้อมูลติดต่อที่ให้ไว้
-        </p>
-        <form className="contact-form">
-          <div className="input-group">
-            <label htmlFor="name">ชื่อ</label>
-            <input
-              id="name"
-              type="text"
-              placeholder="กรอกชื่อของคุณ"
-              required
-            />
-          </div>
+        <label
+          htmlFor="email"
+          style={{ fontWeight: "600", fontSize: "1.1rem", color: "#0d47a1" }}
+        >
+          อีเมล
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="example@email.com"
+            required
+            style={{
+              marginTop: 6,
+              padding: "0.8rem 1rem",
+              fontSize: "1rem",
+              borderRadius: 12,
+              border: "2px solid #90caf9",
+              outline: "none",
+              transition: "border-color 0.3s",
+            }}
+            onFocus={(e) => (e.target.style.borderColor = "#0d47a1")}
+            onBlur={(e) => (e.target.style.borderColor = "#90caf9")}
+          />
+        </label>
 
-          <div className="input-group">
-            <label htmlFor="email">อีเมล</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="example@example.com"
-              required
-            />
-          </div>
+        <label
+          htmlFor="message"
+          style={{ fontWeight: "600", fontSize: "1.1rem", color: "#0d47a1" }}
+        >
+          ข้อความ
+          <textarea
+            id="message"
+            name="message"
+            rows={5}
+            placeholder="พิมพ์ข้อความของคุณที่นี่..."
+            required
+            style={{
+              marginTop: 6,
+              padding: "1rem",
+              fontSize: "1rem",
+              borderRadius: 12,
+              border: "2px solid #90caf9",
+              outline: "none",
+              resize: "vertical",
+              transition: "border-color 0.3s",
+              fontFamily: "'Sarabun', sans-serif",
+            }}
+            onFocus={(e) => (e.target.style.borderColor = "#0d47a1")}
+            onBlur={(e) => (e.target.style.borderColor = "#90caf9")}
+          />
+        </label>
 
-          <div className="input-group">
-            <label htmlFor="message">ข้อความ</label>
-            <textarea
-              id="message"
-              rows={5}
-              placeholder="พิมพ์ข้อความของคุณที่นี่..."
-              required
-            />
-          </div>
+        <button
+          type="submit"
+          style={{
+            backgroundColor: hover ? "#0b3d91" : "#1565c0",
+            color: "white",
+            padding: "1rem",
+            fontSize: "1.25rem",
+            fontWeight: "700",
+            border: "none",
+            borderRadius: 16,
+            cursor: "pointer",
+            boxShadow: hover
+              ? "0 8px 20px rgba(21, 101, 192, 0.6)"
+              : "0 6px 15px rgba(21, 101, 192, 0.4)",
+            transition: "all 0.3s ease",
+            letterSpacing: 1,
+          }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          ส่งข้อความ
+        </button>
+      </form>
 
-          <button type="submit">ส่งข้อความ</button>
-        </form>
-
-        <div className="footer-contacts">
-          <p><strong>📞 โทร:</strong> <a href="tel:+66912345678">+66 912 345 678</a></p>
-          <p><strong>✉️ อีเมล:</strong> <a href="mailto:info@snookerservice.com">info@snookerservice.com</a></p>
-          <p><strong>📍 ที่อยู่:</strong> 123 ถนนสนุกเกอร์, กรุงเทพฯ, ประเทศไทย</p>
-        </div>
-      </div>
-
-      {/* Styling */}
-      <style jsx>{`
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background-color: #f0f2f5;
-        }
-
-        .navbar {
-          position: fixed;
-          top: 0;
-          width: 100%;
-          background-color: #333;
-          color: white;
-          padding: 15px 0;
-          text-align: center;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-          font-size: 24px;
-          font-weight: bold;
-          color: #fff;
-          text-decoration: none;
-        }
-
-        .contact-page {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding-top: 80px;
-          padding-bottom: 40px;
-          background-color: #f4f7fa;
-          min-height: 100vh;
-        }
-
-        .contact-container {
-          background-color: white;
-          padding: 30px;
-          border-radius: 10px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-          width: 100%;
-          max-width: 500px;
-        }
-
-        .contact-container h2 {
-          text-align: center;
-          margin-bottom: 10px;
-          color: #333;
-        }
-
-        .description {
-          text-align: center;
-          font-size: 14px;
-          color: #666;
-          margin-bottom: 25px;
-        }
-
-        .input-group {
-          margin-bottom: 20px;
-        }
-
-        .input-group label {
-          font-size: 14px;
-          color: #555;
-          display: block;
-          margin-bottom: 8px;
-        }
-
-        .input-group input,
-        .input-group textarea {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-size: 14px;
-        }
-
-        .input-group input:focus,
-        .input-group textarea:focus {
-          border-color: #007bff;
-          outline: none;
-        }
-
-        button {
-          width: 100%;
-          padding: 12px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          font-size: 16px;
-          cursor: pointer;
-          transition: background-color 0.3s;
-        }
-
-        button:hover {
-          background-color: #0056b3;
-        }
-
-        .footer-contacts {
-          margin-top: 30px;
-          font-size: 14px;
-          color: #444;
-        }
-
-        .footer-contacts p {
-          margin: 10px 0;
-        }
-
-        .footer-contacts a {
-          color: #007bff;
-          text-decoration: none;
-        }
-
-        .footer-contacts a:hover {
-          text-decoration: underline;
-        }
-      `}</style>
-    </div>
+      <section
+        style={{
+          marginTop: "3rem",
+          paddingTop: "1rem",
+          borderTop: "2px solid #90caf9",
+          color: "#444",
+          fontSize: "1rem",
+          lineHeight: 1.6,
+        }}
+      >
+        <h2 style={{ color: "#0d47a1", fontWeight: "700", marginBottom: "0.5rem" }}>
+          ข้อมูลติดต่อเพิ่มเติม
+        </h2>
+        <p>📞 โทรศัพท์: 02-123-4567</p>
+        <p>📧 อีเมล: contact@snookerthailand.com</p>
+        <p>📍 ที่อยู่: 123 ถนนสุขุมวิท กรุงเทพฯ</p>
+      </section>
+    </main>
   );
 }
