@@ -17,7 +17,7 @@ export default function TepsachaiyaPage() {
       <div className="row align-items-center">
         <div className="col-md-5 text-center mb-4 mb-md-0">
           <Image
-            src="/image/11.jpg" // เปลี่ยนตามชื่อไฟล์จริง
+            src="/image/11.jpg"
             alt="เทพไชยา อุ่นหนู"
             width={400}
             height={400}
@@ -66,6 +66,35 @@ export default function TepsachaiyaPage() {
           พร้อมมีเป้าหมายที่จะพัฒนาฝีมือและคว้าชัยชนะในเวทีระดับนานาชาติ
         </p>
       </div>
+
+      {/* ไฮไลต์วิดีโอ */}
+      <div className="mt-5 p-4 bg-dark rounded-4">
+        <h3 className="text-warning mb-3 fw-bold">🎥 คลิปไฮไลต์</h3>
+        <div className="ratio ratio-16x9 rounded-4 shadow-lg">
+          <iframe
+            src="https://www.youtube.com/embed/EiAk08JasBo"
+            title="Highlights of Tepsachaiya"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+
+      {/* ปุ่มกลับหน้ารวม */}
+      <div className="mt-5 text-center">
+        <p className="text-light-emphasis">อยากรู้จักนักแข่งคนอื่น?</p>
+        <Link href="/#racers" className="btn btn-outline-light">
+          ← กลับไปหน้ารวมโปรไฟล์นักแข่ง
+        </Link>
+      </div>
+
+      {/* CSS */}
+      <style jsx>{`
+        .ratio {
+          border-radius: 1rem;
+          overflow: hidden;
+          box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
+        }
+      `}</style>
     </div>
   );
 }

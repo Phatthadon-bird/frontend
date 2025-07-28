@@ -29,10 +29,10 @@ export default function Card() {
   return (
     <div className="container-fluid py-5">
       {/* Header */}
-      <div className="row mb-4">
+      <div className="row mb-5">
         <div className="col text-center">
-          <h3 className="text-primary fw-bold display-6">🚗 นักแข่งสุดฮอต</h3>
-          <p className="text-secondary fs-5">เลือกชมโปรไฟล์นักซิ่งระดับเทพ</p>
+          <h3 className="text-warning fw-bold display-5 drop-shadow-lg">🏆 นักสนุกเกอร์ระดับเทพ</h3>
+          <p className="text-secondary fs-5">โปรไฟล์นักแม่นรูจากทั่วไทย</p>
         </div>
       </div>
 
@@ -47,14 +47,14 @@ export default function Card() {
             transition={{ delay: idx * 0.2, duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="card animated-card shadow-lg border-0 rounded-4 overflow-hidden position-relative text-reset d-block">
+            <div className="card racer-card shadow-lg border-0 rounded-4 overflow-hidden position-relative">
               {/* Badge: อันดับ */}
               <span className="position-absolute top-0 end-0 m-2 badge-rank">
                 อันดับ {idx + 1}
               </span>
 
               {/* รูปภาพ */}
-              <div className="card-img-container position-relative overflow-hidden rounded-top">
+              <div className="card-img-container position-relative">
                 <Image
                   src={`/image/${racer.id}.jpg`}
                   alt={racer.name}
@@ -65,19 +65,20 @@ export default function Card() {
                   priority={idx === 0}
                 />
                 <div className="card-overlay d-flex justify-content-center align-items-center">
-                  <span className="overlay-text text-white fw-semibold fs-4">
+                  <span className="overlay-text text-white fw-semibold fs-5">
                     ดูเพิ่มเติม
                   </span>
                 </div>
               </div>
 
               {/* เนื้อหา */}
-              <div className="card-body text-center px-3 py-4">
+              <div className="card-body text-center px-4 py-4">
                 <h5 className="card-title fw-bold fs-4">{racer.name}</h5>
-                <p className="card-text text-muted fst-italic fs-6">
-                  {racer.description}
-                </p>
-                <Link href={racer.link} className="btn btn-warning mt-3">
+
+                {/* 🔧 ปรับให้มองเห็นชัดขึ้น */}
+                <p className="card-text custom-desc fst-italic">{racer.description}</p>
+
+                <Link href={racer.link} className="btn btn-outline-warning mt-3 px-4">
                   ดูโปรไฟล์
                 </Link>
               </div>
@@ -86,81 +87,76 @@ export default function Card() {
         ))}
       </div>
 
-      {/* styled-jsx CSS */}
+      {/* Styled JSX */}
       <style jsx>{`
-        .animated-card {
-          background: linear-gradient(145deg, #2c2c2c, #1f1f1f);
-          box-shadow: 10px 10px 20px #1a1a1a, -10px -10px 20px #333333;
+        .racer-card {
+          background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
           color: #fff;
-          transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
-          cursor: default;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .animated-card:hover {
-          transform: translateY(-12px) scale(1.05);
-          box-shadow: 0 10px 25px rgba(255, 94, 0, 0.4),
-            0 0 20px rgba(255, 130, 0, 0.6);
-          background: linear-gradient(145deg, #ff7f00, #ffae42);
-          z-index: 2;
+        .racer-card:hover {
+          transform: translateY(-10px) scale(1.03);
+          box-shadow: 0 12px 24px rgba(255, 165, 0, 0.5),
+            0 0 12px rgba(255, 165, 0, 0.7);
+          z-index: 5;
         }
 
         .card-img {
-          transition: transform 0.5s ease, filter 0.5s ease;
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
+          transition: transform 0.5s ease;
         }
 
-        .animated-card:hover .card-img {
-          transform: scale(1.1) rotate(1deg);
-          filter: brightness(0.8);
+        .racer-card:hover .card-img {
+          transform: scale(1.08);
         }
 
         .card-overlay {
           position: absolute;
           inset: 0;
-          background-color: rgba(0, 0, 0, 0.4);
+          background: rgba(0, 0, 0, 0.5);
           opacity: 0;
           transition: opacity 0.3s ease;
-          backdrop-filter: blur(6px);
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
-          pointer-events: none;
         }
 
-        .animated-card:hover .card-overlay {
+        .racer-card:hover .card-overlay {
           opacity: 1;
-          pointer-events: auto;
         }
 
         .overlay-text {
-          transform: translateY(0);
           transition: transform 0.3s ease;
         }
 
-        .animated-card:hover .overlay-text {
-          transform: translateY(-8px);
-          text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+        .racer-card:hover .overlay-text {
+          transform: scale(1.1);
         }
 
         .card-body {
           background-color: #222;
-          color: #f1f1f1;
+          color: #f8f8f8;
           border-bottom-left-radius: 1rem;
           border-bottom-right-radius: 1rem;
         }
 
-        .animated-card:hover .card-body {
-          color: #fff3e0;
-        }
-
         .badge-rank {
-          background: #ff5722;
+          background: linear-gradient(to right, #ff512f, #dd2476);
           color: white;
-          font-size: 0.85rem;
-          padding: 0.4rem 0.8rem;
+          font-size: 0.8rem;
+          padding: 0.4rem 0.9rem;
           border-radius: 20px;
           font-weight: 600;
-          box-shadow: 0 0 10px rgba(255, 87, 34, 0.6);
+          box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
+        }
+
+        /* ✅ สไตล์ใหม่ให้ description มองเห็นชัด */
+        .custom-desc {
+          color: rgba(255, 255, 255, 0.88);
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+          font-size: 1rem;
+          line-height: 1.6;
         }
       `}</style>
     </div>
