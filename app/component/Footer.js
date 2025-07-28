@@ -14,11 +14,14 @@ export default function Footer() {
         <div className="row">
           {/* เมนู */}
           <div className="col-6 col-md-3 mb-4">
-            <h5 className="text-uppercase">เมนูหลัก</h5>
+            <h5 className="text-uppercase mb-3 fw-bold">เมนูหลัก</h5>
             <ul className="nav flex-column">
               {menuItems.map((item, index) => (
                 <li className="nav-item mb-2" key={index}>
-                  <Link href={item.href} className="nav-link p-0 text-secondary hover-light">
+                  <Link
+                    href={item.href}
+                    className="nav-link p-0 text-secondary hover-light"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -28,18 +31,23 @@ export default function Footer() {
 
           {/* ติดต่อ */}
           <div className="col-md-5 offset-md-1 mb-4">
-            <h5 className="text-uppercase text-center text-md-start">ติดต่อเรา</h5>
-            <p className="text-center text-md-start">
+            <h5 className="text-uppercase text-center text-md-start mb-3 fw-bold">
+              ติดต่อเรา
+            </h5>
+            <p className="text-center text-md-start fs-6 text-light">
               หากคุณมีคำถามหรือข้อเสนอแนะ ส่งอีเมลหาเราได้เลย
             </p>
-            <form className="d-flex flex-column flex-sm-row gap-2 mt-3">
+            <form className="d-flex flex-column flex-sm-row gap-3 mt-3">
               <input
                 type="email"
-                className="form-control"
-                placeholder="Your email"
+                className="form-control rounded-pill"
+                placeholder="อีเมลของคุณ"
                 required
               />
-              <button className="btn btn-outline-light" type="submit">
+              <button
+                className="btn btn-outline-light rounded-pill px-4"
+                type="submit"
+              >
                 ส่ง
               </button>
             </form>
@@ -47,23 +55,30 @@ export default function Footer() {
         </div>
 
         {/* เส้นคั่น + ลิขสิทธิ์ */}
-        <div className="border-top mt-5 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <p className="mb-2 mb-md-0">© 2025 Phatthadon Kachi. All rights reserved.</p>
+        <div className="border-top border-secondary mt-5 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <p className="mb-2 mb-md-0 small text-muted">
+            © 2025 Phatthadon Kachi. All rights reserved.
+          </p>
 
           {/* Social Icons */}
-          <div className="d-flex gap-3">
-            <a href="#" className="text-secondary fs-5 hover-light">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" className="text-secondary fs-5 hover-light">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="#" className="text-secondary fs-5 hover-light">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a href="#" className="text-secondary fs-5 hover-light">
-              <i className="fab fa-line"></i>
-            </a>
+          <div className="d-flex gap-4">
+            {[
+              { href: "#", icon: "fab fa-facebook-f", label: "Facebook" },
+              { href: "#", icon: "fab fa-instagram", label: "Instagram" },
+              { href: "#", icon: "fab fa-twitter", label: "Twitter" },
+              { href: "#", icon: "fab fa-line", label: "Line" },
+            ].map(({ href, icon, label }, i) => (
+              <a
+                key={i}
+                href={href}
+                aria-label={label}
+                className="text-secondary fs-5 hover-light"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className={icon}></i>
+              </a>
+            ))}
           </div>
         </div>
       </footer>
@@ -75,6 +90,12 @@ export default function Footer() {
         }
         a {
           transition: color 0.3s ease;
+        }
+        input.form-control:focus {
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+          border-color: #fff;
+          background-color: #222;
+          color: #fff;
         }
       `}</style>
     </div>
