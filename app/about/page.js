@@ -124,7 +124,7 @@ export default function AboutSnooker() {
             href="mailto:info@snookerthailand.com"
             style={{ color: "#0073e6", fontWeight: "600", textDecoration: "underline" }}
           >
-            info@snookerthailand.com
+            BIRD@snookerthailand.com
           </a>
         </p>
       </section>

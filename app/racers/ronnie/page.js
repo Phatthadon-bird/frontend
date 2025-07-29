@@ -8,9 +8,10 @@ export default function RonniePage() {
     <div className="container py-5 text-light">
       {/* ปุ่มย้อนกลับ */}
       <div className="mb-4">
-        <Link href="/#racers" className="btn btn-outline-warning">
-          ← กลับไปหน้านักแข่ง
-        </Link>
+        <Link href="/racers" className="btn btn-outline-primary shadow-sm">
+  ← กลับไปหน้านักแข่ง
+</Link>
+
       </div>
 
       {/* เนื้อหา */}
