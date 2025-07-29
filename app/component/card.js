@@ -8,7 +8,7 @@ export default function Card() {
   const racers = [
     {
       id: 4,
-      name: "รอนนี่",
+      name: "",
       description: "นักแข่งสายโหด พร้อมความเร็วเหนือระดับ",
       link: "/racers/ronnie",
     },
