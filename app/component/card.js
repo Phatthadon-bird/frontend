@@ -20,7 +20,7 @@ export default function Card() {
     },
     {
       id: 6,
-      name: "เทพไชยา อุ่นหนู",
+      name: "F1",
       description: "สุดยอดนักแข่งที่มีฝีมือและประสบการณ์มากมาย",
       link: "/racers/tepsachaiya",
     },

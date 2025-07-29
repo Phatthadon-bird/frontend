@@ -7,7 +7,7 @@ import { useMemo } from "react";
 const players = [
   { nameTh: "รอนนี่ โอซุลลิแวน", nameEn: "ronnie-osullivan", country: "อังกฤษ" },
   { nameTh: "มิ้งค์ สระบุรี", nameEn: "mingsaraburi", country: "ไทย" },
-  { nameTh: "เทพไชยา อุ่นหนู", nameEn: "tepsachaiya", country: "ไทย" },
+  { nameTh: "เทพไชยา อุ่นหนู", nameEn: "F1", country: "ไทย" },
   { nameTh: "มาร์ค เซลบี้", nameEn: "mark-selby", country: "อังกฤษ" },
   { nameTh: "ดิง จุนหุย", nameEn: "ding-junhui", country: "จีน" },
   { nameTh: "จอห์น ฮิกกิ้นส์", nameEn: "john-higgins", country: "สกอตแลนด์" },
