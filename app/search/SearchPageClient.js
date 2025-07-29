@@ -1,13 +1,18 @@
 "use client";
 
+import { useState, useMemo } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
 
 const players = [
-  { nameTh: "รอนนี่ โอซุลลิแวน", nameEn: "ronnie-osullivan", country: "อังกฤษ" },
+  { nameTh: "รอนนี่ โอซุลลิแวน", nameEn: "ronnie", country: "อังกฤษ" },
   { nameTh: "มิ้งค์ สระบุรี", nameEn: "mingsaraburi", country: "ไทย" },
-  { nameTh: "เทพไชยา อุ่นหนู", nameEn: "F1", country: "ไทย" },
+  {
+    nameTh: "เทพไชยา อุ่นหนู",
+    nameEn: "tepsachaiya",
+    country: "ไทย",
+    alias: ["f1", "เอฟวัน", "f-1"]
+  },
   { nameTh: "มาร์ค เซลบี้", nameEn: "mark-selby", country: "อังกฤษ" },
   { nameTh: "ดิง จุนหุย", nameEn: "ding-junhui", country: "จีน" },
   { nameTh: "จอห์น ฮิกกิ้นส์", nameEn: "john-higgins", country: "สกอตแลนด์" },
@@ -22,27 +27,53 @@ function slugify(name) {
 }
 
 export default function SearchPageClient() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const query = searchParams.get("query") || "";
+  const queryParam = searchParams.get("query") || "";
+
+  const [input, setInput] = useState(queryParam);
 
   const filteredPlayers = useMemo(() => {
-    if (!query) return [];
-    const lowerQuery = query.toLowerCase();
+    if (queryParam.trim() === "") return []; // ❗เปลี่ยนจากแสดงทั้งหมดเป็นไม่แสดงเลย
+    const lowerQuery = queryParam.toLowerCase();
     return players.filter((player) =>
       player.nameTh.toLowerCase().includes(lowerQuery) ||
       player.nameEn.toLowerCase().includes(lowerQuery) ||
-      player.country.toLowerCase().includes(lowerQuery)
+      player.country.toLowerCase().includes(lowerQuery) ||
+      (player.alias && player.alias.some(alias => alias.toLowerCase().includes(lowerQuery)))
     );
-  }, [query]);
+  }, [queryParam]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push(`/search?query=${encodeURIComponent(input.trim())}`);
+  };
 
   return (
     <div className="container py-5" style={{ maxWidth: 600 }}>
       <h1 className="mb-4 text-center text-primary fw-bold">
-        ผลการค้นหา: <span className="text-secondary">"{query}"</span>
+        ผลการค้นหา:{" "}
+        <span className="text-secondary">
+          "{queryParam === "" ? "ยังไม่ค้นหา" : queryParam}"
+        </span>
       </h1>
 
-      {filteredPlayers.length > 0 ? (
-        <ul className="list-group shadow-sm rounded">
+      <form onSubmit={handleSubmit} className="mb-4 d-flex">
+        <input
+          type="text"
+          className="form-control me-2"
+          placeholder="🔍 พิมพ์คำค้นหาที่คุณต้องการ"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button type="submit" className="btn btn-primary">ค้นหา</button>
+      </form>
+
+      {queryParam.trim() === "" ? (
+        <p className="mt-3 text-center text-muted fs-5">
+        </p>
+      ) : filteredPlayers.length > 0 ? (
+        <ul className="list-group shadow-sm rounded" style={{ padding: 0, listStyle: "none" }}>
           {filteredPlayers.map((player, idx) => (
             <li
               key={idx}
@@ -51,6 +82,8 @@ export default function SearchPageClient() {
                 transition: "all 0.3s ease",
                 cursor: "pointer",
                 border: "none",
+                padding: "12px 20px",
+                borderBottom: "1px solid #ddd",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "#f0f8ff";
@@ -74,23 +107,16 @@ export default function SearchPageClient() {
               >
                 🎱 {player.nameTh}
               </Link>
-              <span
-                className="badge bg-info text-dark fs-6"
-                style={{
-                  transition: "transform 0.2s ease",
-                }}
-              >
+              <span className="badge bg-info text-dark fs-6">
                 {player.country}
               </span>
             </li>
           ))}
         </ul>
       ) : (
-        query && (
-          <p className="mt-3 text-center text-danger fs-5">
-            ไม่พบผลลัพธ์ที่ตรงกับ "{query}"
-          </p>
-        )
+        <p className="mt-3 text-center text-danger fs-5">
+          ไม่พบผลลัพธ์ที่ตรงกับ "{queryParam}"
+        </p>
       )}
     </div>
   );
