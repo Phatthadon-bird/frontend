@@ -44,6 +44,7 @@ export default function Navigation() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          {/* เมนูหลัก ซ้าย */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link href="/" className="nav-link active text-light">
@@ -53,11 +54,6 @@ export default function Navigation() {
             <li className="nav-item">
               <Link href="/about" className="nav-link text-light">
                 เกี่ยวกับเรา
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/racers" className="nav-link text-light">
-                นักแข่งสนุ๊กเกอร์
               </Link>
             </li>
             {/* บริการของเรา เพิ่มไอคอน */}
@@ -95,17 +91,11 @@ export default function Navigation() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/login" className="nav-link text-light">
-                เข้าสู่ระบบ
+              <Link href="/racers" className="nav-link text-light">
+                นักแข่งสนุ๊กเกอร์
               </Link>
             </li>
-            <li className="nav-item">
-              <Link href="/register" className="nav-link text-light">
-                สมัครสมาชิก
-              </Link>
-            </li>
-
-            {/* เมนูเพิ่มเติมที่น่าสนใจ พร้อมไอคอนและ effect hover */}
+            {/* เมนูเพิ่มเติมที่น่าสนใจ */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-white"
@@ -143,19 +133,29 @@ export default function Navigation() {
             </li>
           </ul>
 
-          <form className="d-flex" role="search" onSubmit={handleSearch}>
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="ค้นหานักแข่ง/ประเทศ"
-              aria-label="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="btn btn-outline-warning" type="submit">
-              ค้นหา
-            </button>
-          </form>
+          {/* ขวา: ช่องค้นหา + ปุ่มเข้าสู่ระบบ/สมัครสมาชิก */}
+          <div className="d-flex align-items-center gap-2">
+            <form className="d-flex" role="search" onSubmit={handleSearch}>
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="ค้นหานักแข่ง/ประเทศ"
+                aria-label="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ minWidth: '200px' }}
+              />
+              <button className="btn btn-outline-warning" type="submit">
+                ค้นหา
+              </button>
+            </form>
+            <Link href="/login" className="btn btn-outline-light">
+              เข้าสู่ระบบ
+            </Link>
+            <Link href="/register" className="btn btn-warning text-dark">
+              สมัครสมาชิก
+            </Link>
+          </div>
         </div>
       </div>
 
