@@ -2,193 +2,223 @@
 
 import Link from "next/link";
 
-const rankings = [
-  { rank: 1, name: "รอนนี่ โอซุลลิแวน", country: "อังกฤษ", points: 35000, slug: "ronnie-osullivan-world-champion-2025" },
-  { rank: 2, name: "มาร์ค เซลบี้", country: "อังกฤษ", points: 32000, slug: "mark-selby-confirm-competition-2025" },
-  { rank: 3, name: "จัดด์ ทรัมป์", country: "อังกฤษ", points: 29000, slug: "judd-trump-new-technique" },
-  { rank: 4, name: "โจว ซินถง", country: "จีน", points: 27000, slug: "zhao-xintong-impressive-performance-2025" },
-  { rank: 5, name: "นีล โรเบิร์ตสัน", country: "ออสเตรเลีย", points: 25000, slug: null },
+const podium = [
+  {
+    rank: 2,
+    name: "มาร์ค เซลบี้",
+    country: "อังกฤษ",
+    points: 32000,
+    image: "/image/45.jpg",
+    slug: "mark-selby-confirm-competition-2025",
+  },
+  {
+    rank: 1,
+    name: "รอนนี่ โอซุลลิแวน",
+    country: "อังกฤษ",
+    points: 35000,
+    image: "/image/42.jpg",
+    slug: "ronnie-osullivan-world-champion-2025",
+  },
+  {
+    rank: 3,
+    name: "จัดด์ ทรัมป์",
+    country: "อังกฤษ",
+    points: 29000,
+    image: "/image/44.jpeg",
+    slug: "",
+  },
+  {
+    rank: 4,
+    name: "โจว ซินถง",
+    country: "จีน",
+    points: 27000,
+    image: "/image/43.jpg",
+    slug: "",
+  },
+  {
+    rank: 5,
+    name: "นีล โรเบิร์ตสัน",
+    country: "ออสเตรเลีย",
+    points: 25000,
+    image: "/image/46.jpg",
+    slug: null,
+  },
 ];
 
-export default function SnookerRankings() {
+export default function PodiumWithImages() {
+  // เรียงลำดับตามที่ต้องการ: 5, 2, 1, 3, 4
+  const orderedPodium = [
+    podium.find((p) => p.rank === 5),
+    podium.find((p) => p.rank === 2),
+    podium.find((p) => p.rank === 1),
+    podium.find((p) => p.rank === 3),
+    podium.find((p) => p.rank === 4),
+  ];
+
   return (
     <div
-      className="container py-5"
       style={{
-        maxWidth: 920,
-        backgroundColor: "#fff",
-        borderRadius: 20,
-        padding: "3rem 3.5rem",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        minHeight: "100vh",
+        padding: "3rem 1rem",
+        background: "#0f172a",
+        color: "#fff",
         fontFamily: "'Sarabun', sans-serif",
-        color: "#333",
+        textAlign: "center",
       }}
     >
-      {/* ปุ่มกลับหน้าหลัก */}
-      <div style={{ marginBottom: 24 }}>
-        <Link
-          href="/"
-          style={{
-            display: "inline-block",
-            padding: "0.5rem 1.25rem",
-            borderRadius: 6,
-            border: "2px solid #f59e0b",
-            color: "#f59e0b",
-            fontWeight: 600,
-            textDecoration: "none",
-            transition: "all 0.3s ease",
-            cursor: "pointer",
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = "#f59e0b";
-            e.currentTarget.style.color = "#fff";
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.backgroundColor = "transparent";
-            e.currentTarget.style.color = "#f59e0b";
-          }}
-        >
-          ← กลับหน้าหลัก
-        </Link>
-      </div>
+      <Link
+        href="/"
+        style={{
+          display: "inline-block",
+          marginBottom: "2rem",
+          padding: "0.5rem 1.25rem",
+          backgroundColor: "#f59e0b22",
+          border: "2px solid #f59e0b",
+          color: "#f59e0b",
+          borderRadius: 8,
+          textDecoration: "none",
+          fontWeight: "bold",
+        }}
+      >
+        ← กลับหน้าหลัก
+      </Link>
 
       <h1
-        className="text-center mb-5"
         style={{
-          fontSize: "3rem",
-          fontWeight: "700",
-          color: "#f59e0b", // สีเหลืองทองสดใส
-          letterSpacing: "0.05em",
-          borderBottom: "4px solid #f59e0b",
-          paddingBottom: "0.75rem",
-          maxWidth: 400,
-          margin: "0 auto",
-          fontFamily: "'Sarabun', sans-serif",
-          textShadow: "0 0 8px #f59e0b88",
+          fontSize: "2.75rem",
+          marginBottom: "3rem",
+          background: "linear-gradient(to right, #facc15, #f97316)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
         }}
       >
-        อันดับโลกนักสนุ๊กเกอร์
+        🏆 5 อันดับนักสนุ๊กเกอร์โลก
       </h1>
 
-      <table
+      <div
         style={{
-          width: "100%",
-          borderCollapse: "separate",
-          borderSpacing: "0 12px",
-          fontSize: "1.15rem",
-          color: "#444",
-          fontWeight: "500",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-end",
+          gap: "1.5rem",
+          maxWidth: 1200,
+          margin: "0 auto",
+          flexWrap: "nowrap",
+          overflowX: "auto",
+          paddingBottom: 16,
         }}
       >
-        <thead>
-          <tr style={{ color: "#d97706", fontWeight: "700", fontSize: "1.1rem" }}>
-            <th style={{ width: "10%", textAlign: "center" }}>อันดับ</th>
-            <th style={{ width: "45%", textAlign: "left", paddingLeft: 20 }}>ชื่อ</th>
-            <th style={{ width: "25%", textAlign: "left", paddingLeft: 20 }}>ประเทศ</th>
-            <th style={{ width: "20%", textAlign: "right", paddingRight: 20 }}>คะแนน</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rankings.map(({ rank, name, country, points, slug }) => (
-            <tr
+        {orderedPodium.map((player) => {
+          if (!player) return null;
+          const { rank, name, country, points, image, slug } = player;
+
+          let height = 200;
+          let bgColor = "#fcd34d";
+          let textColor = "#1e293b";
+
+          switch (rank) {
+            case 1:
+              height = 280;
+              bgColor = "#facc15";
+              textColor = "#78350f";
+              break;
+            case 2:
+              height = 220;
+              bgColor = "#cbd5e1";
+              textColor = "#1e293b";
+              break;
+            case 3:
+              height = 200;
+              bgColor = "#fcd34d";
+              textColor = "#1e293b";
+              break;
+            case 4:
+            case 5:
+              height = 160;
+              bgColor = "#475569";
+              textColor = "#fbbf24";
+              break;
+          }
+
+          return (
+            <div
               key={rank}
-              tabIndex={slug ? 0 : -1}
               style={{
-                backgroundColor: "#fef3c7", // สีพื้นเหลืองอ่อน
-                borderRadius: 15,
-                transition: "background-color 0.25s ease, box-shadow 0.25s ease",
+                width: rank <= 3 ? 220 : 180,
+                height: height,
+                backgroundColor: bgColor,
+                color: textColor,
+                borderRadius: 12,
+                boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                padding: "1rem",
+                paddingTop: rank === 1 ? 80 : "1rem", // <-- เพิ่ม paddingTop อันดับ 1
+                transition: "transform 0.3s ease",
+                position: "relative",
                 cursor: slug ? "pointer" : "default",
-                boxShadow: "0 2px 8px rgba(245, 158, 11, 0.15)",
-                outline: "none",
+                flexShrink: 0,
               }}
-              onMouseEnter={e => {
-                if (slug) e.currentTarget.style.backgroundColor = "#fde68a";
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-8px)";
               }}
-              onMouseLeave={e => {
-                if (slug) e.currentTarget.style.backgroundColor = "#fef3c7";
-              }}
-              onFocus={e => {
-                if (slug) e.currentTarget.style.backgroundColor = "#fde68a";
-                if (slug) e.currentTarget.style.boxShadow = "0 4px 12px rgba(245, 158, 11, 0.6)";
-              }}
-              onBlur={e => {
-                if (slug) e.currentTarget.style.backgroundColor = "#fef3c7";
-                if (slug) e.currentTarget.style.boxShadow = "0 2px 8px rgba(245, 158, 11, 0.15)";
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <td
+              <img
+                src={image}
+                alt={name}
                 style={{
-                  textAlign: "center",
-                  fontWeight: "700",
-                  fontSize: "1.15rem",
-                  padding: "18px 0",
-                  color: "#b45309",
+                  width: rank <= 3 ? 100 : 80,
+                  height: rank <= 3 ? 100 : 80,
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  border: rank <= 3 ? "4px solid white" : "3px solid #fbbf24",
+                  position: "absolute",
+                  top: rank <= 3 ? -40 : -40, // <-- ลด top จาก -50 เป็น -40
+                  boxShadow: rank <= 3
+                    ? "0 0 12px rgba(255,255,255,0.3)"
+                    : "0 0 8px rgba(251,191,36,0.7)",
+                  backgroundColor: "#fff",
                 }}
+              />
+              {/* ปรับ marginTop เล็กน้อย */}
+              <div style={{ marginTop: rank === 1 ? 20 : rank <= 3 ? 60 : 50 }} />
+              <div style={{ fontSize: rank <= 3 ? "2rem" : "1.5rem", fontWeight: "800" }}>
+                #{rank}
+              </div>
+              <div
+                style={{ fontSize: rank <= 3 ? "1.1rem" : "1rem", fontWeight: "600", marginTop: 4 }}
               >
-                {rank}
-              </td>
-              <td style={{ paddingLeft: 20, fontWeight: "600", fontSize: "1.15rem", color: "#92400e" }}>
                 {slug ? (
                   <Link
                     href={`/news/${slug}`}
                     style={{
-                      color: "#92400e",
-                      textDecoration: "none",
-                      transition: "color 0.3s",
+                      color: textColor,
+                      textDecoration: "underline",
                     }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#78350f")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "#92400e")}
                   >
                     {name}
                   </Link>
                 ) : (
                   name
                 )}
-              </td>
-              <td
-                style={{
-                  paddingLeft: 20,
-                  fontWeight: "500",
-                  fontSize: "1.1rem",
-                  color: "#78350f",
-                  position: "relative",
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                }}
-              >
-                <span
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: 6,
-                    height: 30,
-                    backgroundColor: "#f59e0b",
-                    borderRadius: 3,
-                    transition: "height 0.3s ease",
-                    boxShadow: "0 0 6px #f59e0b66",
-                  }}
-                />
+              </div>
+              <div style={{ fontSize: rank <= 3 ? "0.95rem" : "0.85rem", marginTop: 4 }}>
                 {country}
-              </td>
-              <td
-                style={{
-                  textAlign: "right",
-                  fontWeight: "700",
-                  fontSize: "1.15rem",
-                  paddingRight: 20,
-                  color: "#b45309",
-                  textShadow: "0 0 4px #f59e0b44",
-                }}
+              </div>
+              <div
+                style={{ fontSize: rank <= 3 ? "1rem" : "0.9rem", fontWeight: "700", marginTop: 8 }}
               >
-                {points.toLocaleString()}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                {points.toLocaleString()} คะแนน
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
-                

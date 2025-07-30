@@ -95,7 +95,10 @@ export default function Navigation() {
                 นักแข่งสนุ๊กเกอร์
               </Link>
             </li>
-            {/* เมนูเพิ่มเติมที่น่าสนใจ */}
+          </ul>
+
+          {/* เมนูเพิ่มเติมที่น่าสนใจ */}
+          <ul className="navbar-nav">
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-white"
@@ -129,6 +132,15 @@ export default function Navigation() {
                     ไฮไลต์การแข่งขัน
                   </Link>
                 </li>
+                {/* เพิ่ม Admin ที่นี่ */}
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+  <Link href="/admin/users" className="dropdown-item d-flex align-items-center gap-2" style={{ transition: "background-color 0.3s" }}>
+    <FaUsers style={{ color: "#ffc107" }} />
+    Admin
+  </Link>
+</li>
+
               </ul>
             </li>
           </ul>

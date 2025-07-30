@@ -1,278 +1,379 @@
 'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
+import Swal from 'sweetalert2'
+import bcrypt from 'bcryptjs'  // เพิ่ม import bcryptjs
 
-export default function Register() {
-  const [message, setMessage] = useState('');
+export default function RegisterPage() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    prefix: '',
-    fullname: '',
+    fullname: '',     // ชื่อจริง
+    lastname: '',
     address: '',
-    gender: '',
+    sex: '',
     birthdate: '',
     accept: false,
-  });
+  })
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
+    const { name, value, type, checked } = e.target
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === 'checkbox' ? checked : value,
-    });
-  };
+    }))
+  }
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    if (formData.accept) {
-      setMessage('สมัครสมาชิกเรียบร้อยแล้ว');
-    } else {
-      setMessage('กรุณายอมรับเงื่อนไขการใช้งาน');
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!formData.accept) {
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณายอมรับเงื่อนไขการใช้งาน',
+      })
+      return
     }
-  };
+
+    try {
+      // เข้ารหัสรหัสผ่านก่อนส่ง
+      const hashedPassword = await bcrypt.hash(formData.password, 10)
+
+      const res = await fetch('http://itdev.cmtc.ac.th:3000/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: formData.username,
+          password: hashedPassword,       // ส่งรหัสผ่านที่เข้ารหัสแล้ว
+          firstname: formData.firstname,   // ส่งชื่อเล่นไปที่ firstname
+          fullname: formData.fullname,    // ส่งชื่อจริงไปที่ fullname
+          lastname: formData.lastname,
+          address: formData.address,
+          sex: formData.sex,
+          birthday: formData.birthdate,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (res.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'สมัครสมาชิกสำเร็จ',
+          text: 'คุณสามารถเข้าสู่ระบบได้แล้ว',
+        })
+        setFormData({
+          username: '',
+          password: '',
+          fullname: '',
+          lastname: '',
+          address: '',
+          sex: '',
+          birthdate: '',
+          accept: false,
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: data.message || 'ไม่สามารถสมัครสมาชิกได้',
+        })
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'ข้อผิดพลาดเครือข่าย',
+        text: 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้',
+      })
+    }
+  }
 
   return (
-    <div>
+    <div className="register-page">
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>หน้าลงทะเบียน</title>
-      <style dangerouslySetInnerHTML={{ __html: `
-        * {
-          box-sizing: border-box;
-        }
 
+      {/* Navbar */}
+      <nav className="navbar">
+        <a href="/" className="logo">
+          กลับสู่หน้าหลัก
+        </a>
+      </nav>
+
+      {/* Register Form */}
+      <div className="register-container">
+        <h2>สมัครสมาชิก</h2>
+        <form onSubmit={handleSubmit}>
+
+          <div className="input-group">
+  <label htmlFor="firstname">คำนำหน้าชื่อ</label>
+  <select
+    id="firstname"
+    name="firstname"
+    value={formData.firstname}
+    onChange={handleInputChange}
+    required
+  >
+    <option value="">-- เลือก --</option>
+    <option value="นาย">นาย</option>
+    <option value="นางสาว">นางสาว</option>
+    <option value="นาง">นาง</option>
+  </select>
+</div>
+
+
+          <div className="input-group">
+            <label htmlFor="password">รหัสผ่าน</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="กรุณากรอกรหัสผ่าน"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="username">ชื่อเล่น</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="กรุณากรอกชื่อเล่น"
+              value={formData.username}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="fullname">ชื่อจริง</label>
+            <input
+              type="text"
+              id="fullname"
+              name="fullname"
+              placeholder="กรุณากรอกชื่อจริง"
+              value={formData.fullname}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="lastname">นามสกุล</label>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              placeholder="กรุณากรอกนามสกุล"
+              value={formData.lastname}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="address">ที่อยู่</label>
+            <textarea
+              id="address"
+              name="address"
+              placeholder="กรุณากรอกที่อยู่"
+              value={formData.address}
+              onChange={handleInputChange}
+              rows={3}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label>เพศ</label>
+            <div className="gender-options">
+              {['ชาย', 'หญิง', 'อื่นๆ'].map((g) => (
+                <label key={g} className="inline-flex items-center gap-1">
+                  <input
+                    type="radio"
+                    name="sex"
+                    value={g}
+                    checked={formData.sex === g}
+                    onChange={handleInputChange}
+                    required
+                    className="form-radio"
+                  />
+                  {g}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="birthdate">วันเกิด</label>
+            <input
+              type="date"
+              id="birthdate"
+              name="birthdate"
+              value={formData.birthdate}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-group checkbox-group">
+            <input
+              type="checkbox"
+              id="accept"
+              name="accept"
+              checked={formData.accept}
+              onChange={handleInputChange}
+              required
+            />
+            <label htmlFor="accept">ฉันยอมรับเงื่อนไข</label>
+          </div>
+
+          <button type="submit">สมัครสมาชิก</button>
+        </form>
+      </div>
+
+      <style jsx>{`
         body {
+          font-family: Arial, sans-serif;
           margin: 0;
           padding: 0;
-          font-family: 'Arial', sans-serif;
-          background-color: #f4f7fa;
+          background-color: #f4f4f4;
         }
 
-       .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px; /* เพิ่ม padding เผื่อขอบ */
-}
-
-
-        .register-box {
-          max-width: 300px;
+        .navbar {
+          position: fixed;
+          top: 0;
           width: 100%;
-          padding: 16px;
-          background-color: #fff;
-          border-radius: 6px;
-          border: 1px solid #ddd;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+          background-color: #333;
+          color: white;
+          padding: 15px 0;
+          text-align: center;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          z-index: 10;
         }
 
-        .register-box h2 {
+        .navbar .logo {
+          font-size: 24px;
+          font-weight: bold;
+          color: #fff;
+          text-decoration: none;
+        }
+
+        .register-page {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: #f0f2f5;
+          padding-top: 60px; /* navbar height */
+          box-sizing: border-box;
+          overflow-y: auto;
+        }
+
+        .register-container {
+          background-color: white;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 400px;
+          max-height: 90vh;
+          overflow-y: auto;
+        }
+
+        .register-container h2 {
           text-align: center;
-          margin-bottom: 16px;
-          font-size: 22px;
+          margin-bottom: 20px;
           color: #333;
         }
 
-        .form-group {
-          margin-bottom: 14px;
+        .input-group {
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: column;
         }
 
-        label {
-          display: block;
-          margin-bottom: 6px;
+        .input-group label {
           font-size: 14px;
           color: #555;
+          margin-bottom: 6px;
         }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="date"],
+        input[type='text'],
+        input[type='password'],
         select,
+        input[type='date'],
         textarea {
-          width: 100%;
-          padding: 8px;
+          padding: 10px;
           font-size: 14px;
           border: 1px solid #ccc;
-          border-radius: 4px;
+          border-radius: 5px;
+          box-sizing: border-box;
+        }
+
+        input[type='text']:focus,
+        input[type='password']:focus,
+        select:focus,
+        input[type='date']:focus,
+        textarea:focus {
+          border-color: #007bff;
+          outline: none;
         }
 
         textarea {
           resize: vertical;
-          height: 60px;
         }
 
-        .gender-group {
+        .gender-options {
           display: flex;
-          gap: 10px;
+          gap: 20px;
+          font-size: 14px;
+          color: #555;
         }
 
-        .gender-group label {
-          font-size: 14px;
+        .gender-options label {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          cursor: pointer;
+        }
+
+        input[type='radio'] {
+          cursor: pointer;
         }
 
         .checkbox-group {
-          display: flex;
+          flex-direction: row;
           align-items: center;
-          font-size: 14px;
+          gap: 8px;
+          display: flex;
         }
 
-        .checkbox-group input {
-          margin-right: 6px;
+        input[type='checkbox'] {
+          width: auto;
+          cursor: pointer;
         }
 
         button {
           width: 100%;
-          padding: 10px;
-          font-size: 14px;
+          padding: 12px;
           background-color: #007bff;
           color: white;
           border: none;
-          border-radius: 4px;
+          border-radius: 5px;
+          font-size: 16px;
           cursor: pointer;
+          transition: background-color 0.3s;
         }
 
         button:hover {
           background-color: #0056b3;
         }
-
-        .message {
-          text-align: center;
-          color: red;
-          margin-top: 10px;
-          font-size: 14px;
-        }
-      `}} />
-
-      <div className="container">
-        <div className="register-box">
-          <h2>ลงทะเบียน</h2>
-          <form onSubmit={handleRegister}>
-            <div className="form-group">
-              <label htmlFor="username">ชื่อผู้ใช้</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">รหัสผ่าน</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="prefix">คำนำหน้าชื่อ</label>
-              <select
-                id="prefix"
-                name="prefix"
-                value={formData.prefix}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">-- เลือก --</option>
-                <option value="นาย">นาย</option>
-                <option value="นางสาว">นางสาว</option>
-                <option value="นาง">นาง</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="fullname">ชื่อ</label>
-              <input
-                type="text"
-                id="fullname"
-                name="fullname"
-                value={formData.fullname}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="address">ที่อยู่</label>
-              <textarea
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>เพศ</label>
-              <div className="gender-group">
-                <label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="ชาย"
-                    checked={formData.gender === 'ชาย'}
-                    onChange={handleInputChange}
-                  /> ชาย
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="หญิง"
-                    checked={formData.gender === 'หญิง'}
-                    onChange={handleInputChange}
-                  /> หญิง
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="อื่นๆ"
-                    checked={formData.gender === 'อื่นๆ'}
-                    onChange={handleInputChange}
-                  /> อื่นๆ
-                </label>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="birthdate">วันเกิด</label>
-              <input
-                type="date"
-                id="birthdate"
-                name="birthdate"
-                value={formData.birthdate}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group checkbox-group">
-              <input
-                type="checkbox"
-                id="accept"
-                name="accept"
-                checked={formData.accept}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="accept">ฉันยอมรับเงื่อนไข</label>
-            </div>
-
-            <button type="submit">สมัครสมาชิก</button>
-          </form>
-          <div className="message">{message}</div>
-        </div>
-      </div>
+      `}</style>
     </div>
-  );
+  )
 }
