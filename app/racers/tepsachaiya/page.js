@@ -7,9 +7,13 @@ export default function TepsachaiyaPage() {
   return (
     <div className="container py-5 text-light">
       {/* ปุ่มย้อนกลับ */}
-      <div className="mb-4">
-         <Link href="/racers" className="btn btn-outline-primary shadow-sm">
-          ← กลับไปหน้านักแข่ง
+      <div className="mb-4 d-flex justify-content-start gap-3 flex-wrap">
+        <Link href="/" className="btn btn-outline-info shadow-sm">
+          🏠 กลับหน้าหลัก
+        </Link>
+
+        <Link href="/racers" className="btn btn-outline-primary shadow-sm">
+          กลับไปหน้านักแข่ง
         </Link>
       </div>
 

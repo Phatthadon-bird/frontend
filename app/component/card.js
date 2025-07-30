@@ -7,22 +7,25 @@ import { motion } from "framer-motion";
 export default function Card() {
   const racers = [
     {
-      id: 4,
-      name: "รอนนี่",
-      description: "นักแข่งสายโหด พร้อมความเร็วเหนือระดับ",
+      id: 1,
+      name: "Ronnie O'Sullivan",
+      description: "เจ้าของสถิติเซนจูรี่เบรกมากที่สุดในโลก (1200+) และเบรก 147 ถึง 15 ครั้ง",
       link: "/racers/ronnie",
+      image: "/image/47.jpg"
     },
     {
-      id: 5,
-      name: "มิ้งสระบุรี",
-      description: "ดาวรุ่งจากสระบุรี พร้อมสไตล์การขับขี่เฉียบคม",
-      link: "/racers/mingsaraburi",
+      id: 2,
+      name: "John Higgins",
+      description: "จอมเก๋าชาวสกอตที่ทำเซนจูรี่เบรกกว่า 900 ครั้ง ตลอดเส้นทางอาชีพ",
+      link: "/racers/john-higgins",
+      image: "/image/48.jpg"
     },
     {
-      id: 6,
-      name: "F1",
-      description: "สุดยอดนักแข่งที่มีฝีมือและประสบการณ์มากมาย",
-      link: "/racers/tepsachaiya",
+      id: 3,
+      name: "Neil Robertson",
+      description: "นักแทงออสซี่ ผู้ทำเซนจูรี่เกิน 800 ครั้ง และแชมป์โลก 1 สมัย",
+      link: "/racers/neil-robertson",
+      image: "/image/49.jpg"
     },
   ];
 
@@ -31,8 +34,8 @@ export default function Card() {
       {/* Header */}
       <div className="row mb-5">
         <div className="col text-center">
-          <h3 className="text-warning fw-bold display-5 drop-shadow-lg">🏆 นักสนุกเกอร์ระดับเทพ</h3>
-          <p className="text-secondary fs-5">โปรไฟล์นักแม่นรูจากทั่วไทย</p>
+          <h3 className="text-warning fw-bold display-5 drop-shadow-lg">📊 สถิติน่าสนใจ</h3>
+          <p className="text-secondary fs-5">เบรกสูงสุด และนักแม่นรูที่ทำเซนจูรี่มากที่สุด</p>
         </div>
       </div>
 
@@ -56,7 +59,7 @@ export default function Card() {
               {/* รูปภาพ */}
               <div className="card-img-container position-relative">
                 <Image
-                  src={`/image/${racer.id}.jpg`}
+                  src={racer.image}
                   alt={racer.name}
                   width={400}
                   height={250}
@@ -74,10 +77,7 @@ export default function Card() {
               {/* เนื้อหา */}
               <div className="card-body text-center px-4 py-4">
                 <h5 className="card-title fw-bold fs-4">{racer.name}</h5>
-
-                {/* 🔧 ปรับให้มองเห็นชัดขึ้น */}
                 <p className="card-text custom-desc fst-italic">{racer.description}</p>
-
                 <Link href={racer.link} className="btn btn-outline-warning mt-3 px-4">
                   ดูโปรไฟล์
                 </Link>
@@ -89,29 +89,26 @@ export default function Card() {
 
       {/* Styled JSX */}
       <style jsx>{`
+        /* สไตล์เหมือนเดิม */
         .racer-card {
           background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
           color: #fff;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         .racer-card:hover {
           transform: translateY(-10px) scale(1.03);
           box-shadow: 0 12px 24px rgba(255, 165, 0, 0.5),
             0 0 12px rgba(255, 165, 0, 0.7);
           z-index: 5;
         }
-
         .card-img {
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
           transition: transform 0.5s ease;
         }
-
         .racer-card:hover .card-img {
           transform: scale(1.08);
         }
-
         .card-overlay {
           position: absolute;
           inset: 0;
@@ -121,26 +118,21 @@ export default function Card() {
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
         }
-
         .racer-card:hover .card-overlay {
           opacity: 1;
         }
-
         .overlay-text {
           transition: transform 0.3s ease;
         }
-
         .racer-card:hover .overlay-text {
           transform: scale(1.1);
         }
-
         .card-body {
           background-color: #222;
           color: #f8f8f8;
           border-bottom-left-radius: 1rem;
           border-bottom-right-radius: 1rem;
         }
-
         .badge-rank {
           background: linear-gradient(to right, #ff512f, #dd2476);
           color: white;
@@ -150,8 +142,6 @@ export default function Card() {
           font-weight: 600;
           box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
         }
-
-        /* ✅ สไตล์ใหม่ให้ description มองเห็นชัด */
         .custom-desc {
           color: rgba(255, 255, 255, 0.88);
           text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);

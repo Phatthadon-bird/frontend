@@ -121,8 +121,6 @@ export default function RegisterPage() {
     <option value="นาง">นาง</option>
   </select>
 </div>
-
-
           <div className="input-group">
             <label htmlFor="password">รหัสผ่าน</label>
             <input
@@ -235,6 +233,8 @@ export default function RegisterPage() {
           <button type="submit">สมัครสมาชิก</button>
         </form>
       </div>
+
+
 
       <style jsx>{`
         body {

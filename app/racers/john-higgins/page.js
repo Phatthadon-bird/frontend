@@ -8,9 +8,13 @@ export default function JohnHigginsPage() {
   return (
     <div className="container py-5">
       {/* ปุ่มย้อนกลับ */}
-      <div className="mb-4">
+      <div className="mb-4 d-flex justify-content-start gap-3 flex-wrap">
+        <Link href="/" className="btn btn-outline-info shadow-sm">
+          🏠 กลับหน้าหลัก
+        </Link>
+
         <Link href="/racers" className="btn btn-outline-primary shadow-sm">
-          ← กลับไปหน้านักแข่ง
+          กลับไปหน้านักแข่ง
         </Link>
       </div>
 

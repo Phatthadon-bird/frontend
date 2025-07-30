@@ -2,16 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa"; // เพิ่ม import ไอคอน
 
 export default function RonniePage() {
   return (
     <div className="container py-5 text-light">
       {/* ปุ่มย้อนกลับ */}
-      <div className="mb-4">
-        <Link href="/racers" className="btn btn-outline-primary shadow-sm">
-  ← กลับไปหน้านักแข่ง
-</Link>
+      <div className="mb-4 d-flex justify-content-start gap-3 flex-wrap">
+        <Link href="/" className="btn btn-outline-info shadow-sm">
+          🏠 กลับหน้าหลัก
+        </Link>
 
+        <Link
+          href="/racers"
+          className="btn btn-outline-primary shadow-sm d-flex align-items-center gap-2 custom-btn"
+        >
+          กลับไปหน้านักแข่ง
+        </Link>
       </div>
 
       {/* เนื้อหา */}
@@ -133,6 +140,25 @@ export default function RonniePage() {
           color: #000 !important;
           box-shadow: 0 0 15px #ffc107;
           transform: scale(1.05);
+          text-decoration: none;
+        }
+
+        .custom-btn {
+          font-weight: 600;
+          font-size: 1.1rem;
+          padding: 0.55rem 1.5rem;
+          border-radius: 0.75rem;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 8px rgba(13, 110, 253, 0.5);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .custom-btn:hover {
+          background-color: #0d6efd;
+          color: white !important;
+          box-shadow: 0 8px 20px rgba(13, 110, 253, 0.7);
+          transform: translateY(-2px);
           text-decoration: none;
         }
       `}</style>
