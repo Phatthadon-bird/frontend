@@ -95,13 +95,11 @@ export default function Navigation() {
                 นักแข่งสนุ๊กเกอร์
               </Link>
             </li>
-          </ul>
 
-          {/* เมนูเพิ่มเติมที่น่าสนใจ */}
-          <ul className="navbar-nav">
+            {/* ย้ายข้อมูลเพิ่มเติมมาที่นี่ */}
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle text-white"
+                className="nav-link dropdown-toggle text-light"
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -110,7 +108,7 @@ export default function Navigation() {
                 onMouseEnter={e => e.currentTarget.style.color = "#ffc107"}
                 onMouseLeave={e => e.currentTarget.style.color = "white"}
               >
-                เมนูเพิ่มเติมที่น่าสนใจ!
+                ข้อมูลเพิ่มเติม
               </a>
               <ul className="dropdown-menu dropdown-menu-dark" style={{ minWidth: 220 }}>
                 <li>
@@ -132,15 +130,13 @@ export default function Navigation() {
                     ไฮไลต์การแข่งขัน
                   </Link>
                 </li>
-                {/* เพิ่ม Admin ที่นี่ */}
                 <li><hr className="dropdown-divider" /></li>
                 <li>
-  <Link href="/admin/users" className="dropdown-item d-flex align-items-center gap-2" style={{ transition: "background-color 0.3s" }}>
-    <FaUsers style={{ color: "#ffc107" }} />
-    Admin
-  </Link>
-</li>
-
+                  <Link href="/admin/users" className="dropdown-item d-flex align-items-center gap-2" style={{ transition: "background-color 0.3s" }}>
+                    <FaUsers style={{ color: "#ffc107" }} />
+                    Admin
+                  </Link>
+                </li>
               </ul>
             </li>
           </ul>

@@ -55,10 +55,10 @@ export default function Footer() {
         </div>
 
         {/* เส้นคั่น + ลิขสิทธิ์ */}
-        <div className="border-top border-secondary mt-5 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <p className="mb-2 mb-md-0 small text-muted">
-            © 2025 Phatthadon Kachi. All rights reserved.
-          </p>
+        <div className="bg-dark border-top border-secondary mt-5 pt-4 d-flex justify-content-center align-items-center">
+  <p className="mb-0 small text-white text-center">
+    © 2025 Phatthadon Kachi. All rights reserved.
+  </p>
 
           {/* Social Icons */}
           <div className="d-flex gap-4">
