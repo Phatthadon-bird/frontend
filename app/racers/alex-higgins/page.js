@@ -16,11 +16,12 @@ export default function AlexHiggins() {
         </Link>
 
         <Link
-          href="/racers"
-          className="btn btn-outline-primary shadow-sm d-flex align-items-center gap-2 custom-btn"
-        >
-          กลับไปหน้านักแข่ง
-        </Link>
+  href="/racers/legend"
+  className="btn btn-outline-primary shadow-sm d-flex align-items-center gap-2 custom-btn"
+>
+  กลับไปหน้านักแข่ง
+</Link>
+
       </div>
 
       {/* เนื้อหา */}
@@ -99,7 +100,7 @@ export default function AlexHiggins() {
       {/* ปุ่มกลับหน้ารวม */}
       <div className="mt-5 text-center">
         <p className="text-secondary">อยากรู้จักนักแข่งคนอื่น?</p>
-        <Link href="/racers" className="btn btn-outline-primary custom-back-btn">
+        <Link href="/racers/legend" className="btn btn-outline-primary custom-back-btn">
           ← กลับไปหน้ารวมโปรไฟล์นักแข่ง
         </Link>
       </div>

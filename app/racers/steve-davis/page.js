@@ -15,7 +15,7 @@ export default function SteveDavis() {
           🏠 กลับหน้าหลัก
         </Link>
         <Link
-          href="/racers"
+          href="/racers/legend"
           className="btn btn-outline-primary shadow-sm d-flex align-items-center gap-2 custom-btn"
         >
           กลับไปหน้านักแข่ง

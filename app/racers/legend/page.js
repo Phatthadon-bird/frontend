@@ -22,7 +22,7 @@ export default function LegendaryRacers() {
       id: 13,
       name: "Jimmy White",
       country: "England",
-      image: "/image/52.PNG",
+      image: "/image/74.jpg",
       slug: "jimmy-white",
     },
     {
