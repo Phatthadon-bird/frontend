@@ -20,6 +20,16 @@ const players = [
   { nameTh: "นีล โรเบิร์ตสัน", nameEn: "neil-robertson", country: "ออสเตรเลีย" },
   { nameTh: "ฌอน เมอร์ฟี่", nameEn: "shaun-murphy", country: "อังกฤษ" },
   { nameTh: "โจว ซินถง", nameEn: "zhao-xintong", country: "จีน" },
+    { nameTh: "สตีเฟ่น เฮนดรี้", nameEn: "stephen-hendry", country: "สกอตแลนด์" },
+  { nameTh: "สตีฟ เดวิส", nameEn: "steve-davis", country: "อังกฤษ" },
+  { nameTh: "จิมมี่ ไวท์", nameEn: "jimmy-white", country: "อังกฤษ" },
+  { nameTh: "คลิฟ ธอร์เบิร์น", nameEn: "cliff-thorburn", country: "แคนาดา" },
+  { nameTh: "เคน โดเฮอร์ตี้", nameEn: "ken-doherty", country: "ไอร์แลนด์" },
+  { nameTh: "อเล็กซ์ ฮิกกินส์", nameEn: "alex-higgins", country: "ไอร์แลนด์เหนือ", alias: ["hurricane"] },
+  { nameTh: "เรย์ เรียร์ดอน", nameEn: "ray-reardon", country: "เวลส์" },
+  { nameTh: "เทอร์รี่ กริฟฟิธส์", nameEn: "terry-griffiths", country: "เวลส์" },
+  { nameTh: "ต๋อง ศิษย์ฉ่อย", nameEn: "james-wattana", country: "ไทย", alias: ["ต๋อง", "tong"] },
+  { nameTh: "หมู ปากน้ำ", nameEn: "noppon-saengkham", country: "ไทย", alias: ["หมู", "ปากน้ำ"] },
 ];
 
 function slugify(name) {

@@ -2,91 +2,63 @@
 
 import Link from "next/link";
 
-export default function Racers() {
-  const currentRacers = [
-    {
-      id: 1,
-      name: "Ronnie O'Sullivan",
-      country: "England",
-      image: "/image/12.jpg",
-      slug: "ronnie",
-    },
-    {
-      id: 2,
-      name: "Mark Selby",
-      country: "England",
-      image: "/image/15.jpg",
-      slug: "mark-selby",
-    },
-    {
-      id: 3,
-      name: "Judd Trump",
-      country: "England",
-      image: "/image/16.jpg",
-      slug: "judd-trump",
-    },
-    {
-      id: 4,
-      name: "Neil Robertson",
-      country: "Australia",
-      image: "/image/17.jpg",
-      slug: "neil-robertson",
-    },
-    {
-      id: 5,
-      name: "John Higgins",
-      country: "Scotland",
-      image: "/image/18.jpg",
-      slug: "john-higgins",
-    },
-    {
-      id: 6,
-      name: "Shaun Murphy",
-      country: "England",
-      image: "/image/19.jpg",
-      slug: "shaun-murphy",
-    },
-    {
-      id: 7,
-      name: "Ding Junhui",
-      country: "China",
-      image: "/image/20.jpg",
-      slug: "ding-junhui",
-    },
-    {
-      id: 8,
-      name: "Zhao Xintong",
-      country: "China",
-      image: "/image/28.jpg",
-      slug: "zhao-xintong",
-    },
-    {
-      id: 9,
-      name: "Mink Saraburi",
-      country: "Thailand",
-      image: "/image/29.jpg",
-      slug: "mingsaraburi",
-    },
-    {
-      id: 10,
-      name: "Thepchaiya Un-Nooh",
-      country: "Thailand",
-      image: "/image/30.jpg",
-      slug: "tepsachaiya",
-    },
+export default function LegendaryRacers() {
+  const legendaryRacers = [
     {
       id: 11,
-      name: "Noppon Saengkham",
-      country: "Thailand",
-      image: "/image/58.jpg",
-      slug: "noppon-saengkham",
+      name: "Steve Davis",
+      country: "England",
+      image: "/image/50.jpg",
+      slug: "steve-davis",
     },
     {
       id: 12,
-      name: "James Wattana",
-      country: "Thailand",
-      image: "/image/59.jpg",
-      slug: "james-wattana",
+      name: "Stephen Hendry",
+      country: "Scotland",
+      image: "/image/51.jpg",
+      slug: "stephen-hendry",
+    },
+    {
+      id: 13,
+      name: "Jimmy White",
+      country: "England",
+      image: "/image/52.PNG",
+      slug: "jimmy-white",
+    },
+    {
+      id: 14,
+      name: "Cliff Thorburn",
+      country: "Canada",
+      image: "/image/53.jpg",
+      slug: "cliff-thorburn",
+    },
+    {
+      id: 15,
+      name: "Ken Doherty",
+      country: "Ireland",
+      image: "/image/54.jpg",
+      slug: "ken-doherty",
+    },
+    {
+      id: 16,
+      name: "Alex Higgins",
+      country: "Northern Ireland",
+      image: "/image/55.jpg",
+      slug: "alex-higgins",
+    },
+    {
+      id: 17,
+      name: "Ray Reardon",
+      country: "Wales",
+      image: "/image/56.jpg",
+      slug: "ray-reardon",
+    },
+    {
+      id: 18,
+      name: "Terry Griffiths",
+      country: "Wales",
+      image: "/image/71.jpg",
+      slug: "terry-griffiths",
     },
   ];
 
@@ -131,11 +103,14 @@ export default function Racers() {
         </Link>
       </div>
 
-      <h1 className="mb-5 text-center text-warning fw-bold" style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.7)" }}>
-        นักสนุกเกอร์ปัจจุบัน
+      <h1
+        className="mb-5 text-center text-warning fw-bold"
+        style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.7)" }}
+      >
+        นักสนุกเกอร์ในตำนาน
       </h1>
 
-      <div className="row g-4">{renderRacerCards(currentRacers)}</div>
+      <div className="row g-4">{renderRacerCards(legendaryRacers)}</div>
     </div>
   );
 }

@@ -90,13 +90,38 @@ export default function Navigation() {
                 ติดต่อเรา
               </Link>
             </li>
-            <li className="nav-item">
-              <Link href="/racers" className="nav-link text-light">
+
+            {/* เพิ่มไอคอนและเอฟเฟกต์ให้เมนู นักแข่งสนุ๊กเกอร์ */}
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle text-light d-flex align-items-center gap-2"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ position: "relative", transition: "color 0.3s" }}
+                onMouseEnter={e => e.currentTarget.style.color = "#ffc107"}
+                onMouseLeave={e => e.currentTarget.style.color = "white"}
+              >
                 นักแข่งสนุ๊กเกอร์
-              </Link>
+              </a>
+              <ul className="dropdown-menu dropdown-menu-dark" style={{ minWidth: 180 }}>
+                <li>
+                  <Link href="/racers" className="dropdown-item d-flex align-items-center gap-2" style={{ transition: "background-color 0.3s" }}>
+                    <FaUsers style={{ color: "#ffc107" }} />
+                    นักแข่งปัจจุบัน
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/racers/legend" className="dropdown-item d-flex align-items-center gap-2" style={{ transition: "background-color 0.3s" }}>
+                    <FaTrophy style={{ color: "#ffc107" }} />
+                    นักแข่งตำนาน
+                  </Link>
+                </li>
+              </ul>
             </li>
 
-            {/* ย้ายข้อมูลเพิ่มเติมมาที่นี่ */}
+            {/* ข้อมูลเพิ่มเติม */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-light"
