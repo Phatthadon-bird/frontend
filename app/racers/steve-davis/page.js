@@ -26,7 +26,7 @@ export default function SteveDavis() {
       <div className="row align-items-center">
         <div className="col-md-5 text-center mb-4 mb-md-0">
           <Image
-            src="/image/72.jpg"
+            src="/image/76.jpg"
             alt="Steve Davis"
             width={400}
             height={400}
