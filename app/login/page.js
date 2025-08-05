@@ -1,9 +1,12 @@
 'use client'
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2'; // ✅ เพิ่มตรงนี้
 
 export default function Logi() {
-  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -18,14 +21,34 @@ export default function Logi() {
     });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     if (!formData.username || !formData.password) {
-      setErrorMessage('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
-    } else {
-      // เรียก API หรือการตรวจสอบข้อมูลที่นี่
-      setErrorMessage(''); // รีเซ็ตข้อผิดพลาด
-      alert('เข้าสู่ระบบสำเร็จ');
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน',
+      });
+      return;
+    }
+
+    try {
+      // สมมติว่าเข้าสู่ระบบสำเร็จ
+      await Swal.fire({
+        icon: 'success',
+        title: 'เข้าสู่ระบบสำเร็จ',
+        text: 'กำลังนำคุณไปยังหน้าแรก...',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      router.push('/');
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด',
+        text: 'ไม่สามารถเข้าสู่ระบบได้',
+      });
     }
   };
 
@@ -35,12 +58,10 @@ export default function Logi() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>หน้าล็อกอิน</title>
 
-      {/* Navbar */}
       <nav className="navbar">
-        <a href="/" className="logo">กลับสู้หน้าหลัก</a>
+        <a href="/" className="logo">กลับสู่หน้าหลัก</a>
       </nav>
 
-      {/* Login Form */}
       <div className="login-container">
         <h2>เข้าสู่ระบบ</h2>
         <form onSubmit={handleLogin}>
@@ -83,18 +104,14 @@ export default function Logi() {
 
           <button type="submit">ล็อกอิน</button>
           
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
-          
           <div className="footer-links">
             <a href="/register">สมัครสมาชิก</a>
-            <a href="/forgot-password">ลืมรหัสผ่าน</a>
           </div>
         </form>
       </div>
 
       {/* Styling */}
       <style jsx>{`
-        /* General Styles */
         body {
           font-family: Arial, sans-serif;
           margin: 0;
@@ -102,7 +119,6 @@ export default function Logi() {
           background-color: #f4f4f4;
         }
 
-        /* Navbar Styles */
         .navbar {
           position: fixed;
           top: 0;
@@ -121,7 +137,6 @@ export default function Logi() {
           text-decoration: none;
         }
 
-        /* Login Container Styles */
         .login-page {
           display: flex;
           justify-content: center;
@@ -204,12 +219,6 @@ export default function Logi() {
 
         .footer-links a:hover {
           text-decoration: underline;
-        }
-
-        .error-message {
-          color: red;
-          margin-top: 10px;
-          text-align: center;
         }
       `}</style>
     </div>

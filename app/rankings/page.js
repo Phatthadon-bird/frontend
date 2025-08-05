@@ -3,50 +3,14 @@
 import Link from "next/link";
 
 const podium = [
-  {
-    rank: 2,
-    name: "มาร์ค เซลบี้",
-    country: "อังกฤษ",
-    points: 32000,
-    image: "/image/45.jpg",
-    slug: "mark-selby-confirm-competition-2025",
-  },
-  {
-    rank: 1,
-    name: "รอนนี่ โอซุลลิแวน",
-    country: "อังกฤษ",
-    points: 35000,
-    image: "/image/42.jpg",
-    slug: "ronnie-osullivan-world-champion-2025",
-  },
-  {
-    rank: 3,
-    name: "จัดด์ ทรัมป์",
-    country: "อังกฤษ",
-    points: 29000,
-    image: "/image/44.jpeg",
-    slug: "",
-  },
-  {
-    rank: 4,
-    name: "โจว ซินถง",
-    country: "จีน",
-    points: 27000,
-    image: "/image/43.jpg",
-    slug: "",
-  },
-  {
-    rank: 5,
-    name: "นีล โรเบิร์ตสัน",
-    country: "ออสเตรเลีย",
-    points: 25000,
-    image: "/image/46.jpg",
-    slug: null,
-  },
+  { rank: 2, name: "มาร์ค เซลบี้", country: "อังกฤษ", points: 32000, image: "/image/45.jpg", slug: "mark-selby-confirm-competition-2025" },
+  { rank: 1, name: "รอนนี่ โอซุลลิแวน", country: "อังกฤษ", points: 35000, image: "/image/42.jpg", slug: "ronnie-osullivan-world-champion-2025" },
+  { rank: 3, name: "จัดด์ ทรัมป์", country: "อังกฤษ", points: 29000, image: "/image/44.jpeg", slug: "" },
+  { rank: 4, name: "โจว ซินถง", country: "จีน", points: 27000, image: "/image/43.jpg", slug: "" },
+  { rank: 5, name: "นีล โรเบิร์ตสัน", country: "ออสเตรเลีย", points: 25000, image: "/image/46.jpg", slug: null },
 ];
 
 export default function PodiumWithImages() {
-  // เรียงลำดับตามที่ต้องการ: 5, 2, 1, 3, 4
   const orderedPodium = [
     podium.find((p) => p.rank === 5),
     podium.find((p) => p.rank === 2),
@@ -60,7 +24,7 @@ export default function PodiumWithImages() {
       style={{
         minHeight: "100vh",
         padding: "3rem 1rem",
-        background: "#0f172a",
+        backgroundColor: "#121212",
         color: "#fff",
         fontFamily: "'Sarabun', sans-serif",
         textAlign: "center",
@@ -70,26 +34,30 @@ export default function PodiumWithImages() {
         href="/"
         style={{
           display: "inline-block",
-          marginBottom: "2rem",
-          padding: "0.5rem 1.25rem",
-          backgroundColor: "#f59e0b22",
-          border: "2px solid #f59e0b",
-          color: "#f59e0b",
-          borderRadius: 8,
+          marginBottom: "2.5rem",
+          padding: "0.6rem 1.5rem",
+          backgroundColor: "#1f1f1f",
+          border: "2px solid #d4af37",
+          color: "#d4af37",
+          borderRadius: 12,
           textDecoration: "none",
-          fontWeight: "bold",
+          fontWeight: "700",
+          transition: "background-color 0.3s ease",
         }}
+        onMouseEnter={e => e.currentTarget.style.backgroundColor = "#d4af37"}
+        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1f1f1f"}
       >
         ← กลับหน้าหลัก
       </Link>
 
       <h1
         style={{
-          fontSize: "2.75rem",
+          fontSize: "3rem",
           marginBottom: "3rem",
-          background: "linear-gradient(to right, #facc15, #f97316)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
+          color: "#d4af37",
+          fontWeight: "900",
+          userSelect: "none",
+          textShadow: "0 0 6px #d4af37",
         }}
       >
         🏆 5 อันดับนักสนุ๊กเกอร์โลก
@@ -100,105 +68,114 @@ export default function PodiumWithImages() {
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-end",
-          gap: "1.5rem",
+          gap: "2rem",
           maxWidth: 1200,
           margin: "0 auto",
           flexWrap: "nowrap",
           overflowX: "auto",
-          paddingBottom: 16,
+          paddingBottom: 24,
+          paddingLeft: 8,
+          paddingRight: 8,
+          position: "relative", // เพิ่มตรงนี้
         }}
       >
         {orderedPodium.map((player) => {
           if (!player) return null;
           const { rank, name, country, points, image, slug } = player;
 
-          let height = 200;
-          let bgColor = "#fcd34d";
-          let textColor = "#1e293b";
-
-          switch (rank) {
-            case 1:
-              height = 280;
-              bgColor = "#facc15";
-              textColor = "#78350f";
-              break;
-            case 2:
-              height = 220;
-              bgColor = "#cbd5e1";
-              textColor = "#1e293b";
-              break;
-            case 3:
-              height = 200;
-              bgColor = "#fcd34d";
-              textColor = "#1e293b";
-              break;
-            case 4:
-            case 5:
-              height = 160;
-              bgColor = "#475569";
-              textColor = "#fbbf24";
-              break;
-          }
+          const sizes = { 1: 300, 2: 250, 3: 220, 4: 180, 5: 180 };
+          const width = sizes[rank] || 180;
+          const height = width * 1.3;
 
           return (
             <div
               key={rank}
               style={{
-                width: rank <= 3 ? 220 : 180,
-                height: height,
-                backgroundColor: bgColor,
-                color: textColor,
-                borderRadius: 12,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                width,
+                height,
+                backgroundColor: "#1f1f1f",
+                borderRadius: 20,
+                border: "3px solid transparent",
+                boxShadow: "0 6px 20px rgba(0,0,0,0.7)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-end",
                 alignItems: "center",
-                padding: "1rem",
-                paddingTop: rank === 1 ? 80 : "1rem", // <-- เพิ่ม paddingTop อันดับ 1
-                transition: "transform 0.3s ease",
+                padding: "1.2rem",
+                paddingTop: rank === 1 ? 120 : "1.2rem",
+                transition: "transform 0.3s ease, border-color 0.3s ease",
                 position: "relative",
                 cursor: slug ? "pointer" : "default",
                 flexShrink: 0,
+                userSelect: "none",
+                zIndex: rank === 1 ? 10 : 1, // เพิ่ม zIndex ให้รอนนี่เด่น
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-8px)";
+                e.currentTarget.style.transform = "translateY(-10px) scale(1.05)";
+                e.currentTarget.style.borderColor = "#d4af37";
+                e.currentTarget.style.boxShadow = "0 12px 28px rgba(212,175,55,0.8)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.transform = "translateY(0) scale(1)";
+                e.currentTarget.style.borderColor = "transparent";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.7)";
               }}
             >
-              <img
-                src={image}
-                alt={name}
+              <div
                 style={{
-                  width: rank <= 3 ? 100 : 80,
-                  height: rank <= 3 ? 100 : 80,
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  border: rank <= 3 ? "4px solid white" : "3px solid #fbbf24",
                   position: "absolute",
-                  top: rank <= 3 ? -40 : -40, // <-- ลด top จาก -50 เป็น -40
-                  boxShadow: rank <= 3
-                    ? "0 0 12px rgba(255,255,255,0.3)"
-                    : "0 0 8px rgba(251,191,36,0.7)",
-                  backgroundColor: "#fff",
+                  top: rank === 1 ? -55 : -45,
+                  width: rank === 1 ? 130 : 100,
+                  height: rank === 1 ? 130 : 100,
+                  borderRadius: "50%",
+                  border: "4px solid #d4af37",
+                  overflow: "hidden",
+                  boxShadow: "0 0 15px #d4af37",
+                  backgroundColor: "#000",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-              />
-              {/* ปรับ marginTop เล็กน้อย */}
-              <div style={{ marginTop: rank === 1 ? 20 : rank <= 3 ? 60 : 50 }} />
-              <div style={{ fontSize: rank <= 3 ? "2rem" : "1.5rem", fontWeight: "800" }}>
+              >
+                <img
+                  src={image}
+                  alt={name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    filter: "drop-shadow(0 0 5px #d4af37)",
+                  }}
+                />
+              </div>
+
+              <div style={{ marginTop: rank === 1 ? 55 : 70 }} />
+              <div
+                style={{
+                  fontSize: rank <= 3 ? "2.3rem" : "1.7rem",
+                  fontWeight: "900",
+                  color: "#d4af37",
+                  textShadow: "0 0 8px #d4af37",
+                }}
+              >
                 #{rank}
               </div>
               <div
-                style={{ fontSize: rank <= 3 ? "1.1rem" : "1rem", fontWeight: "600", marginTop: 4 }}
+                style={{
+                  fontSize: rank <= 3 ? "1.3rem" : "1.1rem",
+                  fontWeight: "700",
+                  marginTop: 6,
+                  color: "#fff",
+                }}
               >
                 {slug ? (
                   <Link
                     href={`/news/${slug}`}
                     style={{
-                      color: textColor,
+                      color: "#d4af37",
                       textDecoration: "underline",
+                      userSelect: "text",
                     }}
                   >
                     {name}
@@ -207,11 +184,24 @@ export default function PodiumWithImages() {
                   name
                 )}
               </div>
-              <div style={{ fontSize: rank <= 3 ? "0.95rem" : "0.85rem", marginTop: 4 }}>
+              <div
+                style={{
+                  fontSize: rank <= 3 ? "1.1rem" : "1rem",
+                  marginTop: 4,
+                  fontWeight: "500",
+                  color: "#cfcfcf",
+                }}
+              >
                 {country}
               </div>
               <div
-                style={{ fontSize: rank <= 3 ? "1rem" : "0.9rem", fontWeight: "700", marginTop: 8 }}
+                style={{
+                  fontSize: rank <= 3 ? "1.2rem" : "1rem",
+                  fontWeight: "800",
+                  marginTop: 10,
+                  color: "#d4af37",
+                  userSelect: "text",
+                }}
               >
                 {points.toLocaleString()} คะแนน
               </div>
