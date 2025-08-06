@@ -193,14 +193,38 @@ export default function Navigation() {
       </div>
 
       <style jsx>{`
-        .dropdown-item:hover {
-          background-color: #ffc107;
-          color: #212529 !important;
-        }
-        .dropdown-item:hover svg {
-          color: #212529 !important;
-        }
-      `}</style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.3); /* semi-transparent */
+    backdrop-filter: blur(10px); /* ทำให้เบลอแบบ iOS */
+    transition: all 0.3s ease;
+  }
+
+  .nav-link,
+  .dropdown-item {
+    color: #fff !important;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #ffc107 !important;
+    text-shadow: 0 0 6px #ffc107;
+  }
+
+  .dropdown-item:hover {
+    background-color: #ffc107;
+    color: #212529 !important;
+  }
+
+  .dropdown-item:hover svg {
+    color: #212529 !important;
+  }
+`}</style>
+
     </nav>
   );
 }

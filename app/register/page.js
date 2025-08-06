@@ -1,14 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'   // เพิ่มตรงนี้
 import Swal from 'sweetalert2'
-import bcrypt from 'bcryptjs'  // เพิ่ม import bcryptjs
+import bcrypt from 'bcryptjs'
 
 export default function RegisterPage() {
+  const router = useRouter()   // สร้าง router instance
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    fullname: '',     // ชื่อจริง
+    firstname: '',     // เพิ่มตัวนี้ด้วย เพราะส่งข้อมูลนี้ไป API
+    fullname: '',
     lastname: '',
     address: '',
     sex: '',
@@ -36,7 +40,6 @@ export default function RegisterPage() {
     }
 
     try {
-      // เข้ารหัสรหัสผ่านก่อนส่ง
       const hashedPassword = await bcrypt.hash(formData.password, 10)
 
       const res = await fetch('http://itdev.cmtc.ac.th:3000/api/users', {
@@ -44,9 +47,9 @@ export default function RegisterPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: formData.username,
-          password: hashedPassword,       // ส่งรหัสผ่านที่เข้ารหัสแล้ว
-          firstname: formData.firstname,   // ส่งชื่อเล่นไปที่ firstname
-          fullname: formData.fullname,    // ส่งชื่อจริงไปที่ fullname
+          password: hashedPassword,
+          firstname: formData.firstname,
+          fullname: formData.fullname,
           lastname: formData.lastname,
           address: formData.address,
           sex: formData.sex,
@@ -57,14 +60,18 @@ export default function RegisterPage() {
       const data = await res.json()
 
       if (res.ok) {
-        Swal.fire({
+        await Swal.fire({
           icon: 'success',
           title: 'สมัครสมาชิกสำเร็จ',
           text: 'คุณสามารถเข้าสู่ระบบได้แล้ว',
+          timer: 2000,
+          showConfirmButton: false,
         })
+
         setFormData({
           username: '',
           password: '',
+          firstname: '',
           fullname: '',
           lastname: '',
           address: '',
@@ -72,6 +79,8 @@ export default function RegisterPage() {
           birthdate: '',
           accept: false,
         })
+
+        router.push('/')  // เปลี่ยนหน้าไปหน้าหลัก
       } else {
         Swal.fire({
           icon: 'error',
@@ -105,22 +114,22 @@ export default function RegisterPage() {
       <div className="register-container">
         <h2>สมัครสมาชิก</h2>
         <form onSubmit={handleSubmit}>
-
           <div className="input-group">
-  <label htmlFor="firstname">คำนำหน้าชื่อ</label>
-  <select
-    id="firstname"
-    name="firstname"
-    value={formData.firstname}
-    onChange={handleInputChange}
-    required
-  >
-    <option value="">-- เลือก --</option>
-    <option value="นาย">นาย</option>
-    <option value="นางสาว">นางสาว</option>
-    <option value="นาง">นาง</option>
-  </select>
-</div>
+            <label htmlFor="firstname">คำนำหน้าชื่อ</label>
+            <select
+              id="firstname"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">-- เลือก --</option>
+              <option value="นาย">นาย</option>
+              <option value="นางสาว">นางสาว</option>
+              <option value="นาง">นาง</option>
+            </select>
+          </div>
+
           <div className="input-group">
             <label htmlFor="password">รหัสผ่าน</label>
             <input
@@ -234,33 +243,39 @@ export default function RegisterPage() {
         </form>
       </div>
 
-
-
       <style jsx>{`
         body {
           font-family: Arial, sans-serif;
           margin: 0;
           padding: 0;
-          background-color: #f4f4f4;
+          background-color: #121212;
+          color: #eee;
         }
 
         .navbar {
           position: fixed;
           top: 0;
           width: 100%;
-          background-color: #333;
+          background-color: #1f1f1f;
           color: white;
           padding: 15px 0;
           text-align: center;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 5px rgba(255 255 255 / 0.1);
           z-index: 10;
+          font-weight: 600;
+          letter-spacing: 1px;
         }
 
         .navbar .logo {
           font-size: 24px;
           font-weight: bold;
-          color: #fff;
+          color: #fca311;
           text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .navbar .logo:hover {
+          color: #ffba08;
         }
 
         .register-page {
@@ -268,27 +283,45 @@ export default function RegisterPage() {
           justify-content: center;
           align-items: center;
           height: 100vh;
-          background-color: #f0f2f5;
           padding-top: 60px; /* navbar height */
           box-sizing: border-box;
-          overflow-y: auto;
+          background: linear-gradient(135deg, #0b3c49, #1f1f1f);
+          overflow: hidden;
         }
 
         .register-container {
-          background-color: white;
-          padding: 30px;
-          border-radius: 10px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          background: rgba(252, 163, 17, 0.15);
+          padding: 30px 30px 40px;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgb(252 163 17 / 0.3);
           width: 100%;
-          max-width: 400px;
-          max-height: 90vh;
+          max-width: 450px;
+          max-height: calc(100vh - 80px); /* ลบ navbar */
           overflow-y: auto;
+          backdrop-filter: blur(15px);
+          border: 1.5px solid #fca311;
+          color: #fff;
+          scrollbar-width: thin;
+          scrollbar-color: #fca311 transparent;
+        }
+
+        .register-container::-webkit-scrollbar {
+          width: 8px;
+        }
+        .register-container::-webkit-scrollbar-thumb {
+          background-color: #fca311;
+          border-radius: 4px;
+        }
+        .register-container::-webkit-scrollbar-track {
+          background: transparent;
         }
 
         .register-container h2 {
           text-align: center;
           margin-bottom: 20px;
-          color: #333;
+          color: #ffba08;
+          font-weight: 700;
+          text-shadow: 0 0 5px #fca311;
         }
 
         .input-group {
@@ -299,8 +332,10 @@ export default function RegisterPage() {
 
         .input-group label {
           font-size: 14px;
-          color: #555;
+          color: #f0e68c;
           margin-bottom: 6px;
+          font-weight: 600;
+          text-shadow: 0 0 3px #fca311;
         }
 
         input[type='text'],
@@ -310,9 +345,13 @@ export default function RegisterPage() {
         textarea {
           padding: 10px;
           font-size: 14px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
+          border: 1px solid #fca311;
+          border-radius: 8px;
           box-sizing: border-box;
+          background-color: #222;
+          color: #fff;
+          transition: border-color 0.3s ease;
+          box-shadow: inset 0 0 5px #fca311;
         }
 
         input[type='text']:focus,
@@ -320,8 +359,10 @@ export default function RegisterPage() {
         select:focus,
         input[type='date']:focus,
         textarea:focus {
-          border-color: #007bff;
+          border-color: #ffba08;
           outline: none;
+          box-shadow: 0 0 8px #ffba08;
+          background-color: #1a1a1a;
         }
 
         textarea {
@@ -332,18 +373,23 @@ export default function RegisterPage() {
           display: flex;
           gap: 20px;
           font-size: 14px;
-          color: #555;
+          color: #f0e68c;
         }
 
         .gender-options label {
           display: flex;
           align-items: center;
-          gap: 4px;
+          gap: 6px;
           cursor: pointer;
+          font-weight: 600;
+          text-shadow: 0 0 3px #fca311;
         }
 
         input[type='radio'] {
           cursor: pointer;
+          accent-color: #fca311;
+          width: 18px;
+          height: 18px;
         }
 
         .checkbox-group {
@@ -351,27 +397,36 @@ export default function RegisterPage() {
           align-items: center;
           gap: 8px;
           display: flex;
+          font-weight: 600;
+          color: #f0e68c;
+          text-shadow: 0 0 3px #fca311;
         }
 
         input[type='checkbox'] {
           width: auto;
           cursor: pointer;
+          accent-color: #fca311;
+          transform: scale(1.2);
         }
 
         button {
           width: 100%;
-          padding: 12px;
-          background-color: #007bff;
-          color: white;
+          padding: 14px;
+          background: linear-gradient(45deg, #fca311, #ffba08);
+          color: #1f1f1f;
           border: none;
-          border-radius: 5px;
-          font-size: 16px;
+          border-radius: 12px;
+          font-size: 18px;
+          font-weight: 700;
           cursor: pointer;
-          transition: background-color 0.3s;
+          box-shadow: 0 0 15px #fca311;
+          transition: background 0.4s ease;
+          letter-spacing: 1px;
         }
 
         button:hover {
-          background-color: #0056b3;
+          background: linear-gradient(45deg, #ffba08, #fca311);
+          box-shadow: 0 0 20px #ffba08;
         }
       `}</style>
     </div>

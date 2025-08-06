@@ -1,73 +1,152 @@
 'use client';
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
-export default function Page() {
+export default function UsersPage() {
   const [items, setItems] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-
-    async function getUsers() {
+    async function fetchUsers() {
+      setLoading(true);
       try {
         const res = await fetch('http://itdev.cmtc.ac.th:3000/api/users');
-        if (!res.ok) {
-          console.error('Failed to fetch data');
-          return;
-        }
+        if (!res.ok) throw new Error('Failed to fetch data');
         const data = await res.json();
         setItems(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error(error);
       }
+      setLoading(false);
     }
- 
-  getUsers()
-  const interval  = setInterval(getUsers, 1000);
-  return () => clearInterval(interval);
-}, []);
+
+    fetchUsers();
+  }, []);
+
+  const filteredItems = items.filter(item =>
+    item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'คุณแน่ใจไหม?',
+      text: "ต้องการลบข้อมูลนี้หรือไม่?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'ลบเลย!',
+      cancelButtonText: 'ยกเลิก'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await fetch(`http://itdev.cmtc.ac.th:3000/api/users/${id}`, {
+            method: 'DELETE',
+            headers: { Accept: 'application/json' },
+          });
+          if (!res.ok) throw new Error('Failed to delete');
+          setItems(prev => prev.filter(item => item.id !== id));
+          Swal.fire('ลบเรียบร้อย!', '', 'success');
+        } catch (error) {
+          Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถลบข้อมูลได้', 'error');
+          console.error(error);
+        }
+      }
+    });
+  };
 
   return (
     <>
-    <br /><br /><br /><br />
-    <div className="container">
-      <div className="card">
-  <div className="card-header">
-    Users List
-  </div>
-  <div className="card-body">
-  <div className="row">
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th className='col-md-2 text-center'>#</th>
-            <th className='col-md-4'>Firstname</th>
-            <th className='col-md-4'>Fullname</th>
-            <th className='col-md-4'>Lastname</th>
-            <th className='col-md-1'>Eidt</th>
-            <th className='col-md-1'>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id}>
-              <td className='text-center'>{item.id}</td>
-              <td>{item.firstname}</td>
-              <td>{item.fullname}</td>
-              <td>{item.lastname}</td>
-              <td><Link href="" className="btn btn-warning">Edit</Link></td>
-              <td><button className="btn btn-pill btn-danger" type="button"><i className="fa fa-trash"></i>Del</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    </div>
-
-    </div>
-    </div>
-    <br /><br />
-
+      <br /><br /><br /><br />
+      <div className="container-fluid">
+        <div className="card shadow-sm">
+          <div className="card-header bg-primary text-white">
+            <h4>Users List</h4>
+          </div>
+          <div className="card-body">
+            <input
+              type="text"
+              placeholder="ค้นหา firstname, lastname, username"
+              className="form-control mb-3"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+            {loading ? (
+              <div className="text-center py-5">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : (
+              <table className="table table-striped table-hover align-middle w-100">
+                <thead className="table-dark">
+                  <tr>
+                    <th className='text-center'>#</th>
+                    <th>Firstname</th>
+                    <th>Fullname</th>
+                    <th>Lastname</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Address</th>
+                    <th>Sex</th>
+                    <th>Birthday</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredItems.length === 0 ? (
+                    <tr>
+                      <td colSpan={11} className="text-center text-muted">ไม่พบข้อมูล</td>
+                    </tr>
+                  ) : filteredItems.map(item => (
+                    <tr key={item.id} className="align-middle">
+                      <td className='text-center'>{item.id}</td>
+                      <td>{item.firstname}</td>
+                      <td>{item.fullname}</td>
+                      <td>{item.lastname}</td>
+                      <td>{item.username}</td>
+                      <td><code>{item.password}</code></td>
+                      <td>{item.address}</td>
+                      <td>{item.sex}</td>
+                      <td>{item.birthday}</td>
+                      <td>
+                        <Link href={`/admin/users/edit/${item.id}`} className="btn btn-warning btn-sm">
+                          Edit
+                        </Link>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(item.id)}
+                        >
+                          <i className="fa fa-trash"></i> Del
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      </div>
+      <br /><br />
+      <style jsx>{`
+        tr:hover {
+          background-color: #f1f1f1;
+          cursor: pointer;
+        }
+        code {
+          background-color: #f8f9fa;
+          padding: 2px 4px;
+          border-radius: 4px;
+        }
+      `}</style>
     </>
   );
 }

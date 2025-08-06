@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaPaperPlane } from "react-icons/fa";
 
 export default function ContactUs() {
   const [hover, setHover] = useState(false);
@@ -8,44 +9,52 @@ export default function ContactUs() {
   return (
     <main
       style={{
-        maxWidth: 600,
-        margin: "3rem auto",
-        padding: "2rem",
+        maxWidth: 700,
+        margin: "4rem auto",
+        padding: "2.5rem",
         fontFamily: "'Sarabun', sans-serif",
-        backgroundColor: "#f0f4f8",
-        borderRadius: 16,
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-        color: "#222",
+        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
+        borderRadius: 20,
+        boxShadow: "0 12px 30px rgba(0,0,0,0.15)",
+        animation: "fadeIn 1.5s ease-in-out",
       }}
     >
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        input:focus, textarea:focus {
+          outline: none !important;
+        }
+      `}</style>
+
       <h1
         style={{
           textAlign: "center",
           color: "#0d47a1",
-          fontWeight: "700",
-          fontSize: "2.5rem",
+          fontWeight: "900",
+          fontSize: "2.8rem",
           marginBottom: "2rem",
-          textShadow: "1px 1px 2px rgba(13, 71, 161, 0.3)",
+          textShadow: "2px 2px 5px rgba(13, 71, 161, 0.3)",
         }}
       >
-        ติดต่อเรา
+        📬 ติดต่อเรา
       </h1>
 
       <form
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "1.5rem",
+          gap: "1.6rem",
         }}
         onSubmit={(e) => {
           e.preventDefault();
           alert("ขอบคุณที่ติดต่อเรานะครับ! เราจะติดต่อกลับเร็วๆ นี้");
         }}
       >
-        <label
-          htmlFor="name"
-          style={{ fontWeight: "600", fontSize: "1.1rem", color: "#0d47a1" }}
-        >
+        {/* Name Field */}
+        <label htmlFor="name" style={{ fontWeight: "600", color: "#0d47a1" }}>
           ชื่อ-นามสกุล
           <input
             id="name"
@@ -55,22 +64,21 @@ export default function ContactUs() {
             required
             style={{
               marginTop: 6,
-              padding: "0.8rem 1rem",
+              padding: "0.9rem 1.2rem",
               fontSize: "1rem",
               borderRadius: 12,
               border: "2px solid #90caf9",
-              outline: "none",
-              transition: "border-color 0.3s",
+              transition: "border-color 0.3s, box-shadow 0.3s",
+              width: "100%",
+              boxShadow: "inset 0 1px 4px rgba(0,0,0,0.1)",
             }}
-            onFocus={(e) => (e.target.style.borderColor = "#0d47a1")}
+            onFocus={(e) => (e.target.style.borderColor = "#1565c0")}
             onBlur={(e) => (e.target.style.borderColor = "#90caf9")}
           />
         </label>
 
-        <label
-          htmlFor="email"
-          style={{ fontWeight: "600", fontSize: "1.1rem", color: "#0d47a1" }}
-        >
+        {/* Email Field */}
+        <label htmlFor="email" style={{ fontWeight: "600", color: "#0d47a1" }}>
           อีเมล
           <input
             id="email"
@@ -80,22 +88,21 @@ export default function ContactUs() {
             required
             style={{
               marginTop: 6,
-              padding: "0.8rem 1rem",
+              padding: "0.9rem 1.2rem",
               fontSize: "1rem",
               borderRadius: 12,
               border: "2px solid #90caf9",
-              outline: "none",
-              transition: "border-color 0.3s",
+              transition: "border-color 0.3s, box-shadow 0.3s",
+              width: "100%",
+              boxShadow: "inset 0 1px 4px rgba(0,0,0,0.1)",
             }}
-            onFocus={(e) => (e.target.style.borderColor = "#0d47a1")}
+            onFocus={(e) => (e.target.style.borderColor = "#1565c0")}
             onBlur={(e) => (e.target.style.borderColor = "#90caf9")}
           />
         </label>
 
-        <label
-          htmlFor="message"
-          style={{ fontWeight: "600", fontSize: "1.1rem", color: "#0d47a1" }}
-        >
+        {/* Message Field */}
+        <label htmlFor="message" style={{ fontWeight: "600", color: "#0d47a1" }}>
           ข้อความ
           <textarea
             id="message"
@@ -105,60 +112,80 @@ export default function ContactUs() {
             required
             style={{
               marginTop: 6,
-              padding: "1rem",
+              padding: "1.1rem",
               fontSize: "1rem",
               borderRadius: 12,
               border: "2px solid #90caf9",
-              outline: "none",
               resize: "vertical",
               transition: "border-color 0.3s",
               fontFamily: "'Sarabun', sans-serif",
+              width: "100%",
+              boxShadow: "inset 0 1px 6px rgba(0,0,0,0.08)",
             }}
-            onFocus={(e) => (e.target.style.borderColor = "#0d47a1")}
+            onFocus={(e) => (e.target.style.borderColor = "#1565c0")}
             onBlur={(e) => (e.target.style.borderColor = "#90caf9")}
           />
         </label>
 
+        {/* Submit Button */}
         <button
           type="submit"
           style={{
-            backgroundColor: hover ? "#0b3d91" : "#1565c0",
-            color: "white",
+            background: hover
+              ? "linear-gradient(to right, #0d47a1, #1565c0)"
+              : "linear-gradient(to right, #1976d2, #42a5f5)",
+            color: "#fff",
             padding: "1rem",
-            fontSize: "1.25rem",
+            fontSize: "1.2rem",
             fontWeight: "700",
             border: "none",
             borderRadius: 16,
             cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.6rem",
             boxShadow: hover
               ? "0 8px 20px rgba(21, 101, 192, 0.6)"
-              : "0 6px 15px rgba(21, 101, 192, 0.4)",
+              : "0 5px 12px rgba(21, 101, 192, 0.4)",
             transition: "all 0.3s ease",
-            letterSpacing: 1,
+            letterSpacing: "1px",
           }}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
+          <FaPaperPlane />
           ส่งข้อความ
         </button>
       </form>
 
+      {/* Contact Info */}
       <section
         style={{
           marginTop: "3rem",
-          paddingTop: "1rem",
+          paddingTop: "1.2rem",
           borderTop: "2px solid #90caf9",
-          color: "#444",
-          fontSize: "1rem",
-          lineHeight: 1.6,
+          color: "#0d47a1",
+          fontSize: "1.05rem",
+          lineHeight: 1.7,
         }}
       >
-        <h2 style={{ color: "#0d47a1", fontWeight: "700", marginBottom: "0.5rem" }}>
-          ข้อมูลติดต่อเพิ่มเติม
+        <h2 style={{ fontWeight: "700", marginBottom: "0.8rem" }}>
+          📞 ข้อมูลติดต่อเพิ่มเติม
         </h2>
-        <p>📞 โทรศัพท์: 061-xxx-7x8x</p>
-        <p>📧 อีเมล: BIRD@snookerthailand.com</p>
-        <p>📍 ที่อยู่: 123 ถนนเวียงแก้ว เชียงใหม่</p>
+        <p>
+          <FaPhoneAlt style={{ marginRight: 8 }} />
+          โทรศัพท์: <strong style={{ color: "#222" }}>061-xxx-7x8x</strong>
+        </p>
+        <p>
+          <FaEnvelope style={{ marginRight: 8 }} />
+          อีเมล:{" "}
+          <strong style={{ color: "#222" }}>BIRD@snookerthailand.com</strong>
+        </p>
+        <p>
+          <FaMapMarkerAlt style={{ marginRight: 8 }} />
+          ที่อยู่: <strong style={{ color: "#222" }}>123 ถนนเวียงแก้ว เชียงใหม่</strong>
+        </p>
       </section>
     </main>
   );
