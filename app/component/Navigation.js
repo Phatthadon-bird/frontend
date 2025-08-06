@@ -172,7 +172,7 @@ export default function Navigation() {
               <input
                 className="form-control me-2"
                 type="search"
-                placeholder="ค้นหานักแข่ง/ประเทศ"
+                placeholder="ค้นหา"
                 aria-label="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -182,7 +182,7 @@ export default function Navigation() {
                 ค้นหา
               </button>
             </form>
-            <Link href="/login" className="btn btn-outline-light">
+            <Link href="/login1" className="btn btn-outline-light">
               เข้าสู่ระบบ
             </Link>
             <Link href="/register" className="btn btn-warning text-dark">

@@ -4,15 +4,11 @@ import { useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
+// ข้อมูลนักสนุกเกอร์
 const players = [
   { nameTh: "รอนนี่ โอซุลลิแวน", nameEn: "ronnie", country: "อังกฤษ" },
   { nameTh: "มิ้งค์ สระบุรี", nameEn: "mingsaraburi", country: "ไทย" },
-  {
-    nameTh: "เทพไชยา อุ่นหนู",
-    nameEn: "tepsachaiya",
-    country: "ไทย",
-    alias: ["f1", "เอฟวัน", "f-1"]
-  },
+  { nameTh: "เทพไชยา อุ่นหนู", nameEn: "tepsachaiya", country: "ไทย", alias: ["f1", "เอฟวัน", "f-1"] },
   { nameTh: "มาร์ค เซลบี้", nameEn: "mark-selby", country: "อังกฤษ" },
   { nameTh: "ดิง จุนหุย", nameEn: "ding-junhui", country: "จีน" },
   { nameTh: "จอห์น ฮิกกิ้นส์", nameEn: "john-higgins", country: "สกอตแลนด์" },
@@ -20,7 +16,7 @@ const players = [
   { nameTh: "นีล โรเบิร์ตสัน", nameEn: "neil-robertson", country: "ออสเตรเลีย" },
   { nameTh: "ฌอน เมอร์ฟี่", nameEn: "shaun-murphy", country: "อังกฤษ" },
   { nameTh: "โจว ซินถง", nameEn: "zhao-xintong", country: "จีน" },
-    { nameTh: "สตีเฟ่น เฮนดรี้", nameEn: "stephen-hendry", country: "สกอตแลนด์" },
+  { nameTh: "สตีเฟ่น เฮนดรี้", nameEn: "stephen-hendry", country: "สกอตแลนด์" },
   { nameTh: "สตีฟ เดวิส", nameEn: "steve-davis", country: "อังกฤษ" },
   { nameTh: "จิมมี่ ไวท์", nameEn: "jimmy-white", country: "อังกฤษ" },
   { nameTh: "คลิฟ ธอร์เบิร์น", nameEn: "cliff-thorburn", country: "แคนาดา" },
@@ -30,6 +26,24 @@ const players = [
   { nameTh: "เทอร์รี่ กริฟฟิธส์", nameEn: "terry-griffiths", country: "เวลส์" },
   { nameTh: "ต๋อง ศิษย์ฉ่อย", nameEn: "james-wattana", country: "ไทย", alias: ["ต๋อง", "tong"] },
   { nameTh: "หมู ปากน้ำ", nameEn: "noppon-saengkham", country: "ไทย", alias: ["หมู", "ปากน้ำ"] },
+];
+
+// ข้อมูลเมนู
+const pages = [
+  { type: "page", title: "หน้าแรก", slug: "/" },
+  { type: "page", title: "เกี่ยวกับเรา", slug: "/about" },
+  { type: "page", title: "บริการของเรา", slug: "/services" },
+  { type: "page", title: "ติดต่อเรา", slug: "/contect" },
+  { type: "page", title: "นักแข่งสนุ๊กเกอร์", slug: "/racers" },
+  { type: "page", title: "ข้อมูลเพิ่มเติม", slug: "/more-info" },
+  { type: "page", title: "ตารางแข่ง", slug: "/schedule" },
+  { type: "page", title: "ลงแข่ง", slug: "/compete" },
+ { type: "page", title: "นักแข่งปัจจุบัน", slug: "/racers" },
+   { type: "page", title: "ข่าวสนุ๊กเกอร์", slug: "/racers/legend"},
+   { type: "page", title: "นักสนุกเกอร์ในตำนาน", slug: "/news"},
+   { type: "page", title: "อันดับนักสนุ๊กเกอร์โลก", slug: "/rankings"},
+   { type: "page", title: "ไฮไลท์การแข่ง", slug: "/highlights"},
+   { type: "page", title: "admin", slug: "/admin/users"},
 ];
 
 function slugify(name) {
@@ -43,14 +57,24 @@ export default function SearchPageClient() {
 
   const [input, setInput] = useState(queryParam);
 
-  const filteredPlayers = useMemo(() => {
-    if (queryParam.trim() === "") return []; // ❗เปลี่ยนจากแสดงทั้งหมดเป็นไม่แสดงเลย
+  // รวมข้อมูลทั้งหมด
+  const data = [
+    ...players.map((player) => ({
+      type: "player",
+      title: player.nameTh,
+      slug: `/racers/${slugify(player.nameEn)}`,
+      country: player.country,
+      alias: player.alias || [],
+    })),
+    ...pages,
+  ];
+
+  const filteredResults = useMemo(() => {
+    if (queryParam.trim() === "") return [];
     const lowerQuery = queryParam.toLowerCase();
-    return players.filter((player) =>
-      player.nameTh.toLowerCase().includes(lowerQuery) ||
-      player.nameEn.toLowerCase().includes(lowerQuery) ||
-      player.country.toLowerCase().includes(lowerQuery) ||
-      (player.alias && player.alias.some(alias => alias.toLowerCase().includes(lowerQuery)))
+    return data.filter((item) =>
+      item.title.toLowerCase().includes(lowerQuery) ||
+      (item.alias && item.alias.some((alias) => alias.toLowerCase().includes(lowerQuery)))
     );
   }, [queryParam]);
 
@@ -72,7 +96,7 @@ export default function SearchPageClient() {
         <input
           type="text"
           className="form-control me-2"
-          placeholder="🔍 พิมพ์คำค้นหาที่คุณต้องการ"
+          placeholder="🔍 ค้นหา"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
@@ -80,11 +104,10 @@ export default function SearchPageClient() {
       </form>
 
       {queryParam.trim() === "" ? (
-        <p className="mt-3 text-center text-muted fs-5">
-        </p>
-      ) : filteredPlayers.length > 0 ? (
+        <p className="mt-3 text-center text-muted fs-5"></p>
+      ) : filteredResults.length > 0 ? (
         <ul className="list-group shadow-sm rounded" style={{ padding: 0, listStyle: "none" }}>
-          {filteredPlayers.map((player, idx) => (
+          {filteredResults.map((item, idx) => (
             <li
               key={idx}
               className="list-group-item d-flex justify-content-between align-items-center"
@@ -105,7 +128,7 @@ export default function SearchPageClient() {
               }}
             >
               <Link
-                href={`/racers/${slugify(player.nameEn)}`}
+                href={item.slug}
                 className="text-decoration-none fs-5"
                 style={{
                   color: "#0d6efd",
@@ -115,11 +138,13 @@ export default function SearchPageClient() {
                   transition: "color 0.2s ease",
                 }}
               >
-                🎱 {player.nameTh}
+                {item.type === "player" ? "🎱" : "📄"} {item.title}
               </Link>
-              <span className="badge bg-info text-dark fs-6">
-                {player.country}
-              </span>
+              {item.country && (
+                <span className="badge bg-info text-dark fs-6">
+                  {item.country}
+                </span>
+              )}
             </li>
           ))}
         </ul>

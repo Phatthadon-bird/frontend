@@ -2,13 +2,27 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
 
 export default function UsersPage() {
+  const router = useRouter();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [checkingLogin, setCheckingLogin] = useState(true);
 
   useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') {
+      router.replace('/login'); // ยังไม่ล็อกอินให้ไปหน้า login
+    } else {
+      setCheckingLogin(false); // ผ่านการเช็คล็อกอินแล้ว
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (checkingLogin) return; // รอเช็คล็อกอินก่อนค่อยโหลดข้อมูล
+
     async function fetchUsers() {
       setLoading(true);
       try {
@@ -23,7 +37,7 @@ export default function UsersPage() {
     }
 
     fetchUsers();
-  }, []);
+  }, [checkingLogin]);
 
   const filteredItems = items.filter(item =>
     item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,81 +73,89 @@ export default function UsersPage() {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    router.push('/login');
+  };
+
+  if (checkingLogin) {
+    return <p>กำลังตรวจสอบสถานะ...</p>;
+  }
+
   return (
     <>
       <br /><br /><br /><br />
       <div className="container-fluid">
-        <div className="card shadow-sm">
-          <div className="card-header bg-primary text-white">
-            <h4>Users List</h4>
-          </div>
-          <div className="card-body">
-            <input
-              type="text"
-              placeholder="ค้นหา firstname, lastname, username"
-              className="form-control mb-3"
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-            />
-            {loading ? (
-              <div className="text-center py-5">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              </div>
-            ) : (
-              <table className="table table-striped table-hover align-middle w-100">
-                <thead className="table-dark">
-                  <tr>
-                    <th className='text-center'>#</th>
-                    <th>Firstname</th>
-                    <th>Fullname</th>
-                    <th>Lastname</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Address</th>
-                    <th>Sex</th>
-                    <th>Birthday</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredItems.length === 0 ? (
-                    <tr>
-                      <td colSpan={11} className="text-center text-muted">ไม่พบข้อมูล</td>
-                    </tr>
-                  ) : filteredItems.map(item => (
-                    <tr key={item.id} className="align-middle">
-                      <td className='text-center'>{item.id}</td>
-                      <td>{item.firstname}</td>
-                      <td>{item.fullname}</td>
-                      <td>{item.lastname}</td>
-                      <td>{item.username}</td>
-                      <td><code>{item.password}</code></td>
-                      <td>{item.address}</td>
-                      <td>{item.sex}</td>
-                      <td>{item.birthday}</td>
-                      <td>
-                        <Link href={`/admin/users/edit/${item.id}`} className="btn btn-warning btn-sm">
-                          Edit
-                        </Link>
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          <i className="fa fa-trash"></i> Del
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4>Users List</h4>
+          <button onClick={handleLogout} className="btn btn-danger btn-sm">
+            ออกจากระบบ
+          </button>
         </div>
+        <input
+          type="text"
+          placeholder="ค้นหา firstname, lastname, username"
+          className="form-control mb-3"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+        {loading ? (
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <table className="table table-striped table-hover align-middle w-100">
+            <thead className="table-dark">
+              <tr>
+                <th className='text-center'>#</th>
+                <th>Firstname</th>
+                <th>Fullname</th>
+                <th>Lastname</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Address</th>
+                <th>Sex</th>
+                <th>Birthday</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredItems.length === 0 ? (
+                <tr>
+                  <td colSpan={11} className="text-center text-muted">ไม่พบข้อมูล</td>
+                </tr>
+              ) : filteredItems.map(item => (
+                <tr key={item.id} className="align-middle">
+                  <td className='text-center'>{item.id}</td>
+                  <td>{item.firstname}</td>
+                  <td>{item.fullname}</td>
+                  <td>{item.lastname}</td>
+                  <td>{item.username}</td>
+                  <td><code>{item.password}</code></td>
+                  <td>{item.address}</td>
+                  <td>{item.sex}</td>
+                  <td>{item.birthday}</td>
+                  <td>
+                    <Link href={`/admin/users/edit/${item.id}`} className="btn btn-warning btn-sm">
+                      Edit
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <i className="fa fa-trash"></i> Del
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <br /><br />
       <style jsx>{`
