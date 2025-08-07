@@ -1,18 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
 export default function LoginPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({ username: '', password: '' });
-
-  useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-      router.push('/admin/users');
-    }
-  }, [router]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,12 +43,15 @@ export default function LoginPage() {
       await Swal.fire({
         icon: 'success',
         title: 'เข้าสู่ระบบสำเร็จ!',
-        text: 'กำลังไปยังหน้าแอดมิน...',
+        text: 'กำลังไปยังหน้าหลัก...',
         timer: 1500,
         showConfirmButton: false,
       });
 
-      router.push('/admin/users');
+      router.replace('/');
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
     } catch (err) {
       Swal.fire({
         icon: 'error',
@@ -108,6 +105,13 @@ export default function LoginPage() {
           </div>
 
           <button type="submit">🚀 ล็อกอิน</button>
+
+          {/* ลิงก์กลับหน้าหลัก */}
+          <div className="back-home-link">
+            <a href="/" aria-label="กลับหน้าหลัก">
+              <span className="icon">🏠</span> กลับหน้าหลัก
+            </a>
+          </div>
         </form>
       </div>
 
@@ -123,7 +127,6 @@ export default function LoginPage() {
           position: relative;
           overflow: hidden;
         }
-
         .login-page::before {
           content: '';
           position: absolute;
@@ -136,7 +139,6 @@ export default function LoginPage() {
           pointer-events: none;
           z-index: 1;
         }
-
         .navbar {
           position: absolute;
           top: 0;
@@ -146,14 +148,12 @@ export default function LoginPage() {
           background: rgba(0, 0, 0, 0.6);
           z-index: 2;
         }
-
         .navbar .logo {
           color: #fff;
           font-weight: bold;
           text-decoration: none;
           font-size: 20px;
         }
-
         .login-container {
           background-color: white;
           padding: 40px 30px;
@@ -164,28 +164,23 @@ export default function LoginPage() {
           animation: fadeIn 0.5s ease;
           z-index: 2;
         }
-
         .login-container.shake {
           animation: shake 0.4s ease;
         }
-
         .login-container h2 {
           text-align: center;
           color: #333;
           margin-bottom: 25px;
         }
-
         .input-group {
           margin-bottom: 20px;
         }
-
         .input-group label {
           display: block;
           font-size: 14px;
           color: #555;
           margin-bottom: 5px;
         }
-
         .input-icon {
           display: flex;
           align-items: center;
@@ -194,12 +189,10 @@ export default function LoginPage() {
           padding: 0 10px;
           background: white;
         }
-
         .input-icon span {
           margin-right: 8px;
           font-size: 16px;
         }
-
         .input-icon input {
           border: none;
           outline: none;
@@ -208,7 +201,6 @@ export default function LoginPage() {
           width: 100%;
           background: transparent;
         }
-
         button {
           width: 100%;
           padding: 12px;
@@ -220,11 +212,46 @@ export default function LoginPage() {
           cursor: pointer;
           transition: 0.3s;
         }
-
         button:hover {
           background-color: #0056b3;
         }
-
+        .back-home-link {
+          margin-top: 16px;
+          text-align: center;
+        }
+        .back-home-link a {
+          color: #007bff;
+          font-weight: 600;
+          font-size: 16px;
+          text-decoration: none;
+          padding: 8px 20px;
+          border: 2px solid #007bff;
+          border-radius: 30px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+          cursor: pointer;
+        }
+        .back-home-link a:hover {
+          background: linear-gradient(45deg, #007bff, #0056b3);
+          color: white;
+          box-shadow: 0 0 12px #0056b3;
+          transform: scale(1.05);
+        }
+        .back-home-link .icon {
+          display: inline-block;
+          animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-6px);
+          }
+        }
         @keyframes fadeIn {
           from {
             opacity: 0;
@@ -235,9 +262,8 @@ export default function LoginPage() {
             transform: translateY(0);
           }
         }
-
         @keyframes shake {
-          0% {
+          0%, 100% {
             transform: translateX(0);
           }
           25% {
@@ -249,11 +275,7 @@ export default function LoginPage() {
           75% {
             transform: translateX(-10px);
           }
-          100% {
-            transform: translateX(0);
-          }
         }
-
         @media (max-width: 480px) {
           .login-container {
             padding: 30px 20px;

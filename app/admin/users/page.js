@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link'
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
@@ -13,10 +13,15 @@ export default function UsersPage() {
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const isAdminConfirmed = localStorage.getItem('isAdminConfirmed');
+
     if (isLoggedIn !== 'true') {
-      router.replace('/login'); // ยังไม่ล็อกอินให้ไปหน้า login
+      router.replace('/login'); // ยังไม่ได้ล็อกอิน
+    } else if (isAdminConfirmed !== 'true') {
+      // ยังไม่ยืนยันรหัส admin
+      router.replace('/login?confirmAdmin=true'); // ไปหน้าใส่รหัส admin
     } else {
-      setCheckingLogin(false); // ผ่านการเช็คล็อกอินแล้ว
+      setCheckingLogin(false); // ยืนยันแล้ว ใช้งานต่อได้
     }
   }, [router]);
 
@@ -39,22 +44,23 @@ export default function UsersPage() {
     fetchUsers();
   }, [checkingLogin]);
 
-  const filteredItems = items.filter(item =>
-    item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.username.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredItems = items.filter(
+    (item) =>
+      item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleDelete = (id) => {
     Swal.fire({
       title: 'คุณแน่ใจไหม?',
-      text: "ต้องการลบข้อมูลนี้หรือไม่?",
+      text: 'ต้องการลบข้อมูลนี้หรือไม่?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'ลบเลย!',
-      cancelButtonText: 'ยกเลิก'
+      cancelButtonText: 'ยกเลิก',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -63,7 +69,7 @@ export default function UsersPage() {
             headers: { Accept: 'application/json' },
           });
           if (!res.ok) throw new Error('Failed to delete');
-          setItems(prev => prev.filter(item => item.id !== id));
+          setItems((prev) => prev.filter((item) => item.id !== id));
           Swal.fire('ลบเรียบร้อย!', '', 'success');
         } catch (error) {
           Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถลบข้อมูลได้', 'error');
@@ -75,7 +81,8 @@ export default function UsersPage() {
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
-    router.push('/login');
+    localStorage.removeItem('isAdminConfirmed');
+    router.replace('/login');
   };
 
   if (checkingLogin) {
@@ -84,12 +91,15 @@ export default function UsersPage() {
 
   return (
     <>
-      <br /><br /><br /><br />
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="container-fluid">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h4>Users List</h4>
           <button onClick={handleLogout} className="btn btn-danger btn-sm">
-            ออกจากระบบ
+            ออกจากระบบแอดมิน
           </button>
         </div>
         <input
@@ -97,7 +107,7 @@ export default function UsersPage() {
           placeholder="ค้นหา firstname, lastname, username"
           className="form-control mb-3"
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         {loading ? (
           <div className="text-center py-5">
@@ -109,7 +119,7 @@ export default function UsersPage() {
           <table className="table table-striped table-hover align-middle w-100">
             <thead className="table-dark">
               <tr>
-                <th className='text-center'>#</th>
+                <th className="text-center">#</th>
                 <th>Firstname</th>
                 <th>Fullname</th>
                 <th>Lastname</th>
@@ -125,39 +135,46 @@ export default function UsersPage() {
             <tbody>
               {filteredItems.length === 0 ? (
                 <tr>
-                  <td colSpan={11} className="text-center text-muted">ไม่พบข้อมูล</td>
-                </tr>
-              ) : filteredItems.map(item => (
-                <tr key={item.id} className="align-middle">
-                  <td className='text-center'>{item.id}</td>
-                  <td>{item.firstname}</td>
-                  <td>{item.fullname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{item.username}</td>
-                  <td><code>{item.password}</code></td>
-                  <td>{item.address}</td>
-                  <td>{item.sex}</td>
-                  <td>{item.birthday}</td>
-                  <td>
-                    <Link href={`/admin/users/edit/${item.id}`} className="btn btn-warning btn-sm">
-                      Edit
-                    </Link>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      <i className="fa fa-trash"></i> Del
-                    </button>
+                  <td colSpan={11} className="text-center text-muted">
+                    ไม่พบข้อมูล
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredItems.map((item) => (
+                  <tr key={item.id} className="align-middle">
+                    <td className="text-center">{item.id}</td>
+                    <td>{item.firstname}</td>
+                    <td>{item.fullname}</td>
+                    <td>{item.lastname}</td>
+                    <td>{item.username}</td>
+                    <td>
+                      <code>{item.password}</code>
+                    </td>
+                    <td>{item.address}</td>
+                    <td>{item.sex}</td>
+                    <td>{item.birthday}</td>
+                    <td>
+                      <Link href={`/admin/users/edit/${item.id}`} className="btn btn-warning btn-sm">
+                        Edit
+                      </Link>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        <i className="fa fa-trash"></i> Del
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         )}
       </div>
-      <br /><br />
+      <br />
+      <br />
       <style jsx>{`
         tr:hover {
           background-color: #f1f1f1;
