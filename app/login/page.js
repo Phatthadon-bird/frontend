@@ -100,9 +100,7 @@ export default function LoginPage() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>หน้าล็อกอิน</title>
       <div className="login-container">
-        <h2>
-          {isConfirmAdmin ? '🔐 ยืนยันรหัสผ่านผู้ดูแลระบบ' : '🚀 เข้าสู่ระบบแอดมิน'}
-        </h2>
+        <h2>{isConfirmAdmin ? '🔐 ยืนยันรหัสผ่านผู้ดูแลระบบ' : '🚀 เข้าสู่ระบบแอดมิน'}</h2>
         <form onSubmit={handleLogin} autoComplete="off">
           {!isConfirmAdmin && (
             <div className="input-group">
@@ -119,7 +117,6 @@ export default function LoginPage() {
               />
             </div>
           )}
-
           <div className="input-group">
             <label htmlFor="password">{isConfirmAdmin ? 'รหัสผ่านผู้ดูแลระบบ' : 'รหัสผ่าน'}</label>
             <input
@@ -133,23 +130,11 @@ export default function LoginPage() {
               required
             />
           </div>
-
-          <button
-            ref={buttonRef}
-            type="submit"
-            onClick={handleButtonClick}
-            aria-label={isConfirmAdmin ? 'ยืนยันรหัสผ่าน' : 'ล็อกอิน'}
-          >
+          <button ref={buttonRef} type="submit" onClick={handleButtonClick} aria-label={isConfirmAdmin ? 'ยืนยันรหัสผ่าน' : 'ล็อกอิน'}>
             {isConfirmAdmin ? '✅ ยืนยัน' : '🚀 ล็อกอิน'}
           </button>
-
-          {/* ปุ่มกลับหน้าหลัก */}
           <div className="back-home-container">
-            <button
-              type="button"
-              className="back-home-button"
-              onClick={() => router.push('/')}
-            >
+            <button type="button" className="back-home-button" onClick={() => router.push('/')}>
               🏠 กลับหน้าหลัก
             </button>
           </div>
@@ -165,90 +150,64 @@ export default function LoginPage() {
           min-height: 100vh;
           background: linear-gradient(135deg, #74ebd5, #acb6e5);
           padding: 20px;
-          animation: fadeInPage 0.8s ease forwards;
-          opacity: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        @keyframes fadeInPage {
-          to {
-            opacity: 1;
-          }
-        }
-
         .login-container {
           background-color: white;
-          padding: 40px 30px;
-          border-radius: 20px;
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+          padding: 30px 25px;
+          border-radius: 15px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.15);
           width: 100%;
-          max-width: 420px;
-          animation: fadeIn 0.6s ease;
+          max-width: 400px;
           text-align: center;
         }
-
-        .login-container h2 {
-          text-align: center;
-          color: #333;
-          margin-bottom: 30px;
-          font-weight: 700;
-          letter-spacing: 1.1px;
-          user-select: none;
-        }
-
-        .input-group {
+        h2 {
           margin-bottom: 25px;
-          text-align: left;
-          position: relative;
+          color: #333;
+          font-weight: 700;
         }
-
-        .input-group label {
+        .input-group {
+          margin-bottom: 20px;
+          text-align: left;
+        }
+        label {
           display: block;
-          font-size: 15px;
+          margin-bottom: 6px;
           color: #555;
-          margin-bottom: 8px;
           font-weight: 600;
           user-select: none;
         }
-
-        .input-group input {
+        input {
           width: 100%;
-          padding: 14px 16px;
-          border: 2px solid #ccc;
-          border-radius: 12px;
+          padding: 12px 14px;
+          border: 1.8px solid #ccc;
+          border-radius: 10px;
           font-size: 15px;
-          transition: all 0.3s ease;
-          box-sizing: border-box;
           font-weight: 500;
+          transition: border-color 0.3s ease;
         }
-
-        .input-group input:focus {
-          border-color: #007bff;
-          box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        input:focus {
           outline: none;
+          border-color: #007bff;
           background-color: #f0f8ff;
         }
-
-        button {
-          position: relative;
-          overflow: hidden;
+        button[type="submit"] {
           width: 100%;
           padding: 14px 0;
-          background: linear-gradient(135deg, #007bff, #0056b3);
+          background: #007bff;
           color: white;
           border: none;
           border-radius: 12px;
           font-size: 18px;
           font-weight: 700;
           cursor: pointer;
-          transition: background 0.4s ease;
-          user-select: none;
+          position: relative;
+          overflow: hidden;
         }
-
-        button:hover {
-          background: linear-gradient(135deg, #0056b3, #003d80);
+        button[type="submit"]:hover {
+          background: #0056b3;
         }
-
-        button .ripple {
+        button[type="submit"] .ripple {
           position: absolute;
           border-radius: 50%;
           transform: scale(0);
@@ -257,25 +216,15 @@ export default function LoginPage() {
           pointer-events: none;
           z-index: 10;
         }
-
         @keyframes rippleEffect {
           to {
             transform: scale(4);
             opacity: 0;
           }
         }
-
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-15px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
         .back-home-container {
           margin-top: 20px;
-          display: flex;
-          justify-content: center;
         }
-
         .back-home-button {
           background-color: transparent;
           color: #007bff;
@@ -286,25 +235,22 @@ export default function LoginPage() {
           border-radius: 10px;
           cursor: pointer;
           transition: all 0.3s ease;
+          user-select: none;
         }
-
         .back-home-button:hover {
           background-color: #007bff;
           color: white;
           box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
         }
-
         @media (max-width: 480px) {
           .login-container {
-            padding: 30px 20px;
+            padding: 25px 20px;
           }
-
-          .input-group input {
+          input {
             font-size: 14px;
-            padding: 12px 14px;
+            padding: 10px 12px;
           }
-
-          button {
+          button[type="submit"] {
             font-size: 16px;
             padding: 12px 0;
           }

@@ -17,7 +17,7 @@ export default function RegisterPage() {
     address: '',
     sex: '',
     birthdate: '',
-    phone: '',       // เพิ่มตรงนี้
+    phone: '',
     accept: false,
   })
 
@@ -54,8 +54,8 @@ export default function RegisterPage() {
           lastname: formData.lastname,
           address: formData.address,
           sex: formData.sex,
-          birthday: formData.birthdate,  // ชื่อตรงนี้ตาม API
-          phone: formData.phone,         // เพิ่มตรงนี้
+          birthday: formData.birthdate,
+          phone: formData.phone,
         }),
       })
 
@@ -79,7 +79,7 @@ export default function RegisterPage() {
           address: '',
           sex: '',
           birthdate: '',
-          phone: '',      // รีเซ็ตเบอร์โทรศัพท์ด้วย
+          phone: '',
           accept: false,
         })
 
@@ -102,17 +102,9 @@ export default function RegisterPage() {
 
   return (
     <div className="register-page">
-      {/* navbar และ meta ต่าง ๆ เหมือนเดิม */}
-      <nav className="navbar">
-        <a href="/" className="logo">
-          กลับสู่หน้าหลัก
-        </a>
-      </nav>
-
       <div className="register-container">
         <h2>สมัครสมาชิก</h2>
-        <form onSubmit={handleSubmit}>
-          {/* คำนำหน้า */}
+        <form onSubmit={handleSubmit} noValidate>
           <div className="input-group">
             <label htmlFor="firstname">คำนำหน้าชื่อ</label>
             <select
@@ -129,69 +121,66 @@ export default function RegisterPage() {
             </select>
           </div>
 
-          {/* รหัสผ่าน */}
           <div className="input-group">
             <label htmlFor="password">รหัสผ่าน</label>
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="กรุณากรอกรหัสผ่าน"
+              placeholder="ตั้งรหัสผ่าน"
               value={formData.password}
               onChange={handleInputChange}
               required
+              minLength={6}
             />
+            <span className="tooltip">อย่างน้อย 6 ตัวอักษร</span>
           </div>
 
-          {/* ชื่อเล่น */}
           <div className="input-group">
             <label htmlFor="username">ชื่อเล่น</label>
             <input
               type="text"
               id="username"
               name="username"
-              placeholder="กรุณากรอกชื่อเล่น"
+              placeholder="เช่น สมชาย"
               value={formData.username}
               onChange={handleInputChange}
               required
             />
           </div>
 
-          {/* ชื่อจริง */}
           <div className="input-group">
             <label htmlFor="fullname">ชื่อจริง</label>
             <input
               type="text"
               id="fullname"
               name="fullname"
-              placeholder="กรุณากรอกชื่อจริง"
+              placeholder="กรอกชื่อจริง"
               value={formData.fullname}
               onChange={handleInputChange}
               required
             />
           </div>
 
-          {/* นามสกุล */}
           <div className="input-group">
             <label htmlFor="lastname">นามสกุล</label>
             <input
               type="text"
               id="lastname"
               name="lastname"
-              placeholder="กรุณากรอกนามสกุล"
+              placeholder="กรอกนามสกุล"
               value={formData.lastname}
               onChange={handleInputChange}
               required
             />
           </div>
 
-          {/* ที่อยู่ */}
           <div className="input-group">
             <label htmlFor="address">ที่อยู่</label>
             <textarea
               id="address"
               name="address"
-              placeholder="กรุณากรอกที่อยู่"
+              placeholder="กรอกที่อยู่"
               value={formData.address}
               onChange={handleInputChange}
               rows={3}
@@ -199,12 +188,11 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* เพศ */}
           <div className="input-group">
             <label>เพศ</label>
             <div className="gender-options">
               {['ชาย', 'หญิง', 'อื่นๆ'].map((g) => (
-                <label key={g} className="inline-flex items-center gap-1">
+                <label key={g} className="radio-label">
                   <input
                     type="radio"
                     name="sex"
@@ -212,7 +200,6 @@ export default function RegisterPage() {
                     checked={formData.sex === g}
                     onChange={handleInputChange}
                     required
-                    className="form-radio"
                   />
                   {g}
                 </label>
@@ -220,7 +207,6 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* วันเกิด */}
           <div className="input-group">
             <label htmlFor="birthdate">วันเกิด</label>
             <input
@@ -233,21 +219,21 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* เบอร์โทรศัพท์ */}
           <div className="input-group">
             <label htmlFor="phone">เบอร์โทรศัพท์</label>
             <input
               type="tel"
               id="phone"
               name="phone"
-              placeholder="กรุณากรอกเบอร์โทรศัพท์"
+              placeholder="08x-xxx-xxxx"
               value={formData.phone}
               onChange={handleInputChange}
               required
+              pattern="[0-9]{9,10}"
+              title="กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง"
             />
           </div>
 
-          {/* ยอมรับเงื่อนไข */}
           <div className="input-group checkbox-group">
             <input
               type="checkbox"
@@ -257,197 +243,258 @@ export default function RegisterPage() {
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="accept">ฉันยอมรับเงื่อนไข</label>
+            <label htmlFor="accept" className="checkbox-label">
+              ฉันยอมรับเงื่อนไขการใช้งาน
+            </label>
           </div>
 
-          <button type="submit">สมัครสมาชิก</button>
+          <button type="submit" className="btn-submit">
+            สมัครสมาชิก
+          </button>
         </form>
+
+        <div className="back-home-container">
+          <button
+            type="button"
+            className="btn-back-home"
+            onClick={() => router.push('/')}
+            aria-label="กลับหน้าหลัก"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon-home"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 12l7-7m0 0l7 7m-7-7v18"
+              />
+            </svg>
+            กลับหน้าหลัก
+          </button>
+        </div>
       </div>
 
       <style jsx>{`
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background-color: #121212;
-          color: #eee;
-        }
-
-        .navbar {
-          position: fixed;
-          top: 0;
-          width: 100%;
-          background-color: #1f1f1f;
-          color: white;
-          padding: 15px 0;
-          text-align: center;
-          box-shadow: 0 2px 5px rgba(255 255 255 / 0.1);
-          z-index: 10;
-          font-weight: 600;
-          letter-spacing: 1px;
-        }
-
-        .navbar .logo {
-          font-size: 24px;
-          font-weight: bold;
-          color: #fca311;
-          text-decoration: none;
-          transition: color 0.3s ease;
-        }
-
-        .navbar .logo:hover {
-          color: #ffba08;
-        }
-
         .register-page {
+          min-height: 100vh;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100vh;
-          padding-top: 60px; /* navbar height */
-          box-sizing: border-box;
-          background: linear-gradient(135deg, #0b3c49, #1f1f1f);
-          overflow: hidden;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          padding: 20px;
+          font-family: 'Poppins', sans-serif;
+          color: #f0f0f0;
         }
 
         .register-container {
-          background: rgba(252, 163, 17, 0.15);
-          padding: 30px 30px 40px;
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgb(252 163 17 / 0.3);
+          background: #1f1f2e;
+          padding: 40px 40px 50px;
+          border-radius: 20px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+          max-width: 500px;
           width: 100%;
-          max-width: 450px;
-          max-height: calc(100vh - 80px); /* ลบ navbar */
-          overflow-y: auto;
-          backdrop-filter: blur(15px);
-          border: 1.5px solid #fca311;
-          color: #fff;
-          scrollbar-width: thin;
-          scrollbar-color: #fca311 transparent;
+          position: relative;
         }
 
-        .register-container::-webkit-scrollbar {
-          width: 8px;
-        }
-        .register-container::-webkit-scrollbar-thumb {
-          background-color: #fca311;
-          border-radius: 4px;
-        }
-        .register-container::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .register-container h2 {
+        h2 {
           text-align: center;
-          margin-bottom: 20px;
-          color: #ffba08;
+          margin-bottom: 30px;
+          font-size: 32px;
           font-weight: 700;
-          text-shadow: 0 0 5px #fca311;
+          color: #f39c12;
+          text-shadow: 0 0 10px #f39c12;
         }
 
-        .input-group {
-          margin-bottom: 20px;
+        form {
           display: flex;
           flex-direction: column;
         }
 
-        .input-group label {
-          font-size: 14px;
-          color: #f0e68c;
+        .input-group {
+          position: relative;
+          margin-bottom: 22px;
+        }
+
+        label {
+          display: block;
           margin-bottom: 6px;
           font-weight: 600;
-          text-shadow: 0 0 3px #fca311;
+          color: #f0db99;
+          text-shadow: 0 0 3px #f39c12;
+          cursor: pointer;
         }
 
         input[type='text'],
         input[type='password'],
-        select,
+        input[type='tel'],
         input[type='date'],
+        select,
         textarea {
-          padding: 10px;
-          font-size: 14px;
-          border: 1px solid #fca311;
-          border-radius: 8px;
-          box-sizing: border-box;
-          background-color: #222;
-          color: #fff;
-          transition: border-color 0.3s ease;
-          box-shadow: inset 0 0 5px #fca311;
+          width: 100%;
+          padding: 14px 18px;
+          font-size: 16px;
+          border-radius: 12px;
+          border: 2px solid transparent;
+          background-color: #2a2a3d;
+          color: #f0f0f0;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          box-shadow: inset 0 0 8px rgba(243, 156, 18, 0.4);
+          outline-offset: 2px;
         }
 
         input[type='text']:focus,
         input[type='password']:focus,
-        select:focus,
+        input[type='tel']:focus,
         input[type='date']:focus,
+        select:focus,
         textarea:focus {
-          border-color: #ffba08;
+          border-color: #f39c12;
+          box-shadow: 0 0 15px #f39c12;
+          background-color: #3a3a52;
           outline: none;
-          box-shadow: 0 0 8px #ffba08;
-          background-color: #1a1a1a;
         }
 
         textarea {
           resize: vertical;
+          min-height: 80px;
+        }
+
+        .tooltip {
+          position: absolute;
+          right: 12px;
+          top: 38px;
+          font-size: 12px;
+          color: #ffd66a;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+
+        input[type='password']:focus + .tooltip {
+          opacity: 1;
         }
 
         .gender-options {
           display: flex;
           gap: 20px;
-          font-size: 14px;
-          color: #f0e68c;
         }
 
-        .gender-options label {
+        .radio-label {
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px;
           cursor: pointer;
           font-weight: 600;
-          text-shadow: 0 0 3px #fca311;
+          color: #f0db99;
+          text-shadow: 0 0 4px #f39c12;
         }
 
         input[type='radio'] {
           cursor: pointer;
-          accent-color: #fca311;
-          width: 18px;
-          height: 18px;
+          width: 20px;
+          height: 20px;
+          accent-color: #f39c12;
+          transition: transform 0.3s ease;
+        }
+        input[type='radio']:focus {
+          transform: scale(1.2);
+          outline: none;
         }
 
         .checkbox-group {
-          flex-direction: row;
-          align-items: center;
-          gap: 8px;
           display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 30px;
+        }
+
+        .checkbox-label {
           font-weight: 600;
-          color: #f0e68c;
-          text-shadow: 0 0 3px #fca311;
+          cursor: pointer;
+          user-select: none;
+          color: #f0db99;
+          text-shadow: 0 0 4px #f39c12;
+          transition: color 0.3s ease;
         }
 
         input[type='checkbox'] {
-          width: auto;
           cursor: pointer;
-          accent-color: #fca311;
-          transform: scale(1.2);
+          width: 20px;
+          height: 20px;
+          accent-color: #f39c12;
+          transform: scale(1.3);
+          transition: box-shadow 0.3s ease;
+        }
+        input[type='checkbox']:focus {
+          box-shadow: 0 0 8px #f39c12;
+          outline: none;
         }
 
-        button {
-          width: 100%;
-          padding: 14px;
-          background: linear-gradient(45deg, #fca311, #ffba08);
-          color: #1f1f1f;
+        .btn-submit {
+          background: linear-gradient(90deg, #f39c12, #e67e22);
           border: none;
-          border-radius: 12px;
-          font-size: 18px;
+          padding: 16px 0;
+          border-radius: 25px;
+          font-size: 20px;
           font-weight: 700;
+          color: white;
           cursor: pointer;
-          box-shadow: 0 0 15px #fca311;
-          transition: background 0.4s ease;
+          transition: background 0.4s ease, box-shadow 0.4s ease;
+          box-shadow: 0 6px 15px rgba(230, 126, 34, 0.8);
           letter-spacing: 1px;
         }
 
-        button:hover {
-          background: linear-gradient(45deg, #ffba08, #fca311);
-          box-shadow: 0 0 20px #ffba08;
+        .btn-submit:hover {
+          background: linear-gradient(90deg, #e67e22, #f39c12);
+          box-shadow: 0 8px 22px rgba(230, 126, 34, 1);
+        }
+
+        .back-home-container {
+          margin-top: 20px;
+          text-align: center;
+        }
+
+        .btn-back-home {
+          background: transparent;
+          border: 2px solid #f39c12;
+          color: #f39c12;
+          padding: 12px 30px;
+          border-radius: 25px;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 16px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+          box-shadow: 0 0 10px transparent;
+        }
+
+        .btn-back-home:hover {
+          background: #f39c12;
+          color: white;
+          box-shadow: 0 0 15px #f39c12;
+        }
+
+        .icon-home {
+          width: 20px;
+          height: 20px;
+          stroke: currentColor;
+          stroke-width: 2.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 540px) {
+          .register-container {
+            padding: 30px 25px 40px;
+            max-width: 100%;
+          }
         }
       `}</style>
     </div>

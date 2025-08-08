@@ -34,8 +34,12 @@ export default function Card() {
       {/* Header */}
       <div className="row mb-5">
         <div className="col text-center">
-          <h3 className="text-warning fw-bold display-5 drop-shadow-lg">📊 สถิติน่าสนใจ</h3>
-          <p className="text-secondary fs-5">เบรกสูงสุด และนักแม่นรูที่ทำเซนจูรี่มากที่สุด</p>
+          <h3 className="text-warning fw-bold display-5 drop-shadow-lg">
+            📊 สถิติน่าสนใจ
+          </h3>
+          <p className="text-secondary fs-5">
+            เบรกสูงสุด และนักแม่นรูที่ทำเซนจูรี่มากที่สุด
+          </p>
         </div>
       </div>
 
@@ -57,29 +61,30 @@ export default function Card() {
               </span>
 
               {/* รูปภาพ */}
-              <div className="card-img-container position-relative">
-  <Link href={racer.link} className="d-block">
-    <Image
-      src={racer.image}
-      alt={racer.name}
-      width={400}
-      height={250}
-      className="card-img"
-      style={{ objectFit: "cover" }}
-      priority={idx === 0}
-    />
-    <div className="card-overlay d-flex justify-content-center align-items-center">
-      <span className="overlay-text text-white fw-semibold fs-5">
-        ดูเพิ่มเติม
-      </span>
-    </div>
-  </Link>
-</div>
+              <div className="card-img-container">
+                <Link href={racer.link} className="d-block">
+                  <Image
+                    src={racer.image}
+                    alt={racer.name}
+                    fill
+                    className="card-img"
+                    style={{ objectFit: "cover" }}
+                    priority={idx === 0}
+                  />
+                  <div className="card-overlay d-flex justify-content-center align-items-center">
+                    <span className="overlay-text text-white fw-semibold fs-5">
+                      ดูเพิ่มเติม
+                    </span>
+                  </div>
+                </Link>
+              </div>
 
               {/* เนื้อหา */}
               <div className="card-body text-center px-4 py-4">
                 <h5 className="card-title fw-bold fs-4">{racer.name}</h5>
-                <p className="card-text custom-desc fst-italic">{racer.description}</p>
+                <p className="card-text custom-desc fst-italic">
+                  {racer.description}
+                </p>
                 <Link href={racer.link} className="btn btn-outline-warning mt-3 px-4">
                   ดูโปรไฟล์
                 </Link>
@@ -91,50 +96,66 @@ export default function Card() {
 
       {/* Styled JSX */}
       <style jsx>{`
-        /* สไตล์เหมือนเดิม */
         .racer-card {
           background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
           color: #fff;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .racer-card:hover {
           transform: translateY(-10px) scale(1.03);
           box-shadow: 0 12px 24px rgba(255, 165, 0, 0.5),
             0 0 12px rgba(255, 165, 0, 0.7);
           z-index: 5;
         }
+
+        .card-img-container {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+        }
+
         .card-img {
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
           transition: transform 0.5s ease;
         }
+
         .racer-card:hover .card-img {
           transform: scale(1.08);
         }
+
         .card-overlay {
           position: absolute;
           inset: 0;
           background: rgba(0, 0, 0, 0.5);
           opacity: 0;
-          transition: opacity 0.3s ease;
+          transition: opacity 0.4s ease, transform 0.4s ease;
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
+          transform: scale(1.05);
         }
+
         .racer-card:hover .card-overlay {
           opacity: 1;
+          transform: scale(1);
         }
+
         .overlay-text {
           transition: transform 0.3s ease;
         }
+
         .racer-card:hover .overlay-text {
           transform: scale(1.1);
         }
+
         .card-body {
           background-color: #222;
           color: #f8f8f8;
           border-bottom-left-radius: 1rem;
           border-bottom-right-radius: 1rem;
         }
+
         .badge-rank {
           background: linear-gradient(to right, #ff512f, #dd2476);
           color: white;
@@ -144,11 +165,49 @@ export default function Card() {
           font-weight: 600;
           box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
         }
+
         .custom-desc {
           color: rgba(255, 255, 255, 0.88);
           text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
           font-size: 1rem;
           line-height: 1.6;
+        }
+
+        .card-title {
+          position: relative;
+          display: inline-block;
+        }
+
+        .card-title::after {
+          content: "";
+          display: block;
+          width: 50%;
+          margin: 0.3rem auto 0;
+          height: 3px;
+          background: #ffc107;
+          border-radius: 2px;
+        }
+
+        .btn-outline-warning {
+          border-radius: 999px;
+          font-weight: 600;
+          transition: all 0.3s ease-in-out;
+        }
+
+        .btn-outline-warning:hover {
+          background-color: #ffc107;
+          color: #000;
+          transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+          .card-title {
+            font-size: 1.2rem;
+          }
+          .custom-desc {
+            font-size: 0.9rem;
+          }
         }
       `}</style>
     </div>

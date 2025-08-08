@@ -5,14 +5,21 @@ export default function Footer() {
   const menuItems = [
     { label: "หน้าแรก", href: "/" },
     { label: "เกี่ยวกับเรา", href: "/about" },
-    { label: "ติดต่อเรา", href: "/contect" },
+    { label: "ติดต่อเรา", href: "/contact" }, // ✅ แก้จาก /contect
+  ];
+
+  const socials = [
+    { href: "#", icon: "fab fa-facebook-f", label: "Facebook" },
+    { href: "#", icon: "fab fa-instagram", label: "Instagram" },
+    { href: "#", icon: "fab fa-twitter", label: "Twitter" },
+    { href: "#", icon: "fab fa-line", label: "Line" },
   ];
 
   return (
     <div className="container-fluid bg-dark text-light pt-5">
       <footer className="container py-5">
         <div className="row">
-          {/* เมนู */}
+          {/* เมนูหลัก */}
           <div className="col-6 col-md-3 mb-4">
             <h5 className="text-uppercase mb-3 fw-bold">เมนูหลัก</h5>
             <ul className="nav flex-column">
@@ -29,7 +36,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ติดต่อ */}
+          {/* ติดต่อเรา */}
           <div className="col-md-5 offset-md-1 mb-4">
             <h5 className="text-uppercase text-center text-md-start mb-3 fw-bold">
               ติดต่อเรา
@@ -54,20 +61,18 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* เส้นคั่น + ลิขสิทธิ์ */}
-        <div className="bg-dark border-top border-secondary mt-5 pt-4 d-flex justify-content-center align-items-center">
-  <p className="mb-0 small text-white text-center">
-    © 2025 Phatthadon Kachi. All rights reserved.
-  </p>
+        {/* เส้นคั่น */}
+        <hr className="border-secondary mt-4" />
+
+        {/* Social + Copyright */}
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3 gap-3">
+          <p className="mb-0 small text-white text-center">
+            © 2025 Phatthadon Kachi. All rights reserved.
+          </p>
 
           {/* Social Icons */}
-          <div className="d-flex gap-4">
-            {[
-              { href: "#", icon: "fab fa-facebook-f", label: "Facebook" },
-              { href: "#", icon: "fab fa-instagram", label: "Instagram" },
-              { href: "#", icon: "fab fa-twitter", label: "Twitter" },
-              { href: "#", icon: "fab fa-line", label: "Line" },
-            ].map(({ href, icon, label }, i) => (
+          <div className="d-flex justify-content-center gap-4">
+            {socials.map(({ href, icon, label }, i) => (
               <a
                 key={i}
                 href={href}
@@ -96,6 +101,12 @@ export default function Footer() {
           border-color: #fff;
           background-color: #222;
           color: #fff;
+        }
+
+        @media (max-width: 576px) {
+          form {
+            flex-direction: column !important;
+          }
         }
       `}</style>
     </div>

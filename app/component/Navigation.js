@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import {
   FaNewspaper,
@@ -13,6 +13,15 @@ import {
 
 export default function Navigation() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  // ซ่อน Navbar ใน 3 path นี้
+  const hideNavbarPaths = ['/login1', '/register', '/admin/confirm-password'];
+
+  if (hideNavbarPaths.includes(pathname)) {
+    return null;
+  }
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -83,7 +92,6 @@ export default function Navigation() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* เมนูต่าง ๆ */}
             <li className="nav-item">
               <Link href="/" className="nav-link active text-light">
                 หน้าแรก
@@ -95,45 +103,53 @@ export default function Navigation() {
               </Link>
             </li>
 
-            {/* <-- ย้าย "ติดต่อเรา" ขึ้นมาก่อน "บริการของเรา" --> */}
             <li className="nav-item">
               <Link href="/contect" className="nav-link text-light">
                 ติดต่อเรา
               </Link>
             </li>
 
-            {/* บริการของเรา */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle text-light"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                บริการของเรา
-              </a>
-              <ul className="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <Link
-                    href="/schedule"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
-                    <FaCalendarAlt style={{ color: '#ffc107' }} />
-                    ตารางแข่ง
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/compete"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
-                    <FaUsers style={{ color: '#ffc107' }} />
-                    ลงแข่ง
-                  </Link>
-                </li>
-              </ul>
-            </li>
+           <li className="nav-item dropdown">
+  <a
+    className="nav-link dropdown-toggle text-light"
+    href="#"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    บริการของเรา
+  </a>
+  <ul className="dropdown-menu dropdown-menu-dark">
+    <li>
+      <Link
+        href="/schedule"
+        className="dropdown-item d-flex align-items-center gap-2"
+      >
+        <FaCalendarAlt style={{ color: '#ffc107' }} />
+        ตารางแข่ง
+      </Link>
+    </li>
+    <li>
+      <Link
+        href="/compete"
+        className="dropdown-item d-flex align-items-center gap-2"
+      >
+        <FaUsers style={{ color: '#ffc107' }} />
+        ลงแข่ง
+      </Link>
+    </li>
+    <li>
+      <Link
+        href="/cue-shop"
+        className="dropdown-item d-flex align-items-center gap-2"
+      >
+        <FaTrophy style={{ color: '#ffc107' }} />
+        ร้านขายไม้คิว
+      </Link>
+    </li>
+  </ul>
+</li>
+
 
             <li className="nav-item dropdown">
               <a
@@ -208,10 +224,19 @@ export default function Navigation() {
                     ไฮไลต์การแข่งขัน
                   </Link>
                 </li>
+                <li>
+                  <hr className="dropdown-menu dropdown-menu-dark" />
+                </li>
+                  <Link
+                    href="/vote"
+                    className="dropdown-item d-flex align-items-center gap-2"
+                  >
+                    <FaVideo style={{ color: '#ffc107' }} />
+                    รีวิว
+                  </Link>
               </ul>
             </li>
 
-            {/* แสดงเมนู Admin เฉพาะตอนล็อกอิน */}
             {isLoggedIn && (
               <li className="nav-item">
                 <Link
@@ -241,7 +266,6 @@ export default function Navigation() {
               </button>
             </form>
 
-            {/* แสดงปุ่มเข้าสู่ระบบ กับสมัครสมาชิก เฉพาะตอนยังไม่ล็อกอิน */}
             {!isLoggedIn && (
               <>
                 <Link href="/login1" className="btn btn-outline-light">
@@ -253,16 +277,12 @@ export default function Navigation() {
               </>
             )}
 
-            {/* แสดงปุ่มออกจากระบบ เฉพาะตอนล็อกอิน */}
             {isLoggedIn && (
-              <button
-                className="btn btn-outline-danger"
-                onClick={handleLogout}
-              >
+              <button className="btn btn-outline-danger" onClick={handleLogout}>
                 ล็อกเอ้าท์
               </button>
             )}
-          </div>  
+          </div>
         </div>
       </div>
 

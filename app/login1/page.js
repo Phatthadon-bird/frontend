@@ -66,11 +66,6 @@ export default function LoginPage() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>หน้าล็อกอิน</title>
-
-      <nav className="navbar">
-        <a href="/" className="logo">🏠 กลับหน้าหลัก</a>
-      </nav>
-
       <div className="login-container">
         <h2>🔐 เข้าสู่ระบบ</h2>
         <form onSubmit={handleLogin}>
