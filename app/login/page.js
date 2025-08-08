@@ -24,7 +24,6 @@ export default function LoginPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Ripple effect on button click
   const handleButtonClick = (e) => {
     const button = buttonRef.current;
     if (!button) return;
@@ -38,7 +37,6 @@ export default function LoginPage() {
     circle.classList.add('ripple');
 
     const ripple = button.getElementsByClassName('ripple')[0];
-
     if (ripple) ripple.remove();
 
     button.appendChild(circle);
@@ -144,6 +142,17 @@ export default function LoginPage() {
           >
             {isConfirmAdmin ? '✅ ยืนยัน' : '🚀 ล็อกอิน'}
           </button>
+
+          {/* ปุ่มกลับหน้าหลัก */}
+          <div className="back-home-container">
+            <button
+              type="button"
+              className="back-home-button"
+              onClick={() => router.push('/')}
+            >
+              🏠 กลับหน้าหลัก
+            </button>
+          </div>
         </form>
       </div>
 
@@ -166,25 +175,6 @@ export default function LoginPage() {
           }
         }
 
-        .navbar {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          padding: 15px 0;
-          text-align: center;
-          background: rgba(0, 0, 0, 0.6);
-          z-index: 10;
-        }
-        .navbar .logo {
-          color: #fff;
-          font-weight: bold;
-          text-decoration: none;
-          font-size: 20px;
-          transition: color 0.3s ease;
-        }
-        .navbar .logo:hover {
-          color: #ffd700;
-        }
         .login-container {
           background-color: white;
           padding: 40px 30px;
@@ -195,6 +185,7 @@ export default function LoginPage() {
           animation: fadeIn 0.6s ease;
           text-align: center;
         }
+
         .login-container h2 {
           text-align: center;
           color: #333;
@@ -203,11 +194,13 @@ export default function LoginPage() {
           letter-spacing: 1.1px;
           user-select: none;
         }
+
         .input-group {
           margin-bottom: 25px;
           text-align: left;
           position: relative;
         }
+
         .input-group label {
           display: block;
           font-size: 15px;
@@ -216,6 +209,7 @@ export default function LoginPage() {
           font-weight: 600;
           user-select: none;
         }
+
         .input-group input {
           width: 100%;
           padding: 14px 16px;
@@ -226,12 +220,14 @@ export default function LoginPage() {
           box-sizing: border-box;
           font-weight: 500;
         }
+
         .input-group input:focus {
           border-color: #007bff;
           box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
           outline: none;
           background-color: #f0f8ff;
         }
+
         button {
           position: relative;
           overflow: hidden;
@@ -247,10 +243,11 @@ export default function LoginPage() {
           transition: background 0.4s ease;
           user-select: none;
         }
+
         button:hover {
           background: linear-gradient(135deg, #0056b3, #003d80);
         }
-        /* Ripple effect */
+
         button .ripple {
           position: absolute;
           border-radius: 50%;
@@ -260,24 +257,53 @@ export default function LoginPage() {
           pointer-events: none;
           z-index: 10;
         }
+
         @keyframes rippleEffect {
           to {
             transform: scale(4);
             opacity: 0;
           }
         }
+
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(-15px); }
           to { opacity: 1; transform: translateY(0); }
         }
+
+        .back-home-container {
+          margin-top: 20px;
+          display: flex;
+          justify-content: center;
+        }
+
+        .back-home-button {
+          background-color: transparent;
+          color: #007bff;
+          font-weight: 600;
+          font-size: 16px;
+          border: 2px solid #007bff;
+          padding: 10px 20px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .back-home-button:hover {
+          background-color: #007bff;
+          color: white;
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
+
         @media (max-width: 480px) {
           .login-container {
             padding: 30px 20px;
           }
+
           .input-group input {
             font-size: 14px;
             padding: 12px 14px;
           }
+
           button {
             font-size: 16px;
             padding: 12px 0;

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaPaperPlane } from "react-icons/fa";
+import Swal from 'sweetalert2'; // ✅ เพิ่ม SweetAlert2
 
 export default function ContactUs() {
   const [hover, setHover] = useState(false);
@@ -50,7 +51,14 @@ export default function ContactUs() {
         }}
         onSubmit={(e) => {
           e.preventDefault();
-          alert("ขอบคุณที่ติดต่อเรานะครับ! เราจะติดต่อกลับเร็วๆ นี้");
+          // ✅ SweetAlert2 แสดง popup แทน alert()
+          Swal.fire({
+            title: 'ส่งข้อความสำเร็จ!',
+            text: 'ขอบคุณที่ติดต่อเรานะครับ เราจะติดต่อกลับโดยเร็วที่สุด 😊',
+            icon: 'success',
+            confirmButtonText: 'ตกลง',
+            confirmButtonColor: '#1976d2',
+          });
         }}
       >
         {/* Name Field */}

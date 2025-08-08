@@ -58,21 +58,23 @@ export default function Card() {
 
               {/* รูปภาพ */}
               <div className="card-img-container position-relative">
-                <Image
-                  src={racer.image}
-                  alt={racer.name}
-                  width={400}
-                  height={250}
-                  className="card-img"
-                  style={{ objectFit: "cover" }}
-                  priority={idx === 0}
-                />
-                <div className="card-overlay d-flex justify-content-center align-items-center">
-                  <span className="overlay-text text-white fw-semibold fs-5">
-                    ดูเพิ่มเติม
-                  </span>
-                </div>
-              </div>
+  <Link href={racer.link} className="d-block">
+    <Image
+      src={racer.image}
+      alt={racer.name}
+      width={400}
+      height={250}
+      className="card-img"
+      style={{ objectFit: "cover" }}
+      priority={idx === 0}
+    />
+    <div className="card-overlay d-flex justify-content-center align-items-center">
+      <span className="overlay-text text-white fw-semibold fs-5">
+        ดูเพิ่มเติม
+      </span>
+    </div>
+  </Link>
+</div>
 
               {/* เนื้อหา */}
               <div className="card-body text-center px-4 py-4">

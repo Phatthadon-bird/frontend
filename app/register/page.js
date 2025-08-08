@@ -1,22 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'   // เพิ่มตรงนี้
+import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
 import bcrypt from 'bcryptjs'
 
 export default function RegisterPage() {
-  const router = useRouter()   // สร้าง router instance
+  const router = useRouter()
 
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    firstname: '',     // เพิ่มตัวนี้ด้วย เพราะส่งข้อมูลนี้ไป API
+    firstname: '',
     fullname: '',
     lastname: '',
     address: '',
     sex: '',
     birthdate: '',
+    phone: '',       // เพิ่มตรงนี้
     accept: false,
   })
 
@@ -53,7 +54,8 @@ export default function RegisterPage() {
           lastname: formData.lastname,
           address: formData.address,
           sex: formData.sex,
-          birthday: formData.birthdate,
+          birthday: formData.birthdate,  // ชื่อตรงนี้ตาม API
+          phone: formData.phone,         // เพิ่มตรงนี้
         }),
       })
 
@@ -77,10 +79,11 @@ export default function RegisterPage() {
           address: '',
           sex: '',
           birthdate: '',
+          phone: '',      // รีเซ็ตเบอร์โทรศัพท์ด้วย
           accept: false,
         })
 
-        router.push('/')  // เปลี่ยนหน้าไปหน้าหลัก
+        router.push('/')
       } else {
         Swal.fire({
           icon: 'error',
@@ -99,21 +102,17 @@ export default function RegisterPage() {
 
   return (
     <div className="register-page">
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>หน้าลงทะเบียน</title>
-
-      {/* Navbar */}
+      {/* navbar และ meta ต่าง ๆ เหมือนเดิม */}
       <nav className="navbar">
         <a href="/" className="logo">
           กลับสู่หน้าหลัก
         </a>
       </nav>
 
-      {/* Register Form */}
       <div className="register-container">
         <h2>สมัครสมาชิก</h2>
         <form onSubmit={handleSubmit}>
+          {/* คำนำหน้า */}
           <div className="input-group">
             <label htmlFor="firstname">คำนำหน้าชื่อ</label>
             <select
@@ -130,6 +129,7 @@ export default function RegisterPage() {
             </select>
           </div>
 
+          {/* รหัสผ่าน */}
           <div className="input-group">
             <label htmlFor="password">รหัสผ่าน</label>
             <input
@@ -143,6 +143,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* ชื่อเล่น */}
           <div className="input-group">
             <label htmlFor="username">ชื่อเล่น</label>
             <input
@@ -156,6 +157,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* ชื่อจริง */}
           <div className="input-group">
             <label htmlFor="fullname">ชื่อจริง</label>
             <input
@@ -169,6 +171,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* นามสกุล */}
           <div className="input-group">
             <label htmlFor="lastname">นามสกุล</label>
             <input
@@ -182,6 +185,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* ที่อยู่ */}
           <div className="input-group">
             <label htmlFor="address">ที่อยู่</label>
             <textarea
@@ -195,6 +199,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* เพศ */}
           <div className="input-group">
             <label>เพศ</label>
             <div className="gender-options">
@@ -215,6 +220,7 @@ export default function RegisterPage() {
             </div>
           </div>
 
+          {/* วันเกิด */}
           <div className="input-group">
             <label htmlFor="birthdate">วันเกิด</label>
             <input
@@ -227,6 +233,21 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* เบอร์โทรศัพท์ */}
+          <div className="input-group">
+            <label htmlFor="phone">เบอร์โทรศัพท์</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="กรุณากรอกเบอร์โทรศัพท์"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          {/* ยอมรับเงื่อนไข */}
           <div className="input-group checkbox-group">
             <input
               type="checkbox"

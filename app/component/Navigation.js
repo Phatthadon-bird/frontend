@@ -74,6 +74,9 @@ export default function Navigation() {
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon" />
         </button>
@@ -92,6 +95,14 @@ export default function Navigation() {
               </Link>
             </li>
 
+            {/* <-- ย้าย "ติดต่อเรา" ขึ้นมาก่อน "บริการของเรา" --> */}
+            <li className="nav-item">
+              <Link href="/contect" className="nav-link text-light">
+                ติดต่อเรา
+              </Link>
+            </li>
+
+            {/* บริการของเรา */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-light"
@@ -122,12 +133,6 @@ export default function Navigation() {
                   </Link>
                 </li>
               </ul>
-            </li>
-
-            <li className="nav-item">
-              <Link href="/contect" className="nav-link text-light">
-                ติดต่อเรา
-              </Link>
             </li>
 
             <li className="nav-item dropdown">
@@ -254,7 +259,7 @@ export default function Navigation() {
                 className="btn btn-outline-danger"
                 onClick={handleLogout}
               >
-                ออกจากระบบทั้งหมด
+                ล็อกเอ้าท์
               </button>
             )}
           </div>  
