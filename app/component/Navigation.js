@@ -146,6 +146,13 @@ export default function Navigation() {
         <FaTrophy style={{ color: '#ffc107' }} />
         ร้านขายไม้คิว
       </Link>
+      <Link
+        href="/table-rental"
+        className="dropdown-item d-flex align-items-center gap-2"
+      >
+        <FaTrophy style={{ color: '#ffc107' }} />
+        จองเช่าโต๊ะสนุ๊กเกอร์
+      </Link>
     </li>
   </ul>
 </li>
