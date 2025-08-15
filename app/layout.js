@@ -11,14 +11,26 @@ const prompt = Prompt({
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
 })
+
 export default function RootLayout({ children }) {
   const pathname = usePathname()
+
+  // กำหนดหน้าที่ไม่ให้แสดง Navigation
+  const hideNavigationPaths = [
+    '/admin/users',
+    '/login',
+    '/register',
+    '/racers',
+    '/racers/legend',
+    '/login1',
+  ]
+
+  const showNavigation = !hideNavigationPaths.includes(pathname)
 
   return (
     <html lang="en">
       <body className={prompt.className}>
-        {/* แสดง Navigation เฉพาะหน้าที่ไม่ใช่ /admin/users */}
-        {pathname !== '/admin/users' && <NavigationWrapper />}
+        {showNavigation && <NavigationWrapper />}
         {children}
       </body>
     </html>
