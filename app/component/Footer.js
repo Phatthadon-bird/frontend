@@ -118,7 +118,7 @@ const socials = [
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
             <div className="copyright-section">
               <p className="mb-0 text-center">
-                &copy; 2025 Phatthadon Kachi. All rights reserved.
+                &copy; 2025 Phatthadon. All rights reserved.
               </p>
             </div>
 
