@@ -12,41 +12,34 @@ import {
 } from 'react-icons/fa';
 
 export default function Navigation() {
-  const router = useRouter();.3
+  const router = useRouter();
   const pathname = usePathname();
 
   // ซ่อน Navbar ใน 3 path นี้
   const hideNavbarPaths = ['/login1', '/register', '/admin/confirm-password'];
-
   if (hideNavbarPaths.includes(pathname)) {
     return null;
   }
 
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const status = localStorage.getItem('isLoggedIn');
-    setIsLoggedIn(status === 'true');
+    const status = localStorage.getItem('isLoggedIn') === 'true';
+    const adminStatus = localStorage.getItem('isAdmin') === 'true';
+    setIsLoggedIn(status);
+    setIsAdmin(adminStatus);
 
     function onStorageChange(e) {
-      if (e.key === 'isLoggedIn') {
-        setIsLoggedIn(e.newValue === 'true');
+      if (e.key === 'isLoggedIn' || e.key === 'isAdmin') {
+        setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+        setIsAdmin(localStorage.getItem('isAdmin') === 'true');
       }
     }
 
-    function onLoginEvent() {
-      const status = localStorage.getItem('isLoggedIn');
-      setIsLoggedIn(status === 'true');
-    }
-
     window.addEventListener('storage', onStorageChange);
-    window.addEventListener('login-event', onLoginEvent);
-
-    return () => {
-      window.removeEventListener('storage', onStorageChange);
-      window.removeEventListener('login-event', onLoginEvent);
-    };
+    return () => window.removeEventListener('storage', onStorageChange);
   }, []);
 
   const handleSearch = (e) => {
@@ -59,8 +52,9 @@ export default function Navigation() {
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('isAdminConfirmed');
+    localStorage.removeItem('isAdmin');
     setIsLoggedIn(false);
+    setIsAdmin(false);
     router.push('/login1');
   };
 
@@ -102,62 +96,50 @@ export default function Navigation() {
                 เกี่ยวกับเรา
               </Link>
             </li>
-
             <li className="nav-item">
               <Link href="/contect" className="nav-link text-light">
                 ติดต่อเรา
               </Link>
             </li>
 
-           <li className="nav-item dropdown">
-  <a
-    className="nav-link dropdown-toggle text-light"
-    href="#"
-    role="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    บริการของเรา
-  </a>
-  <ul className="dropdown-menu dropdown-menu-dark">
-    <li>
-      <Link
-        href="/schedule"
-        className="dropdown-item d-flex align-items-center gap-2"
-      >
-        <FaCalendarAlt style={{ color: '#ffc107' }} />
-        ตารางแข่ง
-      </Link>
-    </li>
-    <li>
-      <Link
-        href="/compete"
-        className="dropdown-item d-flex align-items-center gap-2"
-      >
-        <FaUsers style={{ color: '#ffc107' }} />
-        ลงแข่ง
-      </Link>
-    </li>
-    <li>
-      <Link
-        href="/cue-shop"
-        className="dropdown-item d-flex align-items-center gap-2"
-      >
-        <FaTrophy style={{ color: '#ffc107' }} />
-        ร้านขายไม้คิว
-      </Link>
-      <Link
-        href="/table-rental"
-        className="dropdown-item d-flex align-items-center gap-2"
-      >
-        <FaTrophy style={{ color: '#ffc107' }} />
-        จองเช่าโต๊ะสนุ๊กเกอร์
-      </Link>
-    </li>
-  </ul>
-</li>
+            {/* บริการของเรา */}
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle text-light"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                บริการของเรา
+              </a>
+              <ul className="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <Link href="/schedule" className="dropdown-item d-flex align-items-center gap-2">
+                    <FaCalendarAlt style={{ color: '#ffc107' }} />
+                    ตารางแข่ง
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/compete" className="dropdown-item d-flex align-items-center gap-2">
+                    <FaUsers style={{ color: '#ffc107' }} />
+                    ลงแข่ง
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/cue-shop" className="dropdown-item d-flex align-items-center gap-2">
+                    <FaTrophy style={{ color: '#ffc107' }} />
+                    ร้านขายไม้คิว
+                  </Link>
+                  <Link href="/table-rental" className="dropdown-item d-flex align-items-center gap-2">
+                    <FaTrophy style={{ color: '#ffc107' }} />
+                    จองเช่าโต๊ะสนุ๊กเกอร์
+                  </Link>
+                </li>
+              </ul>
+            </li>
 
-
+            {/* นักแข่งสนุ๊กเกอร์ */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-light d-flex align-items-center gap-2"
@@ -170,19 +152,13 @@ export default function Navigation() {
               </a>
               <ul className="dropdown-menu dropdown-menu-dark">
                 <li>
-                  <Link
-                    href="/racers"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
+                  <Link href="/racers" className="dropdown-item d-flex align-items-center gap-2">
                     <FaUsers style={{ color: '#ffc107' }} />
                     นักแข่งปัจจุบัน
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/racers/legend"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
+                  <Link href="/racers/legend" className="dropdown-item d-flex align-items-center gap-2">
                     <FaTrophy style={{ color: '#ffc107' }} />
                     นักแข่งตำนาน
                   </Link>
@@ -190,6 +166,7 @@ export default function Navigation() {
               </ul>
             </li>
 
+            {/* ข้อมูลเพิ่มเติม */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-light"
@@ -202,19 +179,13 @@ export default function Navigation() {
               </a>
               <ul className="dropdown-menu dropdown-menu-dark">
                 <li>
-                  <Link
-                    href="/news"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
+                  <Link href="/news" className="dropdown-item d-flex align-items-center gap-2">
                     <FaNewspaper style={{ color: '#ffc107' }} />
                     ข่าวสนุ๊กเกอร์
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/rankings"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
+                  <Link href="/rankings" className="dropdown-item d-flex align-items-center gap-2">
                     <FaTrophy style={{ color: '#ffc107' }} />
                     อันดับโลกนักสนุ๊กเกอร์
                   </Link>
@@ -223,10 +194,7 @@ export default function Navigation() {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <Link
-                    href="/highlights"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
+                  <Link href="/highlights" className="dropdown-item d-flex align-items-center gap-2">
                     <FaVideo style={{ color: '#ffc107' }} />
                     ไฮไลต์การแข่งขัน
                   </Link>
@@ -234,17 +202,15 @@ export default function Navigation() {
                 <li>
                   <hr className="dropdown-menu dropdown-menu-dark" />
                 </li>
-                  <Link
-                    href="/vote"
-                    className="dropdown-item d-flex align-items-center gap-2"
-                  >
-                    <FaVideo style={{ color: '#ffc107' }} />
-                    รีวิว
-                  </Link>
+                <Link href="/vote" className="dropdown-item d-flex align-items-center gap-2">
+                  <FaVideo style={{ color: '#ffc107' }} />
+                  รีวิว
+                </Link>
               </ul>
             </li>
 
-            {isLoggedIn && (
+            {/* ปุ่ม Admin */}
+            {isLoggedIn && isAdmin && (
               <li className="nav-item">
                 <Link
                   href="/admin/users"
