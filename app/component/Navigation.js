@@ -12,7 +12,7 @@ import {
 } from 'react-icons/fa';
 
 export default function Navigation() {
-  const router = useRouter();
+  const router = useRouter();.3
   const pathname = usePathname();
 
   // ซ่อน Navbar ใน 3 path นี้

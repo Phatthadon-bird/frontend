@@ -1,5 +1,18 @@
-"use client";
+'use client';
 import Link from "next/link";
+import { 
+  FaFacebookF, 
+  FaInstagram, 
+  FaYoutube,   // แทน Twitter
+  FaBars, 
+  FaChevronRight, 
+  FaEnvelope, 
+  FaPaperPlane, 
+  FaMapMarkerAlt, 
+  FaPhone 
+} from 'react-icons/fa';
+import { SiTiktok } from 'react-icons/si'; // แทน Line
+
 
 export default function Footer() {
   const menuItems = [
@@ -8,12 +21,13 @@ export default function Footer() {
     { label: "ติดต่อเรา", href: "/contact" },
   ];
 
-  const socials = [
-    { href: "", icon: "fab fa-facebook-f", label: "Facebook", color: "#1877F2" },
-    { href: "", icon: "fab fa-instagram", label: "Instagram", color: "#E4405F" },
-    { href: "", icon: "fab fa-twitter", label: "Twitter", color: "#1DA1F2" },
-    { href: "", icon: "fab fa-line", label: "Line", color: "#00C300" },
-  ];
+const socials = [
+  { href: "https://www.facebook.com/phatthadon.kachal/", icon: <FaFacebookF />, label: "Facebook", color: "#1877F2" },
+  { href: "https://www.instagram.com/p_.bird/", icon: <FaInstagram />, label: "Instagram", color: "#E4405F" },
+  { href: "https://www.youtube.com/@%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%98%E0%B8%94%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%A2", icon: <FaYoutube />, label: "YouTube", color: "#FF0000" },
+  { href: "https://www.tiktok.com/@phatthadon_bird?lang=th-TH", icon: <SiTiktok />, label: "TikTok", color: "#000000" },
+];
+
 
   return (
     <div className="footer-wrapper">
@@ -23,17 +37,14 @@ export default function Footer() {
           <div className="col-6 col-md-3 mb-4">
             <div className="footer-section">
               <h5 className="footer-title">
-                <i className="fas fa-bars me-2"></i>
+                <FaBars className="me-2"/>
                 เมนูหลัก
               </h5>
               <ul className="nav flex-column">
                 {menuItems.map((item, index) => (
                   <li className="nav-item mb-2" key={index}>
-                    <Link
-                      href={item.href}
-                      className="footer-link"
-                    >
-                      <i className="fas fa-chevron-right me-2 small"></i>
+                    <Link href={item.href} className="footer-link">
+                      <FaChevronRight className="me-2 small"/>
                       {item.label}
                     </Link>
                   </li>
@@ -46,7 +57,7 @@ export default function Footer() {
           <div className="col-md-5 offset-md-1 mb-4">
             <div className="footer-section">
               <h5 className="footer-title text-center text-md-start">
-                <i className="fas fa-envelope me-2"></i>
+                <FaEnvelope className="me-2"/>
                 ติดต่อเรา
               </h5>
               <p className="text-center text-md-start footer-description">
@@ -55,7 +66,7 @@ export default function Footer() {
               <form className="newsletter-form mt-4">
                 <div className="input-group">
                   <span className="input-group-text">
-                    <i className="fas fa-envelope"></i>
+                    <FaEnvelope />
                   </span>
                   <input
                     type="email"
@@ -63,11 +74,8 @@ export default function Footer() {
                     placeholder="อีเมลของคุณ"
                     required
                   />
-                  <button
-                    className="btn btn-primary"
-                    type="submit"
-                  >
-                    <i className="fas fa-paper-plane me-2"></i>
+                  <button className="btn btn-primary" type="submit">
+                    <FaPaperPlane className="me-2"/>
                     ส่ง
                   </button>
                 </div>
@@ -79,20 +87,20 @@ export default function Footer() {
           <div className="col-md-3 mb-4">
             <div className="footer-section">
               <h5 className="footer-title">
-                <i className="fas fa-map-marker-alt me-2"></i>
+                <FaMapMarkerAlt className="me-2"/>
                 ข้อมูลติดต่อ
               </h5>
               <div className="contact-info">
                 <div className="contact-item mb-3">
-                  <i className="fas fa-phone text-primary me-3"></i>
+                  <FaPhone className="text-primary me-3"/>
                   <span>+66 (0) 123-456-789</span>
                 </div>
                 <div className="contact-item mb-3">
-                  <i className="fas fa-envelope text-primary me-3"></i>
+                  <FaEnvelope className="text-primary me-3"/>
                   <span>info@example.com</span>
                 </div>
                 <div className="contact-item">
-                  <i className="fas fa-map-marker-alt text-primary me-3"></i>
+                  <FaMapMarkerAlt className="text-primary me-3"/>
                   <span>เชียงใหม่, ประเทศไทย</span>
                 </div>
               </div>
@@ -110,8 +118,7 @@ export default function Footer() {
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
             <div className="copyright-section">
               <p className="mb-0 text-center">
-                <i className="fas fa-copyright me-2"></i>
-                2025 Phatthadon Kachi. All rights reserved.
+                &copy; 2025 Phatthadon Kachi. All rights reserved.
               </p>
             </div>
 
@@ -129,7 +136,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     style={{'--social-color': color}}
                   >
-                    <i className={icon}></i>
+                    {icon}
                   </a>
                 ))}
               </div>
