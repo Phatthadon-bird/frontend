@@ -4,120 +4,24 @@ import Link from "next/link";
 
 export default function Racers() {
   const currentRacers = [
-    {
-      id: 1,
-      name: "Ronnie O'Sullivan",
-      country: "England",
-      image: "/image/12.jpg",
-      slug: "ronnie",
-      ranking: "1",
-      titles: "39"
-    },
-    {
-      id: 2,
-      name: "Mark Selby",
-      country: "England",
-      image: "/image/15.jpg",
-      slug: "mark-selby",
-      ranking: "2",
-      titles: "22"
-    },
-    {
-      id: 3,
-      name: "Judd Trump",
-      country: "England",
-      image: "/image/16.jpg",
-      slug: "judd-trump",
-      ranking: "3",
-      titles: "28"
-    },
-    {
-      id: 4,
-      name: "Neil Robertson",
-      country: "Australia",
-      image: "/image/17.jpg",
-      slug: "neil-robertson",
-      ranking: "4",
-      titles: "23"
-    },
-    {
-      id: 5,
-      name: "John Higgins",
-      country: "Scotland",
-      image: "/image/18.jpg",
-      slug: "john-higgins",
-      ranking: "5",
-      titles: "31"
-    },
-    {
-      id: 6,
-      name: "Shaun Murphy",
-      country: "England",
-      image: "/image/19.jpg",
-      slug: "shaun-murphy",
-      ranking: "6",
-      titles: "10"
-    },
-    {
-      id: 7,
-      name: "Ding Junhui",
-      country: "China",
-      image: "/image/20.jpg",
-      slug: "ding-junhui",
-      ranking: "7",
-      titles: "14"
-    },
-    {
-      id: 8,
-      name: "Zhao Xintong",
-      country: "China",
-      image: "/image/28.jpg",
-      slug: "zhao-xintong",
-      ranking: "8",
-      titles: "5"
-    },
-    {
-      id: 9,
-      name: "Mink Saraburi",
-      country: "Thailand",
-      image: "/image/29.jpg",
-      slug: "mingsaraburi",
-      ranking: "9",
-      titles: "2"
-    },
-    {
-      id: 10,
-      name: "Thepchaiya Un-Nooh",
-      country: "Thailand",
-      image: "/image/30.jpg",
-      slug: "tepsachaiya",
-      ranking: "10",
-      titles: "3"
-    },
-    {
-      id: 11,
-      name: "Noppon Saengkham",
-      country: "Thailand",
-      image: "/image/58.jpg",
-      slug: "noppon-saengkham",
-      ranking: "11",
-      titles: "1"
-    },
-    {
-      id: 12,
-      name: "James Wattana",
-      country: "Thailand",
-      image: "/image/59.jpg",
-      slug: "james-wattana",
-      ranking: "12",
-      titles: "8"
-    },
+    { id: 1, name: "Ronnie O'Sullivan", country: "England", image: "/image/12.jpg", slug: "ronnie", ranking: "1", titles: "39" },
+    { id: 2, name: "Mark Selby", country: "England", image: "/image/15.jpg", slug: "mark-selby", ranking: "2", titles: "22" },
+    { id: 3, name: "Judd Trump", country: "England", image: "/image/16.jpg", slug: "judd-trump", ranking: "3", titles: "28" },
+    { id: 4, name: "Neil Robertson", country: "Australia", image: "/image/17.jpg", slug: "neil-robertson", ranking: "4", titles: "23" },
+    { id: 5, name: "John Higgins", country: "Scotland", image: "/image/18.jpg", slug: "john-higgins", ranking: "5", titles: "31" },
+    { id: 6, name: "Shaun Murphy", country: "England", image: "/image/19.jpg", slug: "shaun-murphy", ranking: "6", titles: "10" },
+    { id: 7, name: "Ding Junhui", country: "China", image: "/image/20.jpg", slug: "ding-junhui", ranking: "7", titles: "14" },
+    { id: 8, name: "Zhao Xintong", country: "China", image: "/image/28.jpg", slug: "zhao-xintong", ranking: "8", titles: "5" },
+    { id: 9, name: "Mink Saraburi", country: "Thailand", image: "/image/29.jpg", slug: "mingsaraburi", ranking: "9", titles: "2" },
+    { id: 10, name: "Thepchaiya Un-Nooh", country: "Thailand", image: "/image/30.jpg", slug: "tepsachaiya", ranking: "10", titles: "3" },
+    { id: 11, name: "Noppon Saengkham", country: "Thailand", image: "/image/58.jpg", slug: "noppon-saengkham", ranking: "11", titles: "1" },
+    { id: 12, name: "James Wattana", country: "Thailand", image: "/image/59.jpg", slug: "james-wattana", ranking: "12", titles: "8" },
   ];
 
   const getCountryFlag = (country) => {
     const flags = {
-      "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "England": "🏴",
+      "Scotland": "🏴",
       "Australia": "🇦🇺",
       "China": "🇨🇳",
       "Thailand": "🇹🇭"
@@ -181,7 +85,7 @@ export default function Racers() {
               <div 
                 className="position-absolute bottom-0 w-100"
                 style={{
-                  background: "linear-gradient(transparent, rgba(0,0,0,0.8))",
+                  background: "linear-gradient(transparent, rgba(0,0,0,0.9))",
                   height: "80px"
                 }}
               ></div>
@@ -193,7 +97,7 @@ export default function Racers() {
                 style={{ 
                   color: "#ffc107",
                   fontSize: "1.3rem",
-                  textShadow: "0 2px 4px rgba(0,0,0,0.5)"
+                  textShadow: "0 2px 6px rgba(0,0,0,0.7)"
                 }}
               >
                 {racer.name}
@@ -205,8 +109,12 @@ export default function Racers() {
                     {getCountryFlag(racer.country)}
                   </span>
                   <span 
-                    className="text-light"
-                    style={{ fontSize: "0.95rem", letterSpacing: "0.5px" }}
+                    style={{ 
+                      color: "#fff",
+                      fontSize: "0.95rem", 
+                      letterSpacing: "0.5px",
+                      textShadow: "0 1px 3px rgba(0,0,0,0.6)"
+                    }}
                   >
                     {racer.country}
                   </span>
@@ -214,18 +122,19 @@ export default function Racers() {
                 <div 
                   className="badge px-2 py-1"
                   style={{
-                    background: "rgba(255, 193, 7, 0.2)",
-                    color: "#ffc107",
-                    border: "1px solid rgba(255, 193, 7, 0.3)",
+                    background: "rgba(255, 193, 7, 0.25)",
+                    color: "#000",
+                    border: "1px solid rgba(255, 193, 7, 0.5)",
                     borderRadius: "10px",
-                    fontSize: "0.8rem"
+                    fontSize: "0.8rem",
+                    fontWeight: "600",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.5)"
                   }}
                 >
                   🏆 {racer.titles} titles
                 </div>
               </div>
 
-              {/* Decorative Line */}
               <div 
                 className="mx-auto mb-3"
                 style={{
@@ -237,10 +146,12 @@ export default function Racers() {
               ></div>
 
               <p 
-                className="card-text text-muted mb-0"
+                className="card-text mb-0"
                 style={{ 
+                  color: "#fff",
                   fontSize: "0.85rem",
-                  fontStyle: "italic"
+                  fontStyle: "italic",
+                  textShadow: "0 1px 3px rgba(0,0,0,0.5)"
                 }}
               >
                 World Professional Player
@@ -251,13 +162,13 @@ export default function Racers() {
             <div 
               className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
               style={{
-                background: "rgba(255, 193, 7, 0.1)",
+                background: "rgba(255, 193, 7, 0.15)",
                 opacity: 0,
                 transition: "opacity 0.3s ease",
                 borderRadius: "20px"
               }}
-              onMouseEnter={(e) => e.target.style.opacity = 1}
-              onMouseLeave={(e) => e.target.style.opacity = 0}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
             >
               <div 
                 className="text-warning fw-bold"
@@ -313,12 +224,12 @@ export default function Racers() {
                 fontSize: "1rem"
               }}
               onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-2px)";
-                e.target.style.boxShadow = "0 8px 25px rgba(255, 193, 7, 0.4)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 8px 25px rgba(255, 193, 7, 0.4)";
               }}
               onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = "0 4px 15px rgba(255, 193, 7, 0.3)";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 193, 7, 0.3)";
               }}
             >
               ← กลับหน้าหลัก
@@ -335,7 +246,6 @@ export default function Racers() {
             }}
           >
             นักสนุกเกอร์ปัจจุบัน
-            {/* Decorative underline */}
             <div 
               className="position-absolute bottom-0 start-50 translate-middle-x"
               style={{
@@ -348,10 +258,10 @@ export default function Racers() {
           </h1>
           
           <p 
-            className="text-light mb-5"
             style={{ 
+              color: "#fff",
               fontSize: "1.2rem",
-              opacity: 0.8,
+              opacity: 0.9,
               maxWidth: "600px",
               margin: "0 auto"
             }}
@@ -366,14 +276,16 @@ export default function Racers() {
             <div 
               className="d-flex align-items-center px-4 py-3"
               style={{
-                background: "rgba(255, 193, 7, 0.1)",
-                border: "1px solid rgba(255, 193, 7, 0.3)",
+                background: "rgba(255, 193, 7, 0.2)",
+                border: "1px solid rgba(255, 193, 7, 0.5)",
                 borderRadius: "50px",
-                backdropFilter: "blur(10px)"
+                backdropFilter: "blur(10px)",
+                color: "#000",
+                fontWeight: "600"
               }}
             >
-              <span className="text-warning fw-bold me-2">🎯</span>
-              <span className="text-light">ทั้งหมด {currentRacers.length} นักกีฬา</span>
+              <span className="me-2">🎯</span>
+              <span>ทั้งหมด {currentRacers.length} นักกีฬา</span>
             </div>
           </div>
         </div>
