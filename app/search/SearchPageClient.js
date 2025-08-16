@@ -50,6 +50,36 @@ function slugify(name) {
   return name.toLowerCase().replace(/\s+/g, "-");
 }
 
+// Country flag mapping
+const countryFlags = {
+  "ไทย": "🇹🇭",
+  "อังกฤษ": "🇬🇧",
+  "จีน": "🇨🇳",
+  "สกอตแลนด์": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+  "ออสเตรเลีย": "🇦🇺",
+  "แคนาดา": "🇨🇦",
+  "ไอร์แลนด์": "🇮🇪",
+  "ไอร์แลนด์เหนือ": "🇬🇧",
+  "เวลส์": "🏴󠁧󠁢󠁷󠁬󠁳󠁿"
+};
+
+const pageIcons = {
+  "หน้าแรก": "🏠",
+  "เกี่ยวกับเรา": "👥",
+  "บริการของเรา": "🛎️",
+  "ติดต่อเรา": "📞",
+  "นักแข่งสนุ๊กเกอร์": "🎯",
+  "ข้อมูลเพิ่มเติม": "📊",
+  "ตารางแข่ง": "📅",
+  "ลงแข่ง": "🏆",
+  "นักแข่งปัจจุบัน": "⭐",
+  "ข่าวสนุ๊กเกอร์": "📰",
+  "นักสนุกเกอร์ในตำนาน": "🏅",
+  "อันดับนักสนุ๊กเกอร์โลก": "🌐",
+  "ไฮไลท์การแข่ง": "🎬",
+  "admin": "⚙️"
+};
+
 export default function SearchPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -102,136 +132,293 @@ export default function SearchPageClient() {
     router.push(`/search?query=${encodeURIComponent(input.trim())}`);
   };
 
+  const styles = {
+    container: {
+      minHeight: "100vh",
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      padding: "2rem 0"
+    },
+    searchCard: {
+      backgroundColor: "rgba(255, 255, 255, 0.95)",
+      backdropFilter: "blur(10px)",
+      borderRadius: "24px",
+      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+      border: "1px solid rgba(255, 255, 255, 0.2)",
+      padding: "2.5rem"
+    },
+    title: {
+      background: "linear-gradient(45deg, #667eea, #764ba2)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      fontSize: "2.5rem",
+      fontWeight: "800",
+      marginBottom: "2rem",
+      textAlign: "center"
+    },
+    searchBox: {
+      position: "relative",
+      marginBottom: "2rem"
+    },
+    searchInput: {
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
+      border: "2px solid transparent",
+      borderRadius: "16px",
+      padding: "1rem 1.5rem",
+      fontSize: "1.1rem",
+      width: "100%",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)"
+    },
+    searchButton: {
+      background: "linear-gradient(45deg, #667eea, #764ba2)",
+      border: "none",
+      borderRadius: "16px",
+      padding: "1rem 2rem",
+      color: "white",
+      fontWeight: "600",
+      fontSize: "1rem",
+      cursor: "pointer",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      boxShadow: "0 4px 20px rgba(102, 126, 234, 0.3)",
+      marginLeft: "1rem"
+    },
+    sectionHeader: {
+      fontSize: "1.5rem",
+      fontWeight: "700",
+      marginBottom: "1.5rem",
+      padding: "1rem 0",
+      borderRadius: "12px",
+      textAlign: "center",
+      color: "white",
+      position: "relative",
+      overflow: "hidden"
+    },
+    playersSection: {
+      background: "linear-gradient(45deg, #11998e, #38ef7d)",
+      boxShadow: "0 8px 25px rgba(17, 153, 142, 0.3)"
+    },
+    pagesSection: {
+      background: "linear-gradient(45deg, #fc466b, #3f5efb)",
+      boxShadow: "0 8px 25px rgba(252, 70, 107, 0.3)"
+    },
+    resultsList: {
+      backgroundColor: "rgba(255, 255, 255, 0.9)",
+      borderRadius: "16px",
+      padding: "1rem",
+      marginBottom: "2rem",
+      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+      backdropFilter: "blur(10px)"
+    },
+    listItem: {
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
+      border: "none",
+      borderRadius: "12px",
+      margin: "0.5rem 0",
+      padding: "1.25rem 1.5rem",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      cursor: "pointer",
+      position: "relative",
+      overflow: "hidden"
+    },
+    playerLink: {
+      color: "#11998e",
+      textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+      gap: "0.75rem",
+      fontSize: "1.1rem",
+      fontWeight: "600",
+      transition: "all 0.3s ease"
+    },
+    pageLink: {
+      color: "#fc466b",
+      textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+      gap: "0.75rem",
+      fontSize: "1.1rem",
+      fontWeight: "600",
+      transition: "all 0.3s ease"
+    },
+    noResults: {
+      textAlign: "center",
+      fontSize: "1.3rem",
+      color: "rgba(255, 255, 255, 0.9)",
+      backgroundColor: "rgba(255, 255, 255, 0.1)",
+      padding: "3rem",
+      borderRadius: "16px",
+      backdropFilter: "blur(10px)"
+    },
+    emptyState: {
+      textAlign: "center",
+      fontSize: "1.3rem",
+      color: "rgba(255, 255, 255, 0.8)",
+      backgroundColor: "rgba(255, 255, 255, 0.1)",
+      padding: "3rem",
+      borderRadius: "16px",
+      backdropFilter: "blur(10px)"
+    }
+  };
+
   return (
-    <div className="container py-5" style={{ maxWidth: 600 }}>
-      <h1 className="mb-4 text-center text-primary fw-bold">
-        ผลการค้นหา:{" "}
-        <span className="text-secondary">
-          "{queryParam === "" ? "ยังไม่ค้นหา" : queryParam}"
-        </span>
-      </h1>
+    <div style={styles.container}>
+      <div className="container" style={{ maxWidth: "800px" }}>
+        <div style={styles.searchCard}>
+          <h1 style={styles.title}>
+            ค้นหาข้อมูลสนุกเกอร์
+          </h1>
 
-      <form onSubmit={handleSubmit} className="mb-4 d-flex">
-        <input
-          type="text"
-          className="form-control me-2"
-          placeholder="🔍 ค้นหา"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          autoFocus
-        />
-        <button type="submit" className="btn btn-primary">
-          ค้นหา
-        </button>
-      </form>
-
-      {queryParam.trim() === "" ? (
-        <p className="mt-3 text-center text-muted fs-5">กรุณาพิมพ์คำค้นหาเพื่อเริ่มต้น</p>
-      ) : filteredResults.length > 0 ? (
-        <>
-          {/* แสดงนักแข่งแยกตามประเทศ */}
-          {Object.entries(groupedByCountry).map(([country, players]) => (
-            <div key={country} style={{ marginBottom: 24 }}>
-              <h3 style={{ borderBottom: "2px solid #0d6efd", paddingBottom: 6 }}>
-                🏳️‍🌈 นักแข่งจากประเทศ: {country}
-              </h3>
-              <ul
-                className="list-group shadow-sm rounded"
-                style={{ padding: 0, listStyle: "none" }}
+          <form onSubmit={handleSubmit} style={styles.searchBox}>
+            <div className="d-flex">
+              <input
+                type="text"
+                placeholder="🔍 ค้นหานักแข่ง หรือหน้าต่างๆ..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                style={styles.searchInput}
+                autoFocus
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#667eea";
+                  e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+                  e.target.style.transform = "translateY(-2px)";
+                  e.target.style.boxShadow = "0 8px 30px rgba(102, 126, 234, 0.2)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "transparent";
+                  e.target.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                  e.target.style.transform = "translateY(0)";
+                  e.target.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.1)";
+                }}
+              />
+              <button
+                type="submit"
+                style={styles.searchButton}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = "translateY(-2px)";
+                  e.target.style.boxShadow = "0 8px 30px rgba(102, 126, 234, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = "translateY(0)";
+                  e.target.style.boxShadow = "0 4px 20px rgba(102, 126, 234, 0.3)";
+                }}
               >
-                {players.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="list-group-item d-flex justify-content-between align-items-center"
-                    style={{
-                      transition: "all 0.3s ease",
-                      cursor: "pointer",
-                      border: "none",
-                      padding: "12px 20px",
-                      borderBottom: "1px solid #ddd",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "#f0f8ff";
-                      e.currentTarget.style.boxShadow = "0 4px 10px rgba(0, 123, 255, 0.1)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "white";
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  >
-                    <Link
-                      href={item.slug}
-                      className="text-decoration-none fs-5"
-                      style={{
-                        color: "#0d6efd",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                        transition: "color 0.2s ease",
-                      }}
-                    >
-                      🎱 {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                ค้นหา
+              </button>
             </div>
-          ))}
+          </form>
 
-          {/* แสดงผลเพจอื่น ๆ */}
-          {pagesResults.length > 0 && (
-            <div style={{ marginTop: 30 }}>
-              <h3 style={{ borderBottom: "2px solid #198754", paddingBottom: 6 }}>
-                📄 หน้าต่าง ๆ ที่เกี่ยวข้อง
-              </h3>
-              <ul
-                className="list-group shadow-sm rounded"
-                style={{ padding: 0, listStyle: "none" }}
-              >
-                {pagesResults.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="list-group-item d-flex justify-content-between align-items-center"
-                    style={{
-                      transition: "all 0.3s ease",
-                      cursor: "pointer",
-                      border: "none",
-                      padding: "12px 20px",
-                      borderBottom: "1px solid #ddd",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "#e6ffed";
-                      e.currentTarget.style.boxShadow = "0 4px 10px rgba(25, 135, 84, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "white";
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  >
-                    <Link
-                      href={item.slug}
-                      className="text-decoration-none fs-5"
-                      style={{
-                        color: "#198754",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                        transition: "color 0.2s ease",
-                      }}
-                    >
-                      📄 {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {queryParam.trim() && (
+            <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+              <span style={{ 
+                fontSize: "1.1rem", 
+                color: "#666",
+                backgroundColor: "rgba(102, 126, 234, 0.1)",
+                padding: "0.5rem 1rem",
+                borderRadius: "20px",
+                border: "1px solid rgba(102, 126, 234, 0.2)"
+              }}>
+                ผลการค้นหา: "<strong>{queryParam}</strong>"
+              </span>
             </div>
           )}
-        </>
-      ) : (
-        <p className="mt-3 text-center text-danger fs-5">
-          ไม่พบผลลัพธ์ที่ตรงกับ "{queryParam}"
-        </p>
-      )}
+
+          {queryParam.trim() === "" ? (
+            <div style={styles.emptyState}>
+              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🎱</div>
+              <p>กรุณาพิมพ์คำค้นหาเพื่อเริ่มต้น</p>
+              <p style={{ fontSize: "1rem", opacity: "0.7" }}>
+                ค้นหาได้ทั้งนักแข่งสนุกเกอร์และหน้าต่างๆ ในเว็บไซต์
+              </p>
+            </div>
+          ) : filteredResults.length > 0 ? (
+            <>
+              {/* แสดงนักแข่งแยกตามประเทศ */}
+              {Object.entries(groupedByCountry).map(([country, players]) => (
+                <div key={country} style={{ marginBottom: "2rem" }}>
+                  <div style={{...styles.sectionHeader, ...styles.playersSection}}>
+                    {countryFlags[country] || "🏳️"} นักแข่งจากประเทศ{country}
+                  </div>
+                  <div style={styles.resultsList}>
+                    {players.map((item, idx) => (
+                      <div
+                        key={idx}
+                        style={styles.listItem}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
+                          e.currentTarget.style.backgroundColor = "rgba(17, 153, 142, 0.1)";
+                          e.currentTarget.style.boxShadow = "0 12px 35px rgba(17, 153, 142, 0.2)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0) scale(1)";
+                          e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      >
+                        <Link href={item.slug} style={styles.playerLink}>
+                          <span style={{ fontSize: "1.5rem" }}>🎯</span>
+                          <span>{item.title}</span>
+                          <span style={{ 
+                            fontSize: "0.9rem", 
+                            opacity: "0.7",
+                            backgroundColor: "rgba(17, 153, 142, 0.1)",
+                            padding: "0.25rem 0.5rem",
+                            borderRadius: "8px",
+                            marginLeft: "auto"
+                          }}>
+                            {countryFlags[item.country]} {item.country}
+                          </span>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {/* แสดงผลเพจอื่น ๆ */}
+              {pagesResults.length > 0 && (
+                <div style={{ marginTop: "2rem" }}>
+                  <div style={{...styles.sectionHeader, ...styles.pagesSection}}>
+                    📄 หน้าต่าง ๆ ที่เกี่ยวข้อง
+                  </div>
+                  <div style={styles.resultsList}>
+                    {pagesResults.map((item, idx) => (
+                      <div
+                        key={idx}
+                        style={styles.listItem}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
+                          e.currentTarget.style.backgroundColor = "rgba(252, 70, 107, 0.1)";
+                          e.currentTarget.style.boxShadow = "0 12px 35px rgba(252, 70, 107, 0.2)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0) scale(1)";
+                          e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      >
+                        <Link href={item.slug} style={styles.pageLink}>
+                          <span style={{ fontSize: "1.3rem" }}>
+                            {pageIcons[item.title] || "📄"}
+                          </span>
+                          <span>{item.title}</span>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <div style={styles.noResults}>
+              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>😔</div>
+              <p>ไม่พบผลลัพธ์ที่ตรงกับ "<strong>{queryParam}</strong>"</p>
+              <p style={{ fontSize: "1rem", opacity: "0.7" }}>
+                ลองใช้คำค้นหาอื่น หรือตรวจสอบการสะกดคำ
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

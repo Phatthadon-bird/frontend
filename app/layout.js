@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
     '/login1',
     '/rankings',
     '/highlights',
-    '/racers/ronnie',
+    '/compete',
   ]
 
   const showNavigation = !hideNavigationPaths.includes(pathname)

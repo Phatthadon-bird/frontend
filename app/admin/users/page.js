@@ -43,12 +43,25 @@ export default function UsersPage() {
     fetchUsers();
   }, [checkingLogin]);
 
-  const filteredItems = items.filter(
-    (item) =>
-      item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.username.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredItems = items.filter((item) => {
+  const search = searchTerm.trim().toLowerCase();
+  return (
+    // ภาษาอังกฤษ
+    item.firstname.toLowerCase().includes(search) ||
+    item.lastname.toLowerCase().includes(search) ||
+    item.username.toLowerCase().includes(search) ||
+    item.fullname.toLowerCase().includes(search) || // เพิ่มชื่อเต็ม
+    // ภาษาไทย
+    item.firstname.includes(searchTerm) ||
+    item.lastname.includes(searchTerm) ||
+    item.username.includes(searchTerm) ||
+    item.fullname.includes(searchTerm) || // เพิ่มชื่อเต็ม
+    // id
+    item.id.toString().includes(searchTerm)
   );
+});
+
+
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -229,7 +242,7 @@ export default function UsersPage() {
                   <table className="table table-hover align-middle mb-0">
                     <thead className="bg-dark text-white sticky-top">
                       <tr>
-                        <th className="text-center border-0 py-3">#</th>
+                        <th className="text-center border-0 py-3">id</th>
                         <th className="border-0 py-3">👤 ชื่อ</th>
                         <th className="border-0 py-3">📝 ชื่อเต็ม</th>
                         <th className="border-0 py-3">👥 นามสกุล</th>
