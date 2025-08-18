@@ -295,10 +295,10 @@ export default function UsersPage() {
                             </td>
                             <td className="text-muted small">{item.address}</td>
                             <td>
-                              <span className={`badge ${item.sex === 'ชาย' ? 'bg-primary' : 'bg-pink'} bg-opacity-10 ${item.sex === 'ชาย' ? 'text-primary' : 'text-pink'} rounded-pill`}>
-                                {item.sex === 'ชาย' ? '👨' : '👩'} {item.sex}
-                              </span>
-                            </td>
+  <span className={`badge ${item.sex === 'ชาย' ? 'bg-primary' : 'bg-pink'} bg-opacity-10 ${item.sex === 'ชาย' ? 'text-primary' : 'text-pink'} rounded-pill`}>
+    {item.sex === 'ชาย' ? '👨 ชาย' : '👩 หญิง'}
+  </span>
+</td>
                             <td className="text-muted small">
                               <i className="fas fa-calendar-alt me-1"></i>
                               {item.birthday}
