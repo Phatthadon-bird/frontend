@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
     '/rankings',
     '/highlights',
     '/compete',
+    '/max-break',
   ]
 
   const showNavigation = !hideNavigationPaths.includes(pathname)
