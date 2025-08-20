@@ -15,8 +15,8 @@ export default function LoginPage() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const isAdmin = localStorage.getItem('isAdmin');
     if (isLoggedIn) {
-      if (isAdmin === 'true') router.replace('/admin/users');
-      else router.replace('/');
+      if (isAdmin === 'true') router.replace('/admin/users'); // admin
+      else router.replace('/'); // user
     }
   }, [router]);
 
@@ -49,7 +49,7 @@ export default function LoginPage() {
     });
 
     try {
-      // ตรวจสอบ admin local ก่อน
+      // ตรวจสอบ admin local
       if (formData.username === 'admin' && formData.password === '1234') {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('isAdmin', 'true');
@@ -64,7 +64,26 @@ export default function LoginPage() {
           background: '#1e1e2e',
           color: '#cdd6f4'
         });
-        router.replace('/'); // เปลี่ยน redirect ให้ admin
+        router.replace('/'); // redirect admin
+        return;
+      }
+
+      // ตรวจสอบ Bird local user
+      if (formData.username === 'Bird' && formData.password === '1234') {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('isAdmin', 'false');
+        localStorage.setItem('username', formData.username);
+        Swal.close();
+        await Swal.fire({
+          icon: 'success',
+          title: 'เข้าสู่ระบบสำเร็จ!',
+          text: `ยินดีต้อนรับ ${formData.username}`,
+          timer: 2000,
+          showConfirmButton: false,
+          background: '#1e1e2e',
+          color: '#cdd6f4'
+        });
+        router.replace('/'); // redirect user
         return;
       }
 
@@ -76,7 +95,7 @@ export default function LoginPage() {
       });
 
       const data = await res.json();
-      console.log('API response:', data); // เพิ่ม debug
+      console.log('API response:', data);
 
       if (res.ok && data.token) {
         localStorage.setItem('token', data.token);
