@@ -64,7 +64,7 @@ export default function LoginPage() {
           background: '#1e1e2e',
           color: '#cdd6f4'
         });
-        router.replace('/admin/users'); // เปลี่ยน redirect ให้ admin
+        router.replace('/'); // เปลี่ยน redirect ให้ admin
         return;
       }
 
