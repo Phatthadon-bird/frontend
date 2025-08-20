@@ -30,7 +30,7 @@ export default function UsersPage() {
     async function fetchUsers() {
       setLoading(true);
       try {
-        const res = await fetch('http://itdev.cmtc.ac.th:3000/api/users');
+        const res = await fetch('/api/users');   // ✅ แก้ตรงนี้
         if (!res.ok) throw new Error('Failed to fetch data');
         const data = await res.json();
         setItems(data);
@@ -44,24 +44,22 @@ export default function UsersPage() {
   }, [checkingLogin]);
 
   const filteredItems = items.filter((item) => {
-  const search = searchTerm.trim().toLowerCase();
-  return (
-    // ภาษาอังกฤษ
-    item.firstname.toLowerCase().includes(search) ||
-    item.lastname.toLowerCase().includes(search) ||
-    item.username.toLowerCase().includes(search) ||
-    item.fullname.toLowerCase().includes(search) || // เพิ่มชื่อเต็ม
-    // ภาษาไทย
-    item.firstname.includes(searchTerm) ||
-    item.lastname.includes(searchTerm) ||
-    item.username.includes(searchTerm) ||
-    item.fullname.includes(searchTerm) || // เพิ่มชื่อเต็ม
-    // id
-    item.id.toString().includes(searchTerm)
-  );
-});
-
-
+    const search = searchTerm.trim().toLowerCase();
+    return (
+      // ภาษาอังกฤษ
+      item.firstname.toLowerCase().includes(search) ||
+      item.lastname.toLowerCase().includes(search) ||
+      item.username.toLowerCase().includes(search) ||
+      item.fullname.toLowerCase().includes(search) ||
+      // ภาษาไทย
+      item.firstname.includes(searchTerm) ||
+      item.lastname.includes(searchTerm) ||
+      item.username.includes(searchTerm) ||
+      item.fullname.includes(searchTerm) ||
+      // id
+      item.id.toString().includes(searchTerm)
+    );
+  });
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -82,7 +80,7 @@ export default function UsersPage() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`http://itdev.cmtc.ac.th:3000/api/users/${id}`, {
+          const res = await fetch(`/api/users/${id}`, {   // ✅ แก้ตรงนี้
             method: 'DELETE',
             headers: { Accept: 'application/json' },
           });
@@ -149,7 +147,6 @@ export default function UsersPage() {
       </div>
     );
   }
-
   return (
     <>
       <div className="min-vh-100 bg-gradient-light">
