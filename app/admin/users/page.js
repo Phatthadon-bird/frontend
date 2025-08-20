@@ -11,6 +11,9 @@ export default function UsersPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [checkingLogin, setCheckingLogin] = useState(true);
 
+  // 🔗 กำหนด BASE URL ของ API
+  const API_BASE = "https://backend-nextjs-virid.vercel.app";
+
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const isAdminConfirmed = localStorage.getItem('isAdminConfirmed');
@@ -30,7 +33,7 @@ export default function UsersPage() {
     async function fetchUsers() {
       setLoading(true);
       try {
-        const res = await fetch('/api/users');   // ✅ แก้ตรงนี้
+        const res = await fetch(`${API_BASE}/users`);  // ✅ API ใหม่
         if (!res.ok) throw new Error('Failed to fetch data');
         const data = await res.json();
         setItems(data);
@@ -46,17 +49,14 @@ export default function UsersPage() {
   const filteredItems = items.filter((item) => {
     const search = searchTerm.trim().toLowerCase();
     return (
-      // ภาษาอังกฤษ
       item.firstname.toLowerCase().includes(search) ||
       item.lastname.toLowerCase().includes(search) ||
       item.username.toLowerCase().includes(search) ||
       item.fullname.toLowerCase().includes(search) ||
-      // ภาษาไทย
       item.firstname.includes(searchTerm) ||
       item.lastname.includes(searchTerm) ||
       item.username.includes(searchTerm) ||
       item.fullname.includes(searchTerm) ||
-      // id
       item.id.toString().includes(searchTerm)
     );
   });
@@ -71,16 +71,10 @@ export default function UsersPage() {
       cancelButtonColor: '#6c757d',
       confirmButtonText: '🗑️ ลบเลย!',
       cancelButtonText: '❌ ยกเลิก',
-      customClass: {
-        popup: 'animated fadeInDown faster',
-        confirmButton: 'btn btn-danger mx-2',
-        cancelButton: 'btn btn-secondary mx-2'
-      },
-      buttonsStyling: false
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`/api/users/${id}`, {   // ✅ แก้ตรงนี้
+          const res = await fetch(`${API_BASE}/users/${id}`, {  // ✅ API ใหม่
             method: 'DELETE',
             headers: { Accept: 'application/json' },
           });
@@ -92,18 +86,12 @@ export default function UsersPage() {
             icon: 'success',
             timer: 2000,
             showConfirmButton: false,
-            customClass: {
-              popup: 'animated fadeInUp faster'
-            }
           });
         } catch (error) {
           Swal.fire({
             title: 'เกิดข้อผิดพลาด',
             text: 'ไม่สามารถลบข้อมูลได้',
             icon: 'error',
-            customClass: {
-              popup: 'animated shake faster'
-            }
           });
           console.error(error);
         }
@@ -121,9 +109,6 @@ export default function UsersPage() {
       cancelButtonColor: '#6c757d',
       confirmButtonText: '✅ ออกจากระบบ',
       cancelButtonText: '❌ ยกเลิก',
-      customClass: {
-        popup: 'animated pulse faster'
-      }
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('isLoggedIn');
@@ -147,6 +132,7 @@ export default function UsersPage() {
       </div>
     );
   }
+
   return (
     <>
       <div className="min-vh-100 bg-gradient-light">
@@ -167,31 +153,26 @@ export default function UsersPage() {
               </div>
               <div className="col-md-4 text-md-end">
                 <div className="d-flex flex-column flex-md-row gap-2 justify-content-md-end">
-  <span className="badge bg-light text-primary px-3 py-2 rounded-pill">
-    👥 ทั้งหมด: {filteredItems.length} คน
-  </span>
-
-  <Link 
-    href="/" 
-    className="btn btn-outline-light btn-hover fw-bold px-4 py-2 rounded-pill shadow-sm"
-  >
-    <i className="fas fa-home me-2"></i>กลับหน้าหลัก
-  </Link>
-
-  <button 
-    onClick={handleLogout} 
-    className="btn btn-outline-light btn-hover-danger fw-bold px-4 py-2 rounded-pill shadow-sm"
-  >
-    <i className="fas fa-sign-out-alt me-2"></i>ออกจากระบบ
-  </button>
-</div>
+                  <span className="badge bg-light text-primary px-3 py-2 rounded-pill">
+                    👥 ทั้งหมด: {filteredItems.length} คน
+                  </span>
+                  <Link href="/" className="btn btn-outline-light btn-hover fw-bold px-4 py-2 rounded-pill shadow-sm">
+                    <i className="fas fa-home me-2"></i>กลับหน้าหลัก
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-outline-light btn-hover-danger fw-bold px-4 py-2 rounded-pill shadow-sm"
+                  >
+                    <i className="fas fa-sign-out-alt me-2"></i>ออกจากระบบ
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Search + Table */}
         <div className="container-fluid py-4">
-          {/* Search Card */}
           <div className="card border-0 shadow-sm mb-4 card-hover">
             <div className="card-body bg-white rounded-3">
               <div className="row align-items-center">
@@ -212,27 +193,14 @@ export default function UsersPage() {
             </div>
           </div>
 
-          {/* Main Content Card */}
+          {/* Users Table */}
           <div className="card border-0 shadow-lg card-hover">
             <div className="card-body p-0">
               {loading ? (
                 <div className="text-center py-5">
-                  <div className="row justify-content-center">
-                    <div className="col-auto">
-                      <div className="spinner-border text-primary mb-3" style={{ width: '4rem', height: '4rem' }} role="status">
-                        <span className="visually-hidden">Loading...</span>
-                      </div>
-                      <div className="d-flex justify-content-center gap-1 mb-3">
-                        <div className="loading-dot bg-primary"></div>
-                        <div className="loading-dot bg-primary"></div>
-                        <div className="loading-dot bg-primary"></div>
-                      </div>
-                      <h5 className="text-primary fw-bold animate__animated animate__pulse animate__infinite">
-                        📊 กำลังโหลดข้อมูลผู้ใช้...
-                      </h5>
-                      <p className="text-muted">กรุณารอสักครู่</p>
-                    </div>
-                  </div>
+                  <div className="spinner-border text-primary mb-3" style={{ width: '4rem', height: '4rem' }} role="status"></div>
+                  <h5 className="text-primary fw-bold">📊 กำลังโหลดข้อมูลผู้ใช้...</h5>
+                  <p className="text-muted">กรุณารอสักครู่</p>
                 </div>
               ) : (
                 <div className="table-responsive">
@@ -255,63 +223,28 @@ export default function UsersPage() {
                       {filteredItems.length === 0 ? (
                         <tr>
                           <td colSpan={10} className="text-center py-5">
-                            <div className="empty-state">
-                              <i className="fas fa-users-slash fs-1 text-muted mb-3"></i>
-                              <h5 className="text-muted mb-2">ไม่พบข้อมูลผู้ใช้</h5>
-                              <p className="text-muted">ลองเปลี่ยนคำค้นหาหรือเพิ่มผู้ใช้ใหม่</p>
-                            </div>
+                            <i className="fas fa-users-slash fs-1 text-muted mb-3"></i>
+                            <h5 className="text-muted mb-2">ไม่พบข้อมูลผู้ใช้</h5>
                           </td>
                         </tr>
                       ) : (
-                        filteredItems.map((item, index) => (
-                          <tr key={item.id} className="table-row-hover border-bottom">
-                            <td className="text-center fw-bold">
-                              <span className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">
-                                {item.id}
-                              </span>
-                            </td>
-                            <td>
-                              <div className="d-flex align-items-center">
-                                <div className="avatar-circle bg-primary bg-opacity-10 me-3">
-                                  {item.firstname.charAt(0).toUpperCase()}
-                                </div>
-                                <span className="fw-semibold">{item.firstname}</span>
-                              </div>
-                            </td>
+                        filteredItems.map((item) => (
+                          <tr key={item.id}>
+                            <td className="text-center fw-bold">{item.id}</td>
+                            <td>{item.firstname}</td>
                             <td className="text-muted">{item.fullname}</td>
-                            <td className="fw-medium">{item.lastname}</td>
+                            <td>{item.lastname}</td>
+                            <td>@{item.username}</td>
+                            <td><code>{item.password}</code></td>
+                            <td>{item.address}</td>
+                            <td>{item.sex}</td>
+                            <td>{item.birthday}</td>
                             <td>
-                              <span className="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">
-                                @{item.username}
-                              </span>
-                            </td>
-                            <td>
-                              <code className="password-field bg-light border rounded px-2 py-1">
-                                {item.password}
-                              </code>
-                            </td>
-                            <td className="text-muted small">{item.address}</td>
-                            <td>
-  <span className={`badge ${item.sex === 'ชาย' ? 'bg-primary' : 'bg-pink'} bg-opacity-10 ${item.sex === 'ชาย' ? 'text-primary' : 'text-pink'} rounded-pill`}>
-    {item.sex === 'ชาย' ? '👨 ชาย' : '👩 หญิง'}
-  </span>
-</td>
-                            <td className="text-muted small">
-                              <i className="fas fa-calendar-alt me-1"></i>
-                              {item.birthday}
-                            </td>
-                            <td>
-                              <div className="btn-group gap-2" role="group">
-                                <Link 
-                                  href={`/admin/users/edit/${item.id}`} 
-                                  className="btn btn-warning btn-sm rounded-pill shadow-sm btn-hover px-3"
-                                >
+                              <div className="btn-group gap-2">
+                                <Link href={`/admin/users/edit/${item.id}`} className="btn btn-warning btn-sm rounded-pill shadow-sm">
                                   <i className="fas fa-edit me-1"></i>แก้ไข
                                 </Link>
-                                <button
-                                  className="btn btn-danger btn-sm rounded-pill shadow-sm btn-hover px-3"
-                                  onClick={() => handleDelete(item.id)}
-                                >
+                                <button className="btn btn-danger btn-sm rounded-pill shadow-sm" onClick={() => handleDelete(item.id)}>
                                   <i className="fas fa-trash me-1"></i>ลบ
                                 </button>
                               </div>
