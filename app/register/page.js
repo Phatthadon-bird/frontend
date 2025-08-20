@@ -137,12 +137,12 @@ export default function RegisterPage() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="username">ชื่อเล่น</label>
+            <label htmlFor="username">ชื่อผู้ใช้</label>
             <input
               type="text"
               id="username"
               name="username"
-              placeholder="เช่น สมชาย"
+              placeholder="..."
               value={formData.username}
               onChange={handleInputChange}
               required
