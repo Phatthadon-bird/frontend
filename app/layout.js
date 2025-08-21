@@ -27,9 +27,12 @@ export default function RootLayout({ children }) {
     '/news',
   ]
 
-  // ซ่อนทุก path ที่ขึ้นต้นด้วย /racers
+  // ตรวจสอบ dynamic route เช่น /admin/users/edit/:id
+  const isEditUserPath = pathname.startsWith('/admin/users/edit')
+
+  // ซ่อน navigation ถ้า path อยู่ใน array หรือ dynamic edit
   const shouldHideNavigation =
-    hideNavigationPaths.includes(pathname) || pathname.startsWith('/racers')
+    hideNavigationPaths.includes(pathname) || isEditUserPath || pathname.startsWith('/racers')
 
   return (
     <html lang="en">
