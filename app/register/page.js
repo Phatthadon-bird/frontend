@@ -279,9 +279,9 @@ export default function Register() {
                   required
                 >
                   <option value="" disabled hidden>Select sex</option>
-                  <option value="Male">ชาย</option>
-                  <option value="Female">หญิง</option>
-                  <option value="Other">อื่นๆ</option>
+                  <option value="ชาย">ชาย</option>
+                  <option value="หญิง">หญิง</option>
+                  <option value="อื่นๆ">อื่นๆ</option>
                 </select>
               </div>
             </div>
