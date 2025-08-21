@@ -11,9 +11,10 @@ export default function UsersPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [checkingLogin, setCheckingLogin] = useState(true);
 
-  // 🔗 กำหนด BASE URL ของ API
-  const API_BASE = "https://backend-nextjs-virid.vercel.app";
+  // 🔗 BASE API
+  const API_BASE = "https://backend-nextjs-virid.vercel.app/api";
 
+  // ตรวจสอบการล็อกอิน
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const isAdminConfirmed = localStorage.getItem('isAdminConfirmed');
@@ -27,18 +28,24 @@ export default function UsersPage() {
     }
   }, [router]);
 
+  // Fetch users หลังตรวจสอบ login แล้ว
   useEffect(() => {
     if (checkingLogin) return;
 
     async function fetchUsers() {
       setLoading(true);
       try {
-        const res = await fetch(`${API_BASE}/users`);  // ✅ API ใหม่
+        const res = await fetch(`${API_BASE}/users`);
         if (!res.ok) throw new Error('Failed to fetch data');
         const data = await res.json();
         setItems(data);
       } catch (error) {
         console.error(error);
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถโหลดข้อมูลผู้ใช้ได้',
+          icon: 'error',
+        });
       }
       setLoading(false);
     }
@@ -46,21 +53,19 @@ export default function UsersPage() {
     fetchUsers();
   }, [checkingLogin]);
 
-  const filteredItems = items.filter((item) => {
+  // Filter การค้นหา
+  const filteredItems = items.filter(item => {
     const search = searchTerm.trim().toLowerCase();
     return (
-      item.firstname.toLowerCase().includes(search) ||
-      item.lastname.toLowerCase().includes(search) ||
-      item.username.toLowerCase().includes(search) ||
-      item.fullname.toLowerCase().includes(search) ||
-      item.firstname.includes(searchTerm) ||
-      item.lastname.includes(searchTerm) ||
-      item.username.includes(searchTerm) ||
-      item.fullname.includes(searchTerm) ||
+      (item.firstname?.toLowerCase().includes(search)) ||
+      (item.lastname?.toLowerCase().includes(search)) ||
+      (item.username?.toLowerCase().includes(search)) ||
+      (item.fullname?.toLowerCase().includes(search)) ||
       item.id.toString().includes(searchTerm)
     );
   });
 
+  // ลบ user
   const handleDelete = (id) => {
     Swal.fire({
       title: 'คุณแน่ใจไหม?',
@@ -74,12 +79,12 @@ export default function UsersPage() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`${API_BASE}/users/${id}`, {  // ✅ API ใหม่
+          const res = await fetch(`${API_BASE}/users/${id}`, {
             method: 'DELETE',
             headers: { Accept: 'application/json' },
           });
           if (!res.ok) throw new Error('Failed to delete');
-          setItems((prev) => prev.filter((item) => item.id !== id));
+          setItems(prev => prev.filter(item => item.id !== id));
           Swal.fire({
             title: 'ลบเรียบร้อย!',
             text: 'ข้อมูลถูกลบแล้ว',
@@ -88,17 +93,18 @@ export default function UsersPage() {
             showConfirmButton: false,
           });
         } catch (error) {
+          console.error(error);
           Swal.fire({
             title: 'เกิดข้อผิดพลาด',
             text: 'ไม่สามารถลบข้อมูลได้',
             icon: 'error',
           });
-          console.error(error);
         }
       }
     });
   };
 
+  // Logout
   const handleLogout = () => {
     Swal.fire({
       title: 'ออกจากระบบ?',
@@ -118,6 +124,7 @@ export default function UsersPage() {
     });
   };
 
+  // Loading screen
   if (checkingLogin) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-gradient-primary">
@@ -133,10 +140,11 @@ export default function UsersPage() {
     );
   }
 
+  // =================== Render หน้า Users ===================
   return (
     <>
       <div className="min-vh-100 bg-gradient-light">
-        {/* Header Section */}
+        {/* Header */}
         <div className="bg-gradient-primary text-white shadow-lg">
           <div className="container-fluid py-4">
             <div className="row align-items-center">
@@ -159,10 +167,7 @@ export default function UsersPage() {
                   <Link href="/" className="btn btn-outline-light btn-hover fw-bold px-4 py-2 rounded-pill shadow-sm">
                     <i className="fas fa-home me-2"></i>กลับหน้าหลัก
                   </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="btn btn-outline-light btn-hover-danger fw-bold px-4 py-2 rounded-pill shadow-sm"
-                  >
+                  <button onClick={handleLogout} className="btn btn-outline-light btn-hover-danger fw-bold px-4 py-2 rounded-pill shadow-sm">
                     <i className="fas fa-sign-out-alt me-2"></i>ออกจากระบบ
                   </button>
                 </div>
@@ -171,7 +176,7 @@ export default function UsersPage() {
           </div>
         </div>
 
-        {/* Search + Table */}
+        {/* Search */}
         <div className="container-fluid py-4">
           <div className="card border-0 shadow-sm mb-4 card-hover">
             <div className="card-body bg-white rounded-3">
@@ -184,7 +189,7 @@ export default function UsersPage() {
                       placeholder="🔍 ค้นหาจาก ชื่อ, นามสกุล, หรือ username..."
                       className="form-control form-control-lg border-0 bg-light rounded-pill ps-5 shadow-sm search-input"
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onChange={e => setSearchTerm(e.target.value)}
                       style={{ paddingLeft: '50px' }}
                     />
                   </div>
@@ -228,7 +233,7 @@ export default function UsersPage() {
                           </td>
                         </tr>
                       ) : (
-                        filteredItems.map((item) => (
+                        filteredItems.map(item => (
                           <tr key={item.id}>
                             <td className="text-center fw-bold">{item.id}</td>
                             <td>{item.firstname}</td>
@@ -258,7 +263,7 @@ export default function UsersPage() {
               )}
             </div>
 
-            {/* Footer Info */}
+            {/* Footer */}
             {!loading && filteredItems.length > 0 && (
               <div className="card-footer bg-light border-0 py-3">
                 <div className="row align-items-center">
@@ -280,7 +285,6 @@ export default function UsersPage() {
           </div>
         </div>
       </div>
-
       <style jsx>{`
         .bg-gradient-primary {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

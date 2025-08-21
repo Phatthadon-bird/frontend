@@ -1,6 +1,6 @@
 export async function DELETE(request, { params }) {
   const { id } = params;
-  const res = await fetch(`http://itdev.cmtc.ac.th:3000/api/users/${id}`, {
+  const res = await fetch(`https://backend-nextjs-virid.vercel.app/api/users/${id}`, {
     method: "DELETE",
     headers: { Accept: "application/json" },
   });

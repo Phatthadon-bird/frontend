@@ -21,40 +21,35 @@ export default function EditUserPage({ params }) {
     birthday: '',
   });
 
-  useEffect(() => {
-    async function fetchUser() {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`http://itdev.cmtc.ac.th:3000/api/users/${id}`);
-        if (!res.ok) throw new Error('Failed to fetch user data');
-        const data = await res.json();
+ useEffect(() => {
+  async function fetchUser() {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`http://itdev.cmtc.ac.th:3000/api/users/${id}`);
+      if (!res.ok) throw new Error('Failed to fetch user data');
+      const data = await res.json();
 
-        setFormData({
-          firstname: data.firstname || 'นาย',
-          fullname: data.fullname || '',
-          lastname: data.lastname || '',
-          username: data.username || '',
-          password: data.password || '',
-          address: data.address || '',
-          sex: data.sex || '',
-          birthday: data.birthday ? data.birthday.slice(0, 10) : '',
-        });
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'เกิดข้อผิดพลาด',
-          text: 'ไม่สามารถโหลดข้อมูลผู้ใช้ได้',
-          confirmButtonColor: '#ff6b6b',
-        });
-      } finally {
-        setIsLoading(false);
-      }
+      setFormData({
+        firstname: data.firstname || 'นาย',
+        fullname: data.fullname || '',
+        lastname: data.lastname || '',
+        username: data.username || '',
+        password: data.password || '',
+        address: data.address || '',
+        sex: data.sex || '',
+        birthday: data.birthday ? data.birthday.slice(0, 10) : '',
+      });
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    fetchUser();
-  }, [id]);
+  fetchUser();
+}, [id]);
 
+    
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -65,7 +60,7 @@ export default function EditUserPage({ params }) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('http://itdev.cmtc.ac.th:3000/api/users', {
+      const res = await fetch('https://backend-nextjs-virid.vercel.app/api/users', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, ...formData }),
