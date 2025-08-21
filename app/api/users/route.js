@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { getUserById, updateUser } from '@/lib/db';
-
 let users = [];
 
 export async function POST(req) {

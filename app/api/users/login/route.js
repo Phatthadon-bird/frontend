@@ -1,6 +1,4 @@
 import bcrypt from 'bcryptjs';
-import { getUserByUsername } from '@/lib/db';
-import { getUserById, updateUser } from '@/lib/db';
 
 export async function POST(req) {
   const { username, password } = await req.json();
