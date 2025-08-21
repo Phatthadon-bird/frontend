@@ -1,6 +1,4 @@
 import bcrypt from 'bcryptjs';
-import { getUserByUsername } from '@/lib/db'; // ฟังก์ชันดึง user จาก DB
-
 export async function POST(req) {
   const { username, password } = await req.json();
 
