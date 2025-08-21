@@ -1,6 +1,7 @@
 // /app/api/users/[id]/route.js
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import { getUserById, updateUser } from '@/lib/db';
 
 // ตัวอย่าง Mock DB
 let users = [
