@@ -253,10 +253,6 @@ export default function CueShopPage() {
                     <span className="btn-text">ชำระเงิน</span>
                     {cart.length > 0 && <span className="btn-amount">{totalPrice.toLocaleString()} ฿</span>}
                   </button>
-                  <button className="backHomeButton" onClick={handleBackToHome}>
-                    <span className="btn-icon">🏠</span>
-                    <span className="btn-text">กลับหน้าหลัก</span>
-                  </button>
                 </div>
               </section>
             </>

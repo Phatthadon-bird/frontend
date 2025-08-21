@@ -20,21 +20,21 @@ export default function RootLayout({ children }) {
     '/admin/users',
     '/login',
     '/register',
-    '/racers',
-    '/racers/legend',
     '/login1',
     '/rankings',
     '/highlights',
-    '/compete',
     '/max-break',
+    '/news',
   ]
 
-  const showNavigation = !hideNavigationPaths.includes(pathname)
+  // ซ่อนทุก path ที่ขึ้นต้นด้วย /racers
+  const shouldHideNavigation =
+    hideNavigationPaths.includes(pathname) || pathname.startsWith('/racers')
 
   return (
     <html lang="en">
       <body className={prompt.className}>
-        {showNavigation && <NavigationWrapper />}
+        {!shouldHideNavigation && <NavigationWrapper />}
         {children}
       </body>
     </html>

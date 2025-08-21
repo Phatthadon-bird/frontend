@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
+import Link from 'next/link'
 export default function RegisterSnooker() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,17 +55,6 @@ export default function RegisterSnooker() {
         <div className="floating-ball ball-5"></div>
         <div className="floating-ball ball-6"></div>
       </div>
-
-      {/* Enhanced Navbar */}
-      <nav className="navbar">
-        <div className="nav-content">
-          <a href="/" className="logo">
-            <span className="logo-icon">🎱</span>
-            <span className="logo-text">กลับสู่หน้าหลัก</span>
-          </a>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <div className="register-container">
         {!submitted ? (
@@ -226,13 +215,10 @@ export default function RegisterSnooker() {
                 ขอบคุณที่สมัครแข่งสนุกเกอร์กับเรา<br />
                 เราจะติดต่อกลับไปเร็ว ๆ นี้
               </p>
-              <button 
-                onClick={() => window.location.href = '/'}
-                className="back-home-btn"
-              >
-                <span className="btn-icon">🏠</span>
-                กลับหน้าหลัก
-              </button>
+               <Link href="/" className="back-home-btn">
+      <span className="btn-icon">🏠</span>
+      กลับหน้าหลัก
+    </Link>
             </div>
           </div>
         )}
