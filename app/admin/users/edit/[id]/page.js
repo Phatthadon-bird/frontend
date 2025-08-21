@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import bcrypt from 'bcryptjs'; // เพิ่มตรงนี้
 
 export default function EditUserPage({ params }) {
   const { id } = params;
@@ -59,10 +60,20 @@ export default function EditUserPage({ params }) {
     setIsSubmitting(true);
 
     try {
+      const updateData = { ...formData, id };
+
+      // ถ้ามีการกรอกรหัสผ่านใหม่ ให้ hash ก่อน
+      if (formData.password) {
+        const salt = await bcrypt.genSalt(10);
+        updateData.password = await bcrypt.hash(formData.password, salt);
+      } else {
+        delete updateData.password; // ไม่อัปเดตรหัสถ้าไม่กรอก
+      }
+
       const res = await fetch('https://backend-nextjs-virid.vercel.app/api/users', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, ...formData }),
+        body: JSON.stringify(updateData),
       });
 
       const result = await res.json();
@@ -155,7 +166,6 @@ export default function EditUserPage({ params }) {
           </button>
         </form>
       </div>
-
       <style jsx>{`
         .page-wrapper {
           min-height: 100vh;

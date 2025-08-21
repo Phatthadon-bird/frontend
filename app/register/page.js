@@ -2,10 +2,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
-import { useRouter } from 'next/navigation'  // เพิ่มตรงนี้
+import { useRouter } from 'next/navigation'
 
 export default function Register() {
-  const router = useRouter() // เพิ่มตรงนี้
+  const router = useRouter()
 
   const [firstname, setFirstname] = useState('')
   const [fullname, setFullname] = useState('')
@@ -70,7 +70,7 @@ export default function Register() {
           text: 'คุณสามารถเข้าสู่ระบบได้แล้ว',
           confirmButtonText: 'ไปที่หน้า Login',
         }).then(() => {
-          // Reset
+          // Reset form
           setFirstname('')
           setFullname('')
           setLastname('')
@@ -81,8 +81,6 @@ export default function Register() {
           setSex('')
           setBirthday('')
           setAgreed(false)
-
-          // Navigate to /login1
           router.push('/login1')
         })
       } else {
@@ -127,6 +125,7 @@ export default function Register() {
         
         <div className="form-container">
           <div className="form-grid">
+            {/* Firstname */}
             <div className="form-group">
               <label htmlFor="firstname">
                 <span className="label-icon">👤</span>
@@ -150,6 +149,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Fullname */}
             <div className="form-group">
               <label htmlFor="fullname">
                 <span className="label-icon">✏️</span>
@@ -169,6 +169,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Lastname */}
             <div className="form-group">
               <label htmlFor="lastname">
                 <span className="label-icon">📝</span>
@@ -188,6 +189,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Username */}
             <div className="form-group">
               <label htmlFor="username">
                 <span className="label-icon">🏷️</span>
@@ -207,6 +209,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Password */}
             <div className="form-group">
               <label htmlFor="password">
                 <span className="label-icon">🔐</span>
@@ -226,6 +229,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Confirm Password */}
             <div className="form-group">
               <label htmlFor="confirmPassword">
                 <span className="label-icon">🔒</span>
@@ -245,6 +249,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Address */}
             <div className="form-group full-width">
               <label htmlFor="address">
                 <span className="label-icon">🏠</span>
@@ -264,6 +269,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Sex */}
             <div className="form-group">
               <label htmlFor="sex">
                 <span className="label-icon">⚥</span>
@@ -286,6 +292,7 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Birthday */}
             <div className="form-group">
               <label htmlFor="birthday">
                 <span className="label-icon">🎂</span>
@@ -305,6 +312,7 @@ export default function Register() {
             </div>
           </div>
 
+          {/* Checkbox */}
           <div className="checkbox-group">
             <label className="checkbox-label">
               <input
@@ -318,6 +326,7 @@ export default function Register() {
             </label>
           </div>
 
+          {/* Submit Button */}
           <div className="button-container">
             <button 
               type="button"
@@ -339,14 +348,15 @@ export default function Register() {
             </button>
           </div>
 
-      <div className="login-link-container">
-  <p className="login-text">
-    คุณมีบัญชีแล้วใช่ไหม?{" "}
-    <Link href="/login1" className="login-link">
-      กลับไปที่หน้า Login
-    </Link>
-  </p>
-</div>
+          {/* Login Link */}
+          <div className="login-link-container">
+            <p className="login-text">
+              คุณมีบัญชีแล้วใช่ไหม?{" "}
+              <Link href="/login1" className="login-link">
+                กลับไปที่หน้า Login
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
       <style jsx>{`
