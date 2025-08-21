@@ -167,74 +167,81 @@ export default function EditUserPage({ params }) {
         </form>
       </div>
       <style jsx>{`
-        .page-wrapper {
-          min-height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card {
-          background: #fff;
-          border-radius: 20px;
-          padding: 32px;
-          width: 100%;
-          max-width: 700px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        .card-title {
-          font-size: 28px;
-          font-weight: 700;
-          margin-bottom: 8px;
-        }
-        .card-subtitle {
-          font-size: 16px;
-          color: #666;
-          margin-bottom: 24px;
-        }
-        .form-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-        }
-        .form-group {
-          display: flex;
-          flex-direction: column;
-        }
-        label {
-          font-weight: 600;
-          margin-bottom: 6px;
-        }
-        input, select {
-          padding: 12px 16px;
-          border-radius: 10px;
-          border: 1px solid #ccc;
-          font-size: 16px;
-        }
-        .btn-submit {
-          grid-column: 1 / -1;
-          margin-top: 20px;
-          padding: 14px;
-          font-size: 18px;
-          font-weight: 700;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: #fff;
-          border: none;
-          border-radius: 50px;
-          cursor: pointer;
-          transition: all 0.3s;
-        }
-        .btn-submit:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-        @media (max-width: 768px) {
-          .form-grid 
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
+  .page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  .card-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .card-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 24px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  input, select {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+  }
+  .btn-submit {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Responsive สำหรับมือถือ */
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr; /* แถวเดียว */
+    }
+    .btn-submit {
+      font-size: 16px;
+      padding: 12px;
+    }
+  }
+`}</style>
     </div>
   );
 }

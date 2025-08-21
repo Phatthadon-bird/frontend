@@ -605,6 +605,67 @@ export default function Navigation() {
             padding: 8px;
           }
         }
+          /* Navbar ปรับให้มือถือ */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 8px 12px;
+  }
+
+  .navbar-nav {
+    width: 100%;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-link,
+  .dropdown-item {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  /* Search ปรับขนาดให้เล็กลง */
+  form[role="search"] {
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  form[role="search"] input.form-control {
+    min-width: 100%;
+    margin-bottom: 4px;
+  }
+
+  form[role="search"] button {
+    width: 100%;
+  }
+
+  /* Profile dropdown ปรับเป็น icon-only */
+  .profile-info {
+    display: none;
+  }
+
+  .profile-dropdown-btn {
+    padding: 6px;
+  }
+
+  /* Dropdown menu scroll ได้ */
+  .profile-dropdown-menu {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  /* ปรับ icon และ text ใน dropdown */
+  .dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+}
       `}</style>
     </nav>
   );
